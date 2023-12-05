@@ -14,7 +14,7 @@ contract Fennec is ERC20, Ownable {
     uint256 public constant TOTAL_SUPPLY = 300_000_000 * 10**18; // 300 million tokens 
     uint256 public constant GAMING = (TOTAL_SUPPLY * 40) / 100;
     uint256 public constant ECOSYSTEM_DEVELOPMENT_PARTNERSHIPS = (TOTAL_SUPPLY * 15) / 100;
-    uint256 public constant PARTNERSHIPS_COLLABORATIONS = (TOTAL_SUPPLY * 10) / 100;
+    uint256 public constant PRIVATE_ICO = (TOTAL_SUPPLY * 10) / 100;
     uint256 public constant TEAM_ADVISORS = (TOTAL_SUPPLY * 10) / 100;
     uint256 public constant MARKETING_COMMUNITY = (TOTAL_SUPPLY * 10) / 100;
     uint256 public constant LIQUIDITY_PROVISION = (TOTAL_SUPPLY * 5) / 100;
@@ -25,7 +25,7 @@ contract Fennec is ERC20, Ownable {
     // Destination addresses for token allocation
     address private immutable gaming;
     address private immutable ecosystem_development_partnerships;
-    address private immutable partnerships_collaborations;
+    address private immutable privateICO;
     address private immutable team_advisors;
     address private immutable marketing_community;
     address private immutable liquidity_provision;
@@ -40,7 +40,7 @@ contract Fennec is ERC20, Ownable {
     /// @dev Sets up the token name, symbol, and initial distribution addresses.
     /// @param _gaming Address for gaming allocation
     /// @param _ecosystem_development_partnerships Address for ecosystem development and partnerships
-    /// @param _partnerships_collaborations Address for partnerships and collaborations
+    /// @param _privateICO Address for ICO
     /// @param _team_advisors Address for team and advisors
     /// @param _marketing_community Address for marketing and community
     /// @param _liquidity_provision Address for liquidity provision
@@ -50,7 +50,7 @@ contract Fennec is ERC20, Ownable {
     constructor(
         address _gaming,
         address _ecosystem_development_partnerships,
-        address _partnerships_collaborations,
+        address _privateICO,
         address _team_advisors,
         address _marketing_community,
         address _liquidity_provision,
@@ -60,7 +60,7 @@ contract Fennec is ERC20, Ownable {
         ) ERC20("Ferren Token", "FTK") Ownable(_msgSender()) {
        gaming = _gaming;
        ecosystem_development_partnerships = _ecosystem_development_partnerships;
-       partnerships_collaborations = _partnerships_collaborations; 
+       privateICO = _privateICO; 
        team_advisors = _team_advisors; 
        marketing_community = _marketing_community;
        liquidity_provision = _liquidity_provision; 
@@ -77,7 +77,7 @@ contract Fennec is ERC20, Ownable {
         require(!_initialized,"Already Initialized");
         _mint(gaming,GAMING);
         _mint(ecosystem_development_partnerships,ECOSYSTEM_DEVELOPMENT_PARTNERSHIPS);
-        _mint(partnerships_collaborations,PARTNERSHIPS_COLLABORATIONS);
+        _mint(privateICO,PRIVATE_ICO);
         _mint(team_advisors,TEAM_ADVISORS);
         _mint(marketing_community,MARKETING_COMMUNITY);
         _mint(liquidity_provision,LIQUIDITY_PROVISION);

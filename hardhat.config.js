@@ -11,7 +11,7 @@ module.exports = {
       settings: {
         optimizer: {
           enabled: true,
-          runs: 1000,
+          runs: 200,
         },
       },},
       {
@@ -60,6 +60,12 @@ module.exports = {
       gasPrice: 21000000000,
       accounts: [`0x${process.env.privateKey}`],
     },
+    binance: {
+      url: `https://wiser-wider-valley.bsc.discover.quiknode.pro/${process.env.ALCHEMY_API_BINANCE}`,
+      chainId: 56,
+      gasPrice: 21000000000,
+      accounts: [`0x${process.env.privateKey}`],
+    },
     mainnet: {
       url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_API}`,
       accounts: [`0x${process.env.privateKey}`],
@@ -67,7 +73,8 @@ module.exports = {
   },
 
   etherscan: {
-    apiKey: "CJ7TB195YK5BTVMHJGRZMD1XFU72BM41V1"
+    // apiKey: "CJ7TB195YK5BTVMHJGRZMD1XFU72BM41V1"         //ETH
+    apiKey: "DTZ2S1S4M5DQD58AGCIF4P3I2HPVEEQGG4"            //BNB
   },
   mocha: {
     timeout: 1000000

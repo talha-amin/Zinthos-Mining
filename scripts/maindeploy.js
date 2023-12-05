@@ -4,7 +4,7 @@
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
 const { ethers } = require("hardhat");
-
+const { verify } = require("./verifyContract");
 const testAddr = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";
 
 async function main() {
@@ -26,6 +26,13 @@ async function main() {
       console.log("Fennec Address", fennec.address)
       await fennec.initialize();
       console.log("Total Supply",(await fennec.totalSupply()).toString())
+
+      console.log("Verifying Fennec Token")
+      const args = [testAddr,testAddr,testAddr,testAddr,testAddr,testAddr,testAddr,testAddr,testAddr];
+      await verify(fennec.address, args);
+      
+
+
 
 }
 

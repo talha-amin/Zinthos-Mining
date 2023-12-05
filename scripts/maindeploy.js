@@ -16,7 +16,7 @@ const Liquidity = "0x7e9027d95F3FbA779F9FCefa29bf03b583C0Bb80"
 const Strategy_reserves = "0xc0B53202C0b2402eA72DD7B79D8FaFe8aC0B64f8"
 const Staking_rewards = "0xbBC1025a8Ec89A81EA3f6CD4262Ae668f8cAdc5c"
 const Public_sale = "0x96c86482af304e66e48a81349004819cd5Ab1EdB"
-
+const roundsLimit = ethers.utils.parseEther("1000000");
 async function main() {
  
   // try {
@@ -36,13 +36,31 @@ async function main() {
       console.log("Fennec Address", fennec.address)
       await fennec.initialize();
       console.log("Total Supply",(await fennec.totalSupply()).toString())
-
-      console.log("Verifying Fennec Token")
-      const args = [gaming,Ecosystem_partners,Ico,Team_advisor,Marketing_community_build,Liquidity,Strategy_reserves,Staking_rewards,Public_sale];
-      await verify(fennec.address, args);
       
+      // console.log("Verifying Fennec Token")
+      // const args = [gaming,Ecosystem_partners,Ico,Team_advisor,Marketing_community_build,Liquidity,Strategy_reserves,Staking_rewards,Public_sale];
+      // await verify(fennec.address, args);
+      
+      ////////////////////////////////////////////USDT/////////////////////////////////////////////
+        
+      const USDT = await ethers.getContractFactory("USDT")
+      const usdt = await USDT.deploy()
+      await usdt.deployed()
+      console.log("USDT Address", usdt.address)
 
+      // console.log("Verifying USDT Token")
+      // const args = [];
+      // await verify(usdt.address, args);
 
+      ////////////////////////////////////////////ICO/////////////////////////////////////////////
+      const ICO = await ethers.getContractFactory("FennecICO")
+      const ico = await ICO.deploy(fennec.address, usdt.address, testAddr, testAddr, roundsLimit, roundsLimit, roundsLimit)
+      await ico.deployed()
+      console.log("ICO Address", ico.address)
+
+      // console.log("Verifying Fennec Token")
+      // const args2 = [fennec.address, usdt.address, testAddr, testAddr, roundsLimit, roundsLimit, roundsLimit];
+      // await verify(fennec.address, args2);
 
 }
 

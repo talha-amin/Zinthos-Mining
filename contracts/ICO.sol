@@ -179,6 +179,13 @@ contract FennecICO is Ownable{
         emit RoundStarted(_msgSender(), (_round + 1), _pricePerToken);
     }
 
+    /// @notice Withdraws the tokens from the contract
+    /// @dev Only callable by the contract owner
+    /// @param _amountOfTokens The amount of token to withdraw
+    function withdrawTokens(uint256 _amountOfTokens) external onlyOwner {
+    _helperFennec.transfer(_msgSender(), _amountOfTokens);
+    }
+
     /// @notice Pauses the contract
     /// @dev Only callable by the contract owner
     function pauseContract() external onlyOwner {

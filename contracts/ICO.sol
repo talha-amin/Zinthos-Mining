@@ -101,6 +101,7 @@ contract FennecICO is Ownable{
 
     /// @notice Allows users to buy tokens
     /// @dev Checks the current round and calls the respective internal function for the round
+    /// @dev Ensures the contract is not paused
     /// @param _tokenAmount The amount of tokens to buy
     function buy(uint256 _tokenAmount) external unPaused {
         if(round == 0) revert ICO__RoundNotStartedYet();
@@ -136,7 +137,7 @@ contract FennecICO is Ownable{
      * @param _tokenAmount The amount of tokens being purchased
      */
     function _roundOne(uint256 _tokenAmount) private {
-        uint256 _price = _tokenAmount * pricePerToken;
+        uint256 _price = (_tokenAmount * pricePerToken) / 1e18;
         _helperUSDT.transferFrom(_msgSender(), adminWallet, _price);
         _helperFennec.transfer(vesting, _tokenAmount);
         roundOneLimitRemaining = roundOneLimitRemaining - _tokenAmount;
@@ -148,7 +149,7 @@ contract FennecICO is Ownable{
      * @param _tokenAmount The amount of tokens being purchased
      */
     function _roundTwo(uint256 _tokenAmount) private {
-        uint256 _price = _tokenAmount * pricePerToken;
+        uint256 _price = (_tokenAmount * pricePerToken) / 1e18;
         _helperUSDT.transferFrom(_msgSender(), adminWallet, _price);
         _helperFennec.transfer(vesting, _tokenAmount);
         roundTwoLimitRemaining = roundTwoLimitRemaining - _tokenAmount;   
@@ -160,7 +161,7 @@ contract FennecICO is Ownable{
      * @param _tokenAmount The amount of tokens being purchased
      */
     function _roundThree(uint256 _tokenAmount) private {
-        uint256 _price = _tokenAmount * pricePerToken;
+        uint256 _price = (_tokenAmount * pricePerToken) / 1e18;
         _helperUSDT.transferFrom(_msgSender(), adminWallet, _price);
         _helperFennec.transfer(vesting, _tokenAmount);
         roundThreeLimitRemaining = roundThreeLimitRemaining - _tokenAmount;

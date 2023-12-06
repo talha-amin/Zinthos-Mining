@@ -77,8 +77,8 @@ async function main() {
       ////////////////////////////////////////////Calling Functions/////////////////////////////////////////////
 
       console.log("Calling functions.........");
+      await vesting.initialize(fennec.address, ico.address);  
       await fennec.initialize(ico.address);
-      await vesting.initialize(fennec.address, ico.address);
       console.log("Functions called!");
 
 

@@ -31,6 +31,12 @@ contract Fennec is ERC20, Ownable {
     /// @dev Reference to the vesting contract where purchased tokens are sent
     IVesting private immutable _helperVesting;
 
+    /// @dev The PERCENTAGE by which Team Advisors, _marketing_community and _ecosystem_development_partnerships will withdraw the tokens from vesting contract
+    uint256 private constant PERCENTAGE = 15;
+
+    /// @dev The BASE for calculating the percentage
+    uint256 private constant BASE = 100;
+
     // Destination addresses for token allocation
     address private immutable gaming;
     address private immutable ecosystem_development_partnerships;
@@ -84,15 +90,22 @@ contract Fennec is ERC20, Ownable {
     /// @custom:modifier onlyOwner Restricts the function access to the contract owner.
     function initialize(address _privateICO) external onlyOwner {
         require(!_initialized,"Already Initialized");
+        uint256 _ECOSYSTEM_DEVELOPMENT_PARTNERSHIPS = ECOSYSTEM_DEVELOPMENT_PARTNERSHIPS;
+        uint256 _TEAM_ADVISORS = TEAM_ADVISORS;
+        uint256 _MARKETING_COMMUNITY = MARKETING_COMMUNITY;
+        uint256 _PERCENTAGE = PERCENTAGE;
+        uint256 _BASE = BASE;
         _mint(gaming,GAMING);
-        _mint(ecosystem_development_partnerships,ECOSYSTEM_DEVELOPMENT_PARTNERSHIPS);
-        _mint(_privateICO,PRIVATE_ICO);
-        _mint(team_advisors,TEAM_ADVISORS);
-        _mint(marketing_community,MARKETING_COMMUNITY);
+        _mint(address(_helperVesting),(_ECOSYSTEM_DEVELOPMENT_PARTNERSHIPS + _TEAM_ADVISORS + _MARKETING_COMMUNITY));
+        _mint(_privateICO,PRIVATE_ICO); 
         _mint(liquidity_provision,LIQUIDITY_PROVISION);
         _mint(strategic_reserve,STRATEGIC_RESERVE);
         _mint(staking_rewards,STAKING_REWARDS);
         _mint(publicsale,PUBLIC_SALE);
+
+        _helperVesting.deposit(ecosystem_development_partnerships, _ECOSYSTEM_DEVELOPMENT_PARTNERSHIPS, ((_ECOSYSTEM_DEVELOPMENT_PARTNERSHIPS * _PERCENTAGE) / _BASE));
+        _helperVesting.deposit(team_advisors, _TEAM_ADVISORS, ((_TEAM_ADVISORS * _PERCENTAGE) / _BASE));
+        _helperVesting.deposit(marketing_community, _MARKETING_COMMUNITY, ((_MARKETING_COMMUNITY * _PERCENTAGE) / _BASE));
 
         _initialized = true;
     }

@@ -110,8 +110,8 @@ contract FennecICO is Ownable{
 
     /// @notice Allows users to buy tokens
     /// @dev Checks the current round and calls the respective internal function for the round
-    /// @dev Ensures the contract is not paused
     /// @param _tokenAmount The amount of tokens to buy
+    /// @custom:modifier unPaused Ensures the contract is not paused
     function buy(uint256 _tokenAmount) external unPaused {
         if(round == 0) revert ICO__RoundNotStartedYet();
         if(round == 1) {
@@ -180,8 +180,8 @@ contract FennecICO is Ownable{
     }
 
     /// @notice Starts a new round of the ICO
-    /// @dev Only callable by the contract owner
     /// @param _pricePerToken The price per token for the new round
+    /// @custom:modifier onlyOwner Restricts the function access to the contract owner.
     function startRound(uint256 _pricePerToken) external onlyOwner {
         uint256 _round = round;
         if(_round > 2) revert ICO__RoundsLimitExceeded(_round);
@@ -192,14 +192,14 @@ contract FennecICO is Ownable{
     }
 
     /// @notice Withdraws the tokens from the contract
-    /// @dev Only callable by the contract owner
     /// @param _amountOfTokens The amount of token to withdraw
+    /// @custom:modifier onlyOwner Restricts the function access to the contract owner.
     function withdrawTokens(uint256 _amountOfTokens) external onlyOwner {
     _helperFennec.transfer(_msgSender(), _amountOfTokens);
     }
 
     /// @notice Pauses the contract
-    /// @dev Only callable by the contract owner
+    /// @custom:modifier onlyOwner Restricts the function access to the contract owner.
     function pauseContract() external onlyOwner {
         require(!pause, "Contract is already paused");
         pause = true;
@@ -207,7 +207,7 @@ contract FennecICO is Ownable{
     }   
 
     /// @notice Unpauses the contract
-    /// @dev Only callable by the contract owner
+    /// @custom:modifier onlyOwner Restricts the function access to the contract owner.
     function unPauseContract() external onlyOwner {
         require(pause, "Contract is already unpaused");
         pause = false;

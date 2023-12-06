@@ -76,7 +76,10 @@ async function main() {
 
       ////////////////////////////////////////////Calling Functions/////////////////////////////////////////////
 
+      console.log("Calling functions.........");
       await fennec.initialize(ico.address);
+      await vesting.initialize(fennec.address, ico.address);
+      console.log("Functions called!");
 
 
 }

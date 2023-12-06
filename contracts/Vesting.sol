@@ -92,6 +92,7 @@ contract Vesting is Ownable {
     /// @custom:modifier onlyOwner Restricts the function access to the authorizer.
     function deposit(address _userAddr, uint256 _amount, uint256 _amountToBeGiven) external onlyAuthorized {
         txHistory[_userAddr].push(Transaction(_amount, (block.timestamp + 356 days), _amountToBeGiven));
+        // txHistory[_userAddr].push(Transaction(_amount, (block.timestamp + 2 minutes), _amountToBeGiven));
     }
 
     /// @notice Allows users to withdraw their vested tokens
@@ -123,7 +124,14 @@ contract Vesting is Ownable {
         _amountToBeGiven = _details.amountRemaining;    
         _details.amountRemaining = 0;
         }
-         _details.endTime = block.timestamp + 120 days; 
+        if(_details.amountRemaining == 0) {
+            _details.amountToBeGiven = 0;
+            _details.endTime = 0;
+        }else{
+            _details.endTime = block.timestamp + 120 days; 
+        }
+
+        //  _details.endTime = block.timestamp + 1 minutes; 
          txHistory[_user][_index] = _details;
         } 
     }

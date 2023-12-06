@@ -27,7 +27,7 @@ async function main() {
         " option '--network localhost'"
     );
   }
-
+     const [deployer,per1] = await ethers.getSigners();
   ////////////////////////////////////////////Vesting /////////////////////////////////////////////
 
       const Vesting = await ethers.getContractFactory("Vesting")
@@ -81,6 +81,35 @@ async function main() {
       await fennec.initialize(ico.address);
       console.log("Functions called!");
 
+
+      //testing
+      await ico.startRound(ethers.utils.parseUnits("0.5","6"))
+
+      await usdt.connect(per1).mint(ethers.utils.parseUnits("100","6"))
+      await usdt.connect(per1).approve(ico.address,ethers.utils.parseUnits("200"))
+      await ico.connect(per1).buy(ethers.utils.parseUnits("200"))
+      console.log("Incrementing Time.....");
+      await network.provider.send("evm_increaseTime", [31536000])
+      console.log("Incrementing Done!");
+      const tes = await vesting.txHistory(per1.address, 0)
+      console.log(tes.toString());
+      await vesting.connect(per1).withdraw(0);
+
+      for(let i = 0; i < 9 ; i++) {
+        const tes2 = await vesting.txHistory(per1.address, 0)
+        console.log(tes2.toString());
+        if(Number(tes2.amountRemaining.toString()) > 0) {
+          console.log("Incrementing Time.....");
+          await network.provider.send("evm_increaseTime", [31536000 + 259200 * (i + 1)])
+          console.log("Incrementing Done!",i);
+        await vesting.connect(per1).withdraw(0);
+        }else {
+          break
+        }
+
+
+
+      }
 
 }
 

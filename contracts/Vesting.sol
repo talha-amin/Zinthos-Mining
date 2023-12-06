@@ -4,7 +4,9 @@ pragma solidity ^0.8.20;
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
+// Company: Decrypted Labs
 // @title Vesting contract for ERC20 tokens
+// @author Rabeeb Aqdas
 /// @notice This contract allows for the vesting of ERC20 tokens with specific rules
 /// @dev Inherits functions and modifiers from Ownable contract
 error Vesting__DontHaveFunds();

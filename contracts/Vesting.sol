@@ -9,10 +9,15 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 // @author Rabeeb Aqdas
 /// @notice This contract allows for the vesting of ERC20 tokens with specific rules
 /// @dev Inherits functions and modifiers from Ownable contract
-error Vesting__DontHaveFunds();
-error Vesting__LockingPeriodIsNotOver();
-error Vesting__NoAmountRemaining();
 
+/// @dev Error thrown when a user attempts to withdraw but doesn't have any funds vested
+error Vesting__DontHaveFunds();
+
+/// @dev Error thrown when a user attempts to withdraw but the locking period is not yet over
+error Vesting__LockingPeriodIsNotOver();
+
+/// @dev Error thrown when a user attempts to withdraw but there is no amount remaining to be withdrawn
+error Vesting__NoAmountRemaining();
 contract Vesting is Ownable {
 
     /// @notice Struct to keep track of each vesting transaction

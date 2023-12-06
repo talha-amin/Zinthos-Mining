@@ -32,10 +32,10 @@ interface IVesting {
 contract FennecICO is Ownable{
 
      /// @dev Reference to the Fennec token contract
-    IERC20 private _helperFennec;
+    IERC20 private immutable _helperFennec;
 
     /// @dev Reference to the USDT token contract used for payments
-    IERC20 private _helperUSDT;
+    IERC20 private immutable _helperUSDT;
 
     /// @dev Reference to the vesting contract where purchased tokens are sent
     IVesting private immutable _helperVesting;

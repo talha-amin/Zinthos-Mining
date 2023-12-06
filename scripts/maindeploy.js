@@ -29,18 +29,23 @@ async function main() {
     );
   }
 
+  ////////////////////////////////////////////Vesting /////////////////////////////////////////////
+
+      const Vesting = await ethers.getContractFactory("Vesting")
+      const vesting = await Vesting.deploy()
+      await vesting.deployed()
+      console.log("Vesting Address", vesting.address)
+
+
+
   ////////////////////////////////////////////Fennec Token/////////////////////////////////////////////
+
       const Fennec = await ethers.getContractFactory("Fennec")
       const fennec = await Fennec.deploy(gaming,Ecosystem_partners,Ico,Team_advisor,Marketing_community_build,Liquidity,Strategy_reserves,Staking_rewards,Public_sale)
       await fennec.deployed()
       console.log("Fennec Address", fennec.address)
       await fennec.initialize();
-      console.log("Total Supply",(await fennec.totalSupply()).toString())
-      
-      // console.log("Verifying Fennec Token")
-      // const args = [gaming,Ecosystem_partners,Ico,Team_advisor,Marketing_community_build,Liquidity,Strategy_reserves,Staking_rewards,Public_sale];
-      // await verify(fennec.address, args);
-      
+
       ////////////////////////////////////////////USDT/////////////////////////////////////////////
         
       const USDT = await ethers.getContractFactory("USDT")
@@ -48,19 +53,33 @@ async function main() {
       await usdt.deployed()
       console.log("USDT Address", usdt.address)
 
-      // console.log("Verifying USDT Token")
-      // const args = [];
-      // await verify(usdt.address, args);
-
       ////////////////////////////////////////////ICO/////////////////////////////////////////////
+
       const ICO = await ethers.getContractFactory("FennecICO")
-      const ico = await ICO.deploy(fennec.address, usdt.address, testAddr, testAddr, roundsLimit, roundsLimit, roundsLimit)
+      const ico = await ICO.deploy(fennec.address, usdt.address, vesting.address, testAddr, roundsLimit, roundsLimit, roundsLimit)
       await ico.deployed()
       console.log("ICO Address", ico.address)
 
+      ////////////////////////////////////////////Verifying Contracts/////////////////////////////////////////////
+      
+      // console.log("Verifying Vesting")
+      // const args = [];
+      // await verify(vesting.address, args);
+
       // console.log("Verifying Fennec Token")
-      // const args2 = [fennec.address, usdt.address, testAddr, testAddr, roundsLimit, roundsLimit, roundsLimit];
+      // const args2 = [gaming,Ecosystem_partners,Ico,Team_advisor,Marketing_community_build,Liquidity,Strategy_reserves,Staking_rewards,Public_sale];
       // await verify(fennec.address, args2);
+
+      // console.log("Verifying USDT Token")
+      // const args3 = [];
+      // await verify(usdt.address, args3);
+
+      // console.log("Verifying ICO")
+      // const args4 = [fennec.address, usdt.address, vesting.address, testAddr, roundsLimit, roundsLimit, roundsLimit];
+      // await verify(ico.address, args4);
+
+      ////////////////////////////////////////////Calling Functions/////////////////////////////////////////////
+
 
 }
 

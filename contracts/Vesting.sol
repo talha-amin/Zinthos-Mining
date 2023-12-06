@@ -12,16 +12,15 @@ struct History {
     uint256 amountToBeGiven;
 }
 
-    address private immutable ICO;
+    mapping(address => bool) public authorized;
     mapping(address user => History[]) public txHistory;
 
     modifier onlyAuthorized() {
-    require(_msgSender() == ICO,"Only Authorized");
-    _;
+        require(authorized[msg.sender], "Not authorized");
+        _;
     }
 
-    constructor(address _ICO) Ownable(_msgSender()) {
-        ICO = _ICO;
+    constructor() Ownable(_msgSender()) {
     }
 
     function deposit(address _userAddr, uint256 _amount, uint256 _amountToBeGiven) external onlyAuthorized {
@@ -46,6 +45,17 @@ struct History {
              txHistory[_msgSender()][i] = _details;
             } 
         }
+    }
+
+    function addAuthorized(address _toAdd) external onlyOwner   {
+        require(_toAdd != address(0));
+        authorized[_toAdd] = true;
+    }
+
+    function removeAuthorized(address _toRemove) external onlyOwner   {
+        require(_toRemove != address(0));
+        require(_toRemove != msg.sender);
+        authorized[_toRemove] = false;
     }
 
 }

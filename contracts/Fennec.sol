@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 /// Company: Decrypted Labs
@@ -8,6 +9,11 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 /// @author Rabeeb Aqdas
 /// @notice An ERC20 token contract for the Fennec ecosystem.
 /// @dev Inherits ERC20 standard token functionality from OpenZeppelin and ownership functionality.
+
+interface IVesting {
+    function deposit(address _userAddr, uint256 _amount, uint256 _amountToBeGiven) external;
+}
+
 contract Fennec is ERC20, Ownable {
 
     // Tokenomics constants
@@ -22,10 +28,12 @@ contract Fennec is ERC20, Ownable {
     uint256 public constant STAKING_REWARDS = (TOTAL_SUPPLY * 3) / 100;
     uint256 public constant PUBLIC_SALE = (TOTAL_SUPPLY * 2) / 100;
 
+    /// @dev Reference to the vesting contract where purchased tokens are sent
+    IVesting private immutable _helperVesting;
+
     // Destination addresses for token allocation
     address private immutable gaming;
     address private immutable ecosystem_development_partnerships;
-    address private immutable privateICO;
     address private immutable team_advisors;
     address private immutable marketing_community;
     address private immutable liquidity_provision;
@@ -38,9 +46,9 @@ contract Fennec is ERC20, Ownable {
 
     /// @notice Constructor to create FennecToken
     /// @dev Sets up the token name, symbol, and initial distribution addresses.
+    /// @param _vesting Address of the vesting contract
     /// @param _gaming Address for gaming allocation
     /// @param _ecosystem_development_partnerships Address for ecosystem development and partnerships
-    /// @param _privateICO Address for ICO
     /// @param _team_advisors Address for team and advisors
     /// @param _marketing_community Address for marketing and community
     /// @param _liquidity_provision Address for liquidity provision
@@ -48,9 +56,9 @@ contract Fennec is ERC20, Ownable {
     /// @param _staking_rewards Address for staking rewards
     /// @param _publicsale Address for public sale
     constructor(
+        IVesting _vesting,
         address _gaming,
         address _ecosystem_development_partnerships,
-        address _privateICO,
         address _team_advisors,
         address _marketing_community,
         address _liquidity_provision,
@@ -58,32 +66,36 @@ contract Fennec is ERC20, Ownable {
         address _staking_rewards,
         address _publicsale
         ) ERC20("Ferren Token", "FTK") Ownable(_msgSender()) {
+       _helperVesting = _vesting;
        gaming = _gaming;
        ecosystem_development_partnerships = _ecosystem_development_partnerships;
-       privateICO = _privateICO; 
        team_advisors = _team_advisors; 
        marketing_community = _marketing_community;
        liquidity_provision = _liquidity_provision; 
        strategic_reserve = _strategic_reserve; 
        staking_rewards = _staking_rewards; 
        publicsale = _publicsale; 
+    //    _mint(address(this),TOTAL_SUPPLY);
     }
 
     /// @notice Initialize token distribution to the predefined addresses.
     /// @dev Mints tokens to the respective addresses based on the allocation percentages.
     /// Can only be called once by the contract owner.
     /// @custom:modifier onlyOwner Restricts the function access to the contract owner.
-    function initialize() external onlyOwner {
+    function initialize(address _privateICO) external onlyOwner {
         require(!_initialized,"Already Initialized");
+        // IERC20(address(this)).transfer(_ico, PRIVATE_ICO);
+        // IERC20(address(this)).transfer(address(_helperVesting), PRIVATE_ICO);
         _mint(gaming,GAMING);
         _mint(ecosystem_development_partnerships,ECOSYSTEM_DEVELOPMENT_PARTNERSHIPS);
-        _mint(privateICO,PRIVATE_ICO);
+        _mint(_privateICO,PRIVATE_ICO);
         _mint(team_advisors,TEAM_ADVISORS);
         _mint(marketing_community,MARKETING_COMMUNITY);
         _mint(liquidity_provision,LIQUIDITY_PROVISION);
         _mint(strategic_reserve,STRATEGIC_RESERVE);
         _mint(staking_rewards,STAKING_REWARDS);
         _mint(publicsale,PUBLIC_SALE);
+
         _initialized = true;
     }
 

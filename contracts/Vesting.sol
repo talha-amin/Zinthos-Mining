@@ -48,7 +48,7 @@ struct Transaction {
     }
 
     function deposit(address _userAddr, uint256 _amount, uint256 _amountToBeGiven) external onlyAuthorized {
-        txHistory[_userAddr].push(Transaction(_amount, (block.timestamp + 485 days), _amountToBeGiven));
+        txHistory[_userAddr].push(Transaction(_amount, (block.timestamp + 356 days), _amountToBeGiven));
     }
 
     function withdraw() external unPaused {

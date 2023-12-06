@@ -75,17 +75,15 @@ contract Fennec is ERC20, Ownable {
        strategic_reserve = _strategic_reserve; 
        staking_rewards = _staking_rewards; 
        publicsale = _publicsale; 
-    //    _mint(address(this),TOTAL_SUPPLY);
     }
 
     /// @notice Initialize token distribution to the predefined addresses.
     /// @dev Mints tokens to the respective addresses based on the allocation percentages.
     /// Can only be called once by the contract owner.
+    /// @param _privateICO Address of private ICO
     /// @custom:modifier onlyOwner Restricts the function access to the contract owner.
     function initialize(address _privateICO) external onlyOwner {
         require(!_initialized,"Already Initialized");
-        // IERC20(address(this)).transfer(_ico, PRIVATE_ICO);
-        // IERC20(address(this)).transfer(address(_helperVesting), PRIVATE_ICO);
         _mint(gaming,GAMING);
         _mint(ecosystem_development_partnerships,ECOSYSTEM_DEVELOPMENT_PARTNERSHIPS);
         _mint(_privateICO,PRIVATE_ICO);

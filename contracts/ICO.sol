@@ -9,6 +9,9 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 // @author Rabeeb Aqdas
 // @notice This contract manages the different rounds of the ICO for the Fennec token
 
+interface IVesting {
+    function deposit(address _userAddr, uint256 _amount, uint256 _amountToBeGiven) external;
+}
 
     /// @dev Error for when an attempt is made to proceed to a round beyond the defined limits
     /// @param _round The round number that exceeded the limit
@@ -34,11 +37,20 @@ contract FennecICO is Ownable{
     /// @dev Reference to the USDT token contract used for payments
     IERC20 private _helperUSDT;
 
+    /// @dev Reference to the vesting contract where purchased tokens are sent
+    IVesting private immutable _helperVesting;
+
     /// @dev Tracks the current round of the ICO
     uint256 private round;
 
     /// @dev The price per token for the current round
     uint256 private pricePerToken;
+
+    /// @dev The PERCENTAGE by which investor will withdraw the tokens from vesting contract
+    uint256 private constant PERCENTAGE = 10;
+
+    /// @dev The BASE for calculating the percentage
+    uint256 private constant BASE = 100;
 
     /// @dev The remaining token limit for round one
     uint256 private roundOneLimitRemaining;
@@ -51,9 +63,6 @@ contract FennecICO is Ownable{
 
     /// @dev The wallet address where funds collected from the ICO are sent
     address private immutable adminWallet;
-
-    /// @dev The address of the vesting contract where purchased tokens are sent
-    address private immutable vesting;
 
     /// @dev Flag to indicate if the ICO is paused or not
     bool private pause;
@@ -89,10 +98,10 @@ contract FennecICO is Ownable{
     /// @param _roundOneLimitRemaining Token limit for round one
     /// @param _roundTwoLimitRemaining Token limit for round two
     /// @param _roundThreeLimitRemaining Token limit for round three
-    constructor(IERC20 _fennec, IERC20 _USDT, address _vesting, address _adminWallet, uint256 _roundOneLimitRemaining, uint256 _roundTwoLimitRemaining, uint256 _roundThreeLimitRemaining) Ownable(_msgSender()) {
+    constructor(IERC20 _fennec, IERC20 _USDT, IVesting _vesting, address _adminWallet, uint256 _roundOneLimitRemaining, uint256 _roundTwoLimitRemaining, uint256 _roundThreeLimitRemaining) Ownable(_msgSender()) {
         _helperFennec = _fennec;
         _helperUSDT = _USDT;
-        vesting = _vesting;     
+        _helperVesting = _vesting;     
         adminWallet = _adminWallet;
         roundOneLimitRemaining = _roundOneLimitRemaining;
         roundTwoLimitRemaining = _roundTwoLimitRemaining;
@@ -110,60 +119,63 @@ contract FennecICO is Ownable{
 
         if(_roundOneLimitRemaining == 0) revert ICO__RoundCompleted();
         if(_tokenAmount > _roundOneLimitRemaining) revert ICO__NotEnoughTokens();
-        _roundOne(_tokenAmount);
+        _roundOne(_msgSender(), _tokenAmount);
 
         }else if(round == 2){
         uint256 _roundTwoLimitRemaining = roundTwoLimitRemaining;
 
         if(_roundTwoLimitRemaining == 0) revert ICO__RoundCompleted();
         if(_tokenAmount > _roundTwoLimitRemaining) revert ICO__NotEnoughTokens();            
-        _roundTwo(_tokenAmount);
+        _roundTwo(_msgSender(), _tokenAmount);
  
         }else {
         uint256 _roundThreeLimitRemaining = roundThreeLimitRemaining;
 
         if(_roundThreeLimitRemaining == 0) revert ICO__RoundCompleted();
         if(_tokenAmount > _roundThreeLimitRemaining) revert ICO__NotEnoughTokens();            
-        _roundThree(_tokenAmount);
+        _roundThree(_msgSender(), _tokenAmount);
         }
         emit TokenBought(_msgSender(), _tokenAmount, round);
     }
 
-    /**
-     * @dev Handles token purchases for Round One
-     * Transfers USDT from the buyer to the admin wallet and transfers the corresponding
-     * amount of Fennec tokens to the vesting contract.
-     * Updates the remaining token limit for Round One.
-     * @param _tokenAmount The amount of tokens being purchased
-     */
-    function _roundOne(uint256 _tokenAmount) private {
+    
+     // @dev Handles token purchases for Round One
+     // Transfers USDT from the buyer to the admin wallet and transfers the corresponding
+     // amount of Fennec tokens to the vesting contract.
+     // Updates the remaining token limit for Round One.
+     // @param _user The address of user who is buying
+     // @param _tokenAmount The amount of tokens being purchased
+    function _roundOne(address _user, uint256 _tokenAmount) private {
         uint256 _price = (_tokenAmount * pricePerToken) / 1e18;
-        _helperUSDT.transferFrom(_msgSender(), adminWallet, _price);
-        _helperFennec.transfer(vesting, _tokenAmount);
+        _helperUSDT.transferFrom(_user, adminWallet, _price);
+        _helperFennec.transfer(address(_helperVesting), _tokenAmount);
+        _helperVesting.deposit(_user, _tokenAmount, ((_tokenAmount * PERCENTAGE) / BASE));
         roundOneLimitRemaining = roundOneLimitRemaining - _tokenAmount;
     }
     
-    /**
-     * @dev Handles token purchases for Round Two
-     * Similar to _roundOne, but updates the remaining token limit for Round Two.
-     * @param _tokenAmount The amount of tokens being purchased
-     */
-    function _roundTwo(uint256 _tokenAmount) private {
+    
+     // @dev Handles token purchases for Round Two
+     // Similar to _roundOne, but updates the remaining token limit for Round Two.
+     // @param _user The address of user who is buying
+     // @param _tokenAmount The amount of tokens being purchased
+    function _roundTwo(address _user, uint256 _tokenAmount) private {
         uint256 _price = (_tokenAmount * pricePerToken) / 1e18;
-        _helperUSDT.transferFrom(_msgSender(), adminWallet, _price);
-        _helperFennec.transfer(vesting, _tokenAmount);
+        _helperUSDT.transferFrom(_user, adminWallet, _price);
+        _helperFennec.transfer(address(_helperVesting), _tokenAmount);
+        _helperVesting.deposit(_user, _tokenAmount, ((_tokenAmount * PERCENTAGE) / BASE));
         roundTwoLimitRemaining = roundTwoLimitRemaining - _tokenAmount;   
     }
     
-    /**
-     * @dev Handles token purchases for Round Three
-     * Similar to _roundOne and _roundTwo, but updates the remaining token limit for Round Three.
-     * @param _tokenAmount The amount of tokens being purchased
-     */
-    function _roundThree(uint256 _tokenAmount) private {
+    
+     // @dev Handles token purchases for Round Three
+     // Similar to _roundOne and _roundTwo, but updates the remaining token limit for Round Three.
+     // @param _user The address of user who is buying
+     // @param _tokenAmount The amount of tokens being purchased
+    function _roundThree(address _user, uint256 _tokenAmount) private {
         uint256 _price = (_tokenAmount * pricePerToken) / 1e18;
-        _helperUSDT.transferFrom(_msgSender(), adminWallet, _price);
-        _helperFennec.transfer(vesting, _tokenAmount);
+        _helperUSDT.transferFrom(_user, adminWallet, _price);
+        _helperFennec.transfer(address(_helperVesting), _tokenAmount);
+        _helperVesting.deposit(_user, _tokenAmount, ((_tokenAmount * PERCENTAGE) / BASE));
         roundThreeLimitRemaining = roundThreeLimitRemaining - _tokenAmount;
     }
 

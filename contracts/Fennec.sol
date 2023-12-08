@@ -11,7 +11,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 /// @dev Inherits ERC20 standard token functionality from OpenZeppelin and ownership functionality.
 
 interface IVesting {
-    function deposit(address _userAddr, uint256 _amount, uint256 _amountToBeGiven) external;
+    function deposit(address _userAddr, uint256 _amount, uint256 _amountToBeGiven, bool _investor) external;
 }
 
 contract Fennec is ERC20, Ownable {
@@ -103,9 +103,9 @@ contract Fennec is ERC20, Ownable {
         _mint(staking_rewards,STAKING_REWARDS);
         _mint(publicsale,PUBLIC_SALE);
 
-        _helperVesting.deposit(ecosystem_development_partnerships, _ECOSYSTEM_DEVELOPMENT_PARTNERSHIPS, ((_ECOSYSTEM_DEVELOPMENT_PARTNERSHIPS * _PERCENTAGE) / _BASE));
-        _helperVesting.deposit(team_advisors, _TEAM_ADVISORS, ((_TEAM_ADVISORS * _PERCENTAGE) / _BASE));
-        _helperVesting.deposit(marketing_community, _MARKETING_COMMUNITY, ((_MARKETING_COMMUNITY * _PERCENTAGE) / _BASE));
+        _helperVesting.deposit(ecosystem_development_partnerships, _ECOSYSTEM_DEVELOPMENT_PARTNERSHIPS, ((_ECOSYSTEM_DEVELOPMENT_PARTNERSHIPS * _PERCENTAGE) / _BASE), false);
+        _helperVesting.deposit(team_advisors, _TEAM_ADVISORS, ((_TEAM_ADVISORS * _PERCENTAGE) / _BASE), false);
+        _helperVesting.deposit(marketing_community, _MARKETING_COMMUNITY, ((_MARKETING_COMMUNITY * _PERCENTAGE) / _BASE), false);
 
         _initialized = true;
     }

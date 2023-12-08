@@ -23,11 +23,12 @@ contract Vesting is Ownable {
     /// @notice Struct to keep track of each vesting transaction
     /// @param amountRemaining The amount of tokens remaining to be vested
     /// @param endTime The timestamp when the next vesting is due
-    /// @param amountToBeGiven The amount of tokens to be vested at each interval
+    /// @param investor to ensure tx initiator is a investor
     struct Transaction {
         uint256 amountRemaining;
         uint256 endTime;
         uint256 amountToBeGiven;
+        bool investor;
     }
 
     /// @notice Boolean flag to indicate if the contract is paused
@@ -89,10 +90,10 @@ contract Vesting is Ownable {
     /// @param _userAddr Address of the user for whom tokens are vested
     /// @param _amount Total amount of tokens to be vested
     /// @param _amountToBeGiven Amount of tokens to be vested at each interval
+    /// @param _investor to ensure tx initiator is a investor
     /// @custom:modifier onlyOwner Restricts the function access to the authorizer.
-    function deposit(address _userAddr, uint256 _amount, uint256 _amountToBeGiven) external onlyAuthorized {
-        txHistory[_userAddr].push(Transaction(_amount, (block.timestamp + 356 days), _amountToBeGiven));
-        // txHistory[_userAddr].push(Transaction(_amount, (block.timestamp + 2 minutes), _amountToBeGiven));
+    function deposit(address _userAddr, uint256 _amount, uint256 _amountToBeGiven, bool _investor) external onlyAuthorized {
+        txHistory[_userAddr].push(Transaction(_amount, (block.timestamp + 356 days), _amountToBeGiven,_investor));
     }
 
     /// @notice Allows users to withdraw their vested tokens
@@ -128,10 +129,9 @@ contract Vesting is Ownable {
             _details.amountToBeGiven = 0;
             _details.endTime = 0;
         }else{
-            _details.endTime = block.timestamp + 120 days; 
+            uint256 daystoAdd = _details.investor ? 120 days : 180 days; 
+            _details.endTime = block.timestamp + daystoAdd; 
         }
-
-        //  _details.endTime = block.timestamp + 1 minutes; 
          txHistory[_user][_index] = _details;
         } 
     }

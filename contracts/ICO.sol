@@ -10,7 +10,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 // @notice This contract manages the different rounds of the ICO for the Fennec token
 
 interface IVesting {
-    function deposit(address _userAddr, uint256 _amount, uint256 _amountToBeGiven) external;
+    function deposit(address _userAddr, uint256 _amount, uint256 _amountToBeGiven, bool _investor) external;
 }
 
     /// @dev Error for when an attempt is made to proceed to a round beyond the defined limits
@@ -149,7 +149,7 @@ contract FennecICO is Ownable{
         uint256 _price = (_tokenAmount * pricePerToken) / 1e18;
         _helperUSDT.transferFrom(_user, adminWallet, _price);
         _helperFennec.transfer(address(_helperVesting), _tokenAmount);
-        _helperVesting.deposit(_user, _tokenAmount, ((_tokenAmount * PERCENTAGE) / BASE));
+        _helperVesting.deposit(_user, _tokenAmount, ((_tokenAmount * PERCENTAGE) / BASE), true);
         roundOneLimitRemaining = roundOneLimitRemaining - _tokenAmount;
     }
     
@@ -162,7 +162,7 @@ contract FennecICO is Ownable{
         uint256 _price = (_tokenAmount * pricePerToken) / 1e18;
         _helperUSDT.transferFrom(_user, adminWallet, _price);
         _helperFennec.transfer(address(_helperVesting), _tokenAmount);
-        _helperVesting.deposit(_user, _tokenAmount, ((_tokenAmount * PERCENTAGE) / BASE));
+        _helperVesting.deposit(_user, _tokenAmount, ((_tokenAmount * PERCENTAGE) / BASE), true);
         roundTwoLimitRemaining = roundTwoLimitRemaining - _tokenAmount;   
     }
     
@@ -175,7 +175,7 @@ contract FennecICO is Ownable{
         uint256 _price = (_tokenAmount * pricePerToken) / 1e18;
         _helperUSDT.transferFrom(_user, adminWallet, _price);
         _helperFennec.transfer(address(_helperVesting), _tokenAmount);
-        _helperVesting.deposit(_user, _tokenAmount, ((_tokenAmount * PERCENTAGE) / BASE));
+        _helperVesting.deposit(_user, _tokenAmount, ((_tokenAmount * PERCENTAGE) / BASE), true);
         roundThreeLimitRemaining = roundThreeLimitRemaining - _tokenAmount;
     }
 

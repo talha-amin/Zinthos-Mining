@@ -8,7 +8,8 @@ const { verify } = require("./verifyContract");
 const testAddr = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";
 
 const gaming = "0x9E5dbCBF65205d9DF6260bd28b1FF3E7A3206162"
-const Ecosystem_partners = "0xD41417268e70ad624b9D6d31d56c67eca2C27A09"
+// const Ecosystem_partners = "0xD41417268e70ad624b9D6d31d56c67eca2C27A09"   //main 
+const Ecosystem_partners = "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"      //test
 const Team_advisor = "0x41d3539Bc087c2ede18A4D487c9D6418ee4e8077"
 const Marketing_community_build = "0x12326b3d29D7BcA5A89ed5fD05C6758EcAAA5e63"
 const Liquidity = "0x7e9027d95F3FbA779F9FCefa29bf03b583C0Bb80"
@@ -27,7 +28,7 @@ async function main() {
         " option '--network localhost'"
     );
   }
-     const [deployer,per1] = await ethers.getSigners();
+     const [deployer,per1,per2] = await ethers.getSigners();
   ////////////////////////////////////////////Vesting /////////////////////////////////////////////
 
       const Vesting = await ethers.getContractFactory("Vesting")
@@ -94,7 +95,6 @@ async function main() {
       const tes = await vesting.txHistory(per1.address, 0)
       console.log(tes.toString());
       await vesting.connect(per1).withdraw(0);
-
       for(let i = 0; i < 9 ; i++) {
         const tes2 = await vesting.txHistory(per1.address, 0)
         console.log(tes2.toString());
@@ -106,10 +106,27 @@ async function main() {
         }else {
           break
         }
-
-
-
       }
+
+
+      //ecosystem addr
+      console.log("Ecosystem Address")
+      await vesting.connect(per2).withdraw(0);
+      const tes2 = await vesting.txHistory(per2.address, 0)
+      console.log(tes2.toString());
+      for(let i = 0; i < 9 ; i++) {
+        const tes2 = await vesting.txHistory(per2.address, 0)
+        console.log(tes2.toString());
+        if(Number(tes2.amountRemaining.toString()) > 0) {
+          console.log("Incrementing Time.....");
+          await network.provider.send("evm_increaseTime", [31536000 + (15552000 * (i + 1))])
+          console.log("Incrementing Done!",i);
+        await vesting.connect(per2).withdraw(0);
+        }else {
+          break
+        }
+      }
+
 
 }
 

@@ -47,7 +47,7 @@ contract FennecICO is Ownable{
     uint256 private pricePerToken;
 
     /// @dev The PERCENTAGE by which investor will withdraw the tokens from vesting contract
-    uint256 private constant PERCENTAGE = 10;
+    uint256 private constant PERCENTAGE = 25;
 
     /// @dev The BASE for calculating the percentage
     uint256 private constant BASE = 100;

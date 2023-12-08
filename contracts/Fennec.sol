@@ -32,7 +32,7 @@ contract Fennec is ERC20, Ownable {
     IVesting private immutable _helperVesting;
 
     /// @dev The PERCENTAGE by which Team Advisors, _marketing_community and _ecosystem_development_partnerships will withdraw the tokens from vesting contract
-    uint256 private constant PERCENTAGE = 15;
+    uint256 private constant PERCENTAGE = 25;
 
     /// @dev The BASE for calculating the percentage
     uint256 private constant BASE = 100;

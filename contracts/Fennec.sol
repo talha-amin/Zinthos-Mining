@@ -96,12 +96,12 @@ contract Fennec is ERC20, Ownable {
         uint256 _PERCENTAGE = PERCENTAGE;
         uint256 _BASE = BASE;
         _mint(gaming,GAMING);
-        _mint(address(_helperVesting),(_ECOSYSTEM_DEVELOPMENT_PARTNERSHIPS + _TEAM_ADVISORS + _MARKETING_COMMUNITY));
         _mint(_privateICO,PRIVATE_ICO); 
         _mint(liquidity_provision,LIQUIDITY_PROVISION);
         _mint(strategic_reserve,STRATEGIC_RESERVE);
         _mint(staking_rewards,STAKING_REWARDS);
         _mint(publicsale,PUBLIC_SALE);
+        _mint(address(_helperVesting),(_ECOSYSTEM_DEVELOPMENT_PARTNERSHIPS + _TEAM_ADVISORS + _MARKETING_COMMUNITY));       
 
         _helperVesting.deposit(ecosystem_development_partnerships, _ECOSYSTEM_DEVELOPMENT_PARTNERSHIPS, ((_ECOSYSTEM_DEVELOPMENT_PARTNERSHIPS * _PERCENTAGE) / _BASE), false);
         _helperVesting.deposit(team_advisors, _TEAM_ADVISORS, ((_TEAM_ADVISORS * _PERCENTAGE) / _BASE), false);

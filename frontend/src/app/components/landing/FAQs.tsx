@@ -65,6 +65,9 @@ const FAQs = () => {
 
   return (
     <section className="relative py-20 ">
+      <div className="absolute left-[50%] right-0 translate-x-1/2 -translate-y-1/2 pointer-events-none">
+        <div className="primary-shadow blur-[150px] aspect-square w-[600px]"></div>
+      </div>
       <Container>
         <div className="relative z-10 flex flex-col items-center justify-center text-center">
           <h2 className="relative mb-5 inline-block text-2xl font-bold sm:text-3xl md:text-5xl">
@@ -78,7 +81,7 @@ const FAQs = () => {
               />
             </div> */}
           </h2>
-          <p className="text-sm font-thin text-neutral-400 md:w-[46ch] md:text-lg">
+          <p className="text-sm font-thin text-neutral-400 max-w-[68ch] md:text-lg">
             The key to creating an effective FAQ page is to anticipate the
             questions your customers or users may have and provide clear and
             concise answers.
@@ -89,18 +92,10 @@ const FAQs = () => {
           >
             {faqs.map(({ summary, details }, index) => {
               return (
-                <motion.div
-                  variants={animVars}
-                  initial="initial"
-                  animate={mainControls}
-                  custom={index}
-                  key={index}
-                  className="rounded-2xl"
-                  style={{ perspective: 300, background: "#FFFFFF88" }}
-                >
-                  <details className="border-1 group rounded-2xl border border-[#424141] bg-black px-5 py-3 text-sm text-neutral-400 transition duration-300 sm:text-lg md:px-8 md:py-6 [&_summary::-webkit-details-marker]:hidden">
-                    <summary className="flex cursor-pointer items-center justify-between gap-1.5 rounded-[0.5rem] duration-200  group-open:bg-gradient-to-br group-open:text-transparent">
-                      <h2 className="font-medium group-open:font-bold">
+                <div key={index} className="rounded-2xl">
+                  <details className="border-1 group open:border-[#EB63354D] rounded-2xl border border-[#424141] bg-black px-5 py-3 text-sm text-neutral-400 transition duration-300 sm:text-lg md:px-6 md:py-4 [&_summary::-webkit-details-marker]:hidden">
+                    <summary className="flex cursor-pointer items-center justify-between gap-1.5 rounded-[0.5rem] duration-200">
+                      <h2 className="font-medium group-open:text-white">
                         {summary}
                       </h2>
                       <FaChevronDown />
@@ -110,7 +105,7 @@ const FAQs = () => {
                       {details}
                     </p>
                   </details>
-                </motion.div>
+                </div>
               );
             })}
           </div>

@@ -16,7 +16,11 @@ const Ecosystem = () => {
         </div>
       </div>
       <Container>
-        <div className="grid grid-cols-4 gap-14">
+        <h2 className="text-6xl text-center font-semibold pb-2">Fennec ecosystem</h2>
+        <div className="relative w-full h-5">
+          <Image src="/images/landing/section-title.svg" className="object-contain" fill alt="title vector shape" />
+        </div>
+        <div className="grid grid-cols-4 gap-14 pt-12">
           {Array.from({ length: 8 }).map((item, i) => {
             return (
               <div

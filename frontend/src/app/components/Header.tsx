@@ -39,6 +39,11 @@ const Header = () => {
   //   }
   // })
 
+
+  useEffect(()=>{
+    console.log("opennnnnn", open)
+  },[open])
+
   const toggleMenu = () => {
     setOpen((prevOpen) => !prevOpen);
   };
@@ -81,7 +86,7 @@ const Header = () => {
   const pathname = usePathname();
 
   return (
-    <header className={`${!open ? `left-0 right-0 top-0 -mb-[100px]` : ""} z-50`}>
+    <header className={`${!open ? `left-0 right-0 top-0` : ""} relative z-50 w-full -mb-[100px]`}>
       <Container>
         <nav className="flex items-center justify-between pb-5 pt-6">
           <div className="flex items-center gap-20">
@@ -144,7 +149,7 @@ const Header = () => {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="left-0 top-0 z-50 h-screen  w-full origin-top rounded-b-3xl bg-[#161321dd] bg-opacity-30 p-10 text-neutral-100 backdrop-blur-2xl backdrop-filter"
+            className="fixed left-0 top-0 z-50 h-screen  w-full origin-top rounded-b-3xl bg-[#161321dd] bg-opacity-30 p-10 text-neutral-100 backdrop-blur-2xl backdrop-filter"
           >
             <div className="flex h-full flex-col">
               <div className="flex justify-between">

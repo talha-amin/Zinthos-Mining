@@ -73,3 +73,26 @@ export const tokenomics = [
     },
 
 ]
+
+export const roadmap = [
+    {
+        title: "Order Placed",
+        desc: "Pretium lectus quam id leo. Urna et pharetra aliquam vestibulum morbi blandit cursus risus."
+    },
+    {
+        title: "Order Shipped",
+        desc: "Pretium lectus quam id leo. Urna et pharetra aliquam vestibulum morbi blandit cursus risus."
+    },
+    {
+        title: "In Transit",
+        desc: "Pretium lectus quam id leo. Urna et pharetra aliquam vestibulum morbi blandit cursus risus."
+    },
+    {
+        title: "Out of Delivery",
+        desc: "Pretium lectus quam id leo. Urna et pharetra aliquam vestibulum morbi blandit cursus risus."
+    },
+    {
+        title: "Delivered",
+        desc: "Pretium lectus quam id leo. Urna et pharetra aliquam vestibulum morbi blandit cursus risus."
+    },
+]

@@ -5,6 +5,7 @@ type PropTypes = {
   variant?: string;
   fullWidth?: boolean;
   className?: string;
+  squared?: boolean;
   customVariant?: string; //takes in tailwind class including background color and text color
   [key: string]: any;
 };
@@ -21,6 +22,7 @@ const Button = ({
   variant = "primary",
   fullWidth = false,
   className,
+  squared = false,
   customVariant,
   ...rest
 }: PropTypes) => {
@@ -29,7 +31,7 @@ const Button = ({
       {...rest}
       className={`${
         customVariant ? customVariant : variants[variant]
-      } block rounded-full bg-gradient-to-l from-[#EB6335] to-[#FFD300] px-8 py-3 text-center text-sm font-medium text-white hover:bg-transparent hover:text-white focus:outline-none focus:ring active:text-opacity-75 ${
+      } block ${squared? "rounded-lg": "rounded-full"} bg-gradient-to-l from-[#EB6335] to-[#FFD300] px-8 py-3 text-center text-sm font-medium text-white hover:bg-transparent hover:text-white focus:outline-none focus:ring active:text-opacity-75 ${
         fullWidth ? "w-full" : ""
       } rounded ${className? className: ""}`}
     >

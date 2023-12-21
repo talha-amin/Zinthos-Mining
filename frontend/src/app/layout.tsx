@@ -3,6 +3,7 @@ import { Quicksand } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import SmoothScroll from "./components/animation/SmoothScroll";
 
 const quicksand = Quicksand({ subsets: ["latin"] });
 
@@ -17,9 +18,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="overflow-x-hidden">
       <body className={`${quicksand.className} bg-black text-white`}>
         <div className="fixed z-50 inset-0 pointer-events-none bg-white/[7%]"></div>
+        <SmoothScroll />
         <Header />
         {children}
         <Footer />

@@ -1,6 +1,7 @@
 import React from "react";
 import Container from "../ui/Container";
 import Image from "next/image";
+import { ecosystem } from "@/app/data";
 
 const Ecosystem = () => {
   return (
@@ -16,21 +17,34 @@ const Ecosystem = () => {
         </div>
       </div>
       <Container>
-        <h2 className="text-6xl text-center font-semibold pb-2">Fennec ecosystem</h2>
+        <h2 className="text-6xl text-center font-semibold pb-2">
+          Fennec ecosystem
+        </h2>
         <div className="relative w-full h-5">
-          <Image src="/images/landing/section-title.svg" className="object-contain" fill alt="title vector shape" />
+          <Image
+            src="/images/landing/section-title.svg"
+            className="object-contain"
+            fill
+            alt="title vector shape"
+          />
         </div>
         <div className="grid grid-cols-4 gap-14 pt-12">
-          {Array.from({ length: 8 }).map((item, i) => {
+          {ecosystem.map(({ icon, title, desc }, i) => {
             return (
               <div
                 key={i}
-                className="bg-gradient-to-l from-[#EB6335] to-[#FFD300] rounded-3xl p-4 aspect-[1.5] w-full flex items-center justify-center flex-col text-center text-black"
+                className="bg-gradient-to-l h-full from-[#EB6335] to-[#FFD300] rounded-3xl px-4 pb-4 aspect-[1.5] w-full flex items-center justify-center flex-col text-center text-black"
               >
-                <span className="text-3xl font-bold uppercase">nft</span>
-                <p className="text-sm font-semibold capitalize">
-                  collect and complete your collection
-                </p>
+                <div className="relative w-24 aspect-square -translate-y-1/2 after:content-[''] after:absolute after:bottom-0 after:left-[50%] after:-translate-x-1/2 after:w-[75%] after:aspect-[4] after:bg-black after:blur-[8px] after:opacity-[35%] after:translate-y-full">
+                  <Image  
+                    fill
+                    className="object-contain"
+                    src={icon}
+                    alt="Ecosystem icons icon"
+                  />
+                </div>
+                <span className="text-xl font-bold uppercase -mt-4">{title}</span>
+                <p className="text-sm font-semibold capitalize">{desc}</p>
               </div>
             );
           })}

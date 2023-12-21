@@ -68,29 +68,33 @@ const Footer = () => {
                   />
                 </Link>
               </div>
-              <div className="flex items-center">
-                <Link
-                  className="relative aspect-square w-10 inline-block"
-                  href={"/"}
-                >
-                  <Image
-                    src="/images/icons/visa.svg"
-                    fill
-                    className="object-contain"
-                    alt="fb icon"
-                  />
-                </Link>
-                <Link
-                  className="relative aspect-square w-10 inline-block"
-                  href={"/"}
-                >
-                  <Image
-                    src="/images/icons/paypal.svg"
-                    fill
-                    className="object-contain"
-                    alt="fb icon"
-                  />
-                </Link>
+              <div className="flex items-center gap-3">
+                <div className="px-8 py-4 bg-white flex items-center justify-center rounded-lg">
+                  <Link
+                    className="relative aspect-[1.85] w-8 inline-block rounded-lg"
+                    href={"/"}
+                  >
+                    <Image
+                      src="/images/icons/visa.svg"
+                      fill
+                      className="object-contain"
+                      alt="fb icon"
+                    />
+                  </Link>
+                </div>
+                <div className="px-4 py-2 bg-white flex items-center justify-center rounded-lg">
+                  <Link
+                    className="relative aspect-[1.85] w-16 inline-block"
+                    href={"/"}
+                  >
+                    <Image
+                      src="/images/icons/paypal.svg"
+                      fill
+                      className="object-contain"
+                      alt="fb icon"
+                    />
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

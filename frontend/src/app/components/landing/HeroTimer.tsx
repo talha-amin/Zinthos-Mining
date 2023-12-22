@@ -40,14 +40,14 @@ const HeroTimer = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-4 items-center gap-3 mb-6 max-w-sm mx-auto">
+    <div className="grid grid-cols-4 items-center gap-1 md:gap-2 lg:gap-3 mb-6 max-w-sm mx-auto">
       {Object.entries(timeRemaining).map(([unit, value], i) => (
-        <div key={i} className="bg-gradient-to-b from-[#EB6335] to-[#FFD300] rounded-lg p-4 aspect-square w-full flex items-center justify-center flex-col">
+        <div key={i} className="bg-gradient-to-b from-[#EB6335] to-[#FFD300] rounded-lg lg:p-4 aspect-square w-full flex items-center justify-center flex-col">
           <span
-            className="text-3xl font-bold"
+            className="text-xl sm:text-2xl lg:text-3xl font-bold"
             dangerouslySetInnerHTML={{ __html: value }}
           />
-          <p className="text-sm font-semibold uppercase">{unit.toUpperCase()}</p>
+          <p className="text-[10px] sm:text-xs lg:text-sm font-semibold uppercase">{unit.toUpperCase()}</p>
         </div>
       ))}
     </div>

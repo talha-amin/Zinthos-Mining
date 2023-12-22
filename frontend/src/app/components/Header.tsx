@@ -86,11 +86,11 @@ const Header = () => {
   const pathname = usePathname();
 
   return (
-    <header className={`${!open ? `left-0 right-0 top-0` : ""} relative z-50 w-full -mb-[100px]`}>
+    <header className={`${!open ? `left-0 right-0 top-0` : ""} relative z-50 w-full h-[100px] -mb-[100px] flex items-center`}>
       <Container>
-        <nav className="flex items-center justify-between pb-5 pt-6">
+        <nav className="flex items-center justify-between">
           <div className="flex items-center gap-20">
-            <Link href="/" className="relative aspect-[16/5] h-10">
+            <Link href="/" className="relative aspect-square h-10">
               <Image fill src="logo.svg" alt="Logo" />
             </Link>
           </div>
@@ -134,7 +134,7 @@ const Header = () => {
             <Button>Connect Your Wallet</Button>
 
             <div
-              className="cursor-pointer text-3xl lg:hidden"
+              className="cursor-pointer text-xl lg:hidden"
               onClick={toggleMenu}
             >
               <FiMenu />
@@ -149,14 +149,14 @@ const Header = () => {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="fixed left-0 top-0 z-50 h-screen  w-full origin-top rounded-b-3xl bg-[#161321dd] bg-opacity-30 p-10 text-neutral-100 backdrop-blur-2xl backdrop-filter"
+            className="fixed left-0 top-0 z-50 h-screen w-full origin-top bg-darkGray p-5 text-neutral-300 text-neutral-100 backdrop-blur-2xl"
           >
             <div className="flex h-full flex-col">
               <div className="flex justify-between">
                 <div className="relative aspect-[2/1] h-10">
                   {/* <Image width={100} height={100} src="logo.svg" alt="Logo" /> */}
                 </div>
-                <p className="cursor-pointer text-3xl " onClick={toggleMenu}>
+                <p className="cursor-pointer text-xl " onClick={toggleMenu}>
                   <AiOutlineClose />
                 </p>
               </div>
@@ -165,7 +165,7 @@ const Header = () => {
                 initial="initial"
                 animate="open"
                 exit="initial"
-                className="font-lora flex h-full flex-col items-center justify-center gap-4 "
+                className="font-lora flex h-full flex-col items-center justify-center gap-2"
               >
                 {navLinks.map((link, index) => {
                   return (
@@ -204,7 +204,7 @@ const MobileNavLink = ({ title, href }: { title: string; href: string }) => {
   return (
     <motion.div
       variants={mobileLinkVars}
-      className="text-2xl font-medium uppercase tracking-widest sm:text-3xl md:text-4xl "
+      className="text-lg font-bold uppercase tracking-wider "
     >
       <Link href={href}>{title}</Link>
     </motion.div>

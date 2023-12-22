@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="overflow-x-hidden">
-      <body className={`${quicksand.className} bg-black text-white`}>
+      <body className={`${quicksand.className} bg-black text-white overflow-x-hidden`}>
         <div className="fixed z-50 inset-0 pointer-events-none bg-white/[7%]"></div>
         <SmoothScroll />
         <Header />

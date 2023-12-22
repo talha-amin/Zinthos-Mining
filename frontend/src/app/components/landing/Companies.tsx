@@ -28,26 +28,28 @@ const Companies = () => {
                 key={i}
                 variants={marqueeVariants}
                 animate="animate"
-                className="inline-flex min-w-full items-center justify-around gap-16 pr-16"
+                className="inline-flex flex-nowrap items-center justify-around gap-8 pr-8 lg:gap-16 lg:pr-16"
               >
                 {companies.map(({ logo }, i) => {
                   return (
                     <>
-                    <Image
-                      key={i}
-                      width={115}
-                      height={30}
-                      src={logo}
-                      className="object-contain"
-                      alt="google icon"
-                    />
-                    <Image
-                      width={115}
-                      height={30}
-                      src="/images/icons/aesterik.svg"
-                      className="object-contain"
-                      alt="google icon"
-                    />
+                    <div className="relative w-20 lg:w-32 aspect-square">
+                      <Image
+                        key={i}
+                        fill
+                        src={logo}
+                        className="object-contain"
+                        alt="google icon"
+                      />
+                    </div>
+                      <div className="relative aspect-square w-6 lg:w-10">
+                        <Image
+                          fill
+                          src="/images/icons/aesterik.svg"
+                          className="object-contain"
+                          alt="star symbol"
+                        />
+                      </div>
                     </>
                   );
                 })}

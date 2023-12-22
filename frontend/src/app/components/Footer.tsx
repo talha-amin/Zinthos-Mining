@@ -9,8 +9,8 @@ const Footer = () => {
         <div className="shadow-effect blur-[200px] aspect-square w-[200px]"></div>
       </div>
       <div className="max-w-7xl mx-auto pt-12 pb-5 px-4 sm:px-6 lg:pt-16 lg:px-8">
-        <div className="xl:grid xl:grid-cols-7 xl:gap-8">
-          <div className="xl:col-span-2">
+        <div className="grid md:grid-cols-7 gap-8">
+          <div className="md:col-span-2">
             <Image
               width={65}
               height={65}
@@ -23,7 +23,7 @@ const Footer = () => {
               eiusmod tempor.
             </p>
           </div>
-          <div className="flex content-center items-center justify-center gap-x-6 gap-y-4 flex-wrap col-span-3 text-lg font-bold text-neutral-300">
+          <div className="flex content-center items-center md:justify-center gap-x-6 gap-y-4 flex-wrap col-span-3 text-lg font-bold text-neutral-300">
             <Link href="/">Home</Link>
             <Link href="/">NFT Marketplace</Link>
             <Link href="/">Gaming Tournament</Link>
@@ -31,7 +31,7 @@ const Footer = () => {
             <Link href="/">Art Tournament </Link>
             <Link href="/">Roadmap</Link>
           </div>
-          <div className="col-span-2 flex justify-end">
+          <div className="col-span-2 flex md:justify-end">
             <div className="flex flex-col gap-4">
               <div className="flex items-center">
                 <Link

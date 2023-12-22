@@ -18,27 +18,27 @@ const Hero = () => {
         </div>
       </div>
       <Container>
-        <div className="grid grid-cols-5 items-center gap-8 pt-32">
-          <div className="col-span-3 flex flex-col gap-6">
-            <h1 className="text-6xl font-bold max-w-[20ch]">
+        <div className="grid lg:grid-cols-2 items-center gap-8 pt-32">
+          <div className="flex flex-col gap-6 text-center lg:text-start">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold xl:w-[20ch]">
               Revolutionizing <span className="text-primary">Crypto</span> and{" "}
               <span className="text-primary">Fintech</span> Products
             </h1>
-            <p className="font-bold max-w-[45ch] text-neutral-300">
+            <p className="font-bold max-w-[45ch] text-xs md:text-sm lg:text-base text-neutral-300 mx-auto lg:mx-0">
               Explore the Future of Finance with Innovative Solutions,
               Seamlessly Bridging Traditional and Digital Economies.
             </p>
           </div>
           {/* hero box */}
-          <div className="p-[1px] max-w-md overflow-hidden hero-box-wrapper w-full mt-5 col-span-2">
-            <div className="hero-box w-full bg-black p-6 text-white mx-auto w-full relative">
+          <div className="p-[1px] max-w-md mx-auto lg:ms-auto overflow-hidden hero-box-wrapper w-full mt-5">
+            <div className="hero-box w-full bg-black px-4 py-6 lg:p-6 text-white mx-auto w-full relative">
               <div className="absolute left-[50%] top-0 -translate-x-1/2 -translate-y-1/2 opacity-[65%] pointer-events-none">
                 <div className="shadow-effect blur-[150px] aspect-square w-[350px]"></div>
               </div>
               <h2 className="text-2xl font-bold text-center mb-4">
                 Buy In Before Price Increase
               </h2>
-              <p className="text-center text-lg font-bold mb-6">
+              <p className="text-center text-xs md:text-sm lg:text-lg font-bold mb-6">
                 STAGE 2: PUBLIC ROUND
               </p>
               <HeroTimer />

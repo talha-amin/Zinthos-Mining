@@ -7,7 +7,7 @@ const Tokenomics = () => {
   return (
     <section className="py-24">
       <Container>
-        <h2 className="text-6xl text-center font-semibold pb-2">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-center font-semibold pb-2">
           Fennec Tokenomics
         </h2>
         <div className="relative w-full h-5">
@@ -19,7 +19,7 @@ const Tokenomics = () => {
           />
         </div>
         <p className="text-center text-neutral-400">Fennec tokenomics drive ecosystem growth, balancing supply, demand, and utility for sustained value creation.</p>
-        <div className="grid grid-cols-2 items-center pt-12">
+        <div className="grid lg:grid-cols-2 items-center pt-12">
           <div className="relative w-full aspect-square">
             <Image
               fill

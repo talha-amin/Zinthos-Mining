@@ -5,15 +5,15 @@ import Button from "../ui/Button";
 const Contact = () => {
   return (
     <div className="text-white min-h-screen flex items-center justify-center p-4 pb-24">
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between w-full max-w-6xl">
-        <div className="flex flex-col space-y-6 md:w-1/2">
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between w-full max-w-6xl">
+        <div className="flex flex-col space-y-6 lg:w-1/2">
           <h1 className="text-5xl font-bold text-primary">Let&apos;s Talk</h1>
           <p className="text-neutral-300">
             If you have any questions about membership or usage, please fill out
             the form and our team will get back to you within 24 hours.
           </p>
           <div className="space-y-4">
-            <div className="flex items-center space-x-3 md:text-xl text-neutral-300">
+            <div className="flex items-center space-x-3 lg:text-xl text-neutral-300">
               <Image
                 width={40}
                 height={40}
@@ -23,7 +23,7 @@ const Contact = () => {
               />
               <span>kenzi.lawson@example.com</span>
             </div>
-            <div className="flex items-center space-x-3 md:text-xl text-neutral-300">
+            <div className="flex items-center space-x-3 lg:text-xl text-neutral-300">
               <Image
                 width={40}
                 height={40}
@@ -34,7 +34,7 @@ const Contact = () => {
 
               <span>(603) 555-0123</span>
             </div>
-            <div className="flex items-center space-x-3 md:text-xl text-neutral-300">
+            <div className="flex items-center space-x-3 lg:text-xl text-neutral-300">
               <Image
                 width={40}
                 height={40}
@@ -49,11 +49,11 @@ const Contact = () => {
             </div>
           </div>
         </div>
-        <div className="relative overflow-hidden bg-darkGray p-8 rounded-lg mt-10 md:mt-0 md:w-1/2 md:ml-10">
+        <div className="relative overflow-hidden bg-darkGray px-4 py-8 lg:p-8 rounded-xl mt-10 lg:mt-0 lg:w-1/2 lg:ml-10">
           <div className="absolute left-[50%] top-0 -translate-x-1/2 -translate-y-1/2 opacity-[65%] pointer-events-none">
             <div className="shadow-effect blur-[150px] aspect-square w-[200px]"></div>
           </div>
-          <h2 className="text-2xl font-bold text-white mb-6 text-center">
+          <h2 className="text-xl lg:text-2xl font-bold text-white mb-6 text-center">
             Say Something
           </h2>
           <form className="flex flex-col space-y-4">

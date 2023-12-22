@@ -64,8 +64,8 @@ const Hero = () => {
                 <span className="text-xs whitespace-nowrap">Instant Buy</span>
                 <hr className="h-[1px] bg-white w-full" />
               </div>
-              <div className="text-white flex justify-between px-6 items-center mb-6  mx-auto">
-                <button className="inline-flex gap-3 items-center justify-center rounded-md text-sm font-medium ring ring-1 ring-white h-10 px-4 py-2">
+              <div className="text-white flex justify-between sm:px-6 items-center mb-6  mx-auto">
+                <button className="inline-flex gap-3 items-center justify-center rounded-md text-xs sm:text-sm font-medium ring ring-1 ring-white h-10 px-2 sm:px-4 py-1 sm:py-2">
                   <Image
                     width={20}
                     height={20}
@@ -75,7 +75,7 @@ const Hero = () => {
                   />{" "}
                   ETH
                 </button>
-                <button className="inline-flex gap-3 items-center justify-center rounded-md text-sm font-medium ring ring-1 ring-white h-10 px-4 py-2">
+                <button className="inline-flex gap-3 items-center justify-center rounded-md text-xs sm:text-sm font-medium ring ring-1 ring-white h-10 px-2 sm:px-4 py-1 sm:py-2">
                   <Image
                     width={20}
                     height={20}
@@ -85,7 +85,7 @@ const Hero = () => {
                   />{" "}
                   USDT
                 </button>
-                <button className="inline-flex gap-3 items-center justify-center rounded-md text-sm font-medium ring ring-1 ring-white h-10 px-4 py-2">
+                <button className="inline-flex gap-3 items-center justify-center rounded-md text-xs sm:text-sm font-medium ring ring-1 ring-white h-10 px-2 sm:px-4 py-1 sm:py-2">
                   <Image
                     width={20}
                     height={20}

@@ -43,10 +43,6 @@ const Hero = () => {
               </p>
               <HeroTimer />
               <div className=" mx-auto">
-                <div className="flex justify-between items-center h-6 mb-1">
-                  <span className="text-xs">SOFTCAP</span>
-                  <span className="text-xs">HARDCAP</span>
-                </div>
                 <div className="bg-white h-6 rounded-full mb-4">
                   <div
                     className="bg-gradient-to-l from-[#FFD300] to-[#EB6335] h-full rounded-full"
@@ -59,45 +55,92 @@ const Hero = () => {
                   USDT RAISED: $5,161,020.05 / $5,828,309
                 </span>
               </div>
-              <div className="flex items-center gap-5 md:gap-4 mb-6  mx-auto md:px-5">
+              <div className="flex items-center gap-5 md:gap-4 mb-6  mx-auto">
                 <hr className="h-[1px] bg-white w-full" />
                 <span className="text-xs whitespace-nowrap">Instant Buy</span>
                 <hr className="h-[1px] bg-white w-full" />
               </div>
-              <div className="text-white flex justify-between sm:px-6 items-center mb-6  mx-auto">
-                <button className="inline-flex gap-3 items-center justify-center rounded-md text-xs sm:text-sm font-medium ring ring-1 ring-white h-10 px-2 sm:px-4 py-1 sm:py-2">
-                  <Image
-                    width={20}
-                    height={20}
-                    className="object-contain"
-                    src="/images/icons/eth.svg"
-                    alt="ethereum Icon"
-                  />{" "}
+              <div className="text-white grid grid-cols-3 gap-5 sm:gap-8 items-center mb-6  mx-auto">
+                <button className="inline-flex gap-1 sm:gap-3 items-center justify-center rounded-md text-[9px] sm:text-sm font-medium ring ring-[.75px] ring-white h-10 px-2 sm:px-4 py-1 sm:py-2">
+                  <div className="h-[75%] sm:h-full aspect-square relative">
+                    <Image
+                      fill
+                      className="object-contain"
+                      src="/images/icons/eth.svg"
+                      alt="ethereum Icon"
+                    />{" "}
+                  </div>{" "}
                   ETH
                 </button>
-                <button className="inline-flex gap-3 items-center justify-center rounded-md text-xs sm:text-sm font-medium ring ring-1 ring-white h-10 px-2 sm:px-4 py-1 sm:py-2">
-                  <Image
-                    width={20}
-                    height={20}
-                    className="object-contain"
-                    src="/images/icons/usdt.svg"
-                    alt="ethereum Icon"
-                  />{" "}
+                <button className="inline-flex gap-1 sm:gap-3 items-center justify-center rounded-md text-[9px] sm:text-sm font-medium ring ring-[.75px] ring-white h-10 px-2 sm:px-4 py-1 sm:py-2">
+                  <div className="h-[75%] sm:h-full aspect-square relative">
+                    <Image
+                      fill
+                      className="object-contain"
+                      src="/images/icons/usdt.svg"
+                      alt="ethereum Icon"
+                    />{" "}
+                  </div>{" "}
                   USDT
                 </button>
-                <button className="inline-flex gap-3 items-center justify-center rounded-md text-xs sm:text-sm font-medium ring ring-1 ring-white h-10 px-2 sm:px-4 py-1 sm:py-2">
-                  <Image
-                    width={20}
-                    height={20}
-                    className="object-contain"
-                    src="/images/icons/visa.svg"
-                    alt="ethereum Icon"
-                  />{" "}
+                <button className="inline-flex gap-1 sm:gap-3 items-center justify-center rounded-md text-[9px] sm:text-sm font-medium ring ring-[.75px] ring-white h-10 px-2 sm:px-4 py-1 sm:py-2">
+                  <div className="h-[75%] sm:h-full aspect-square relative">
+                    <Image
+                      fill
+                      className="object-contain"
+                      src="/images/icons/visa.svg"
+                      alt="ethereum Icon"
+                    />{" "}
+                  </div>{" "}
                   Card
                 </button>
               </div>
-              <div className="flex justify-center">
-                <Button fullWidth className="">
+              <div className="grid grid-cols-2 gap-3">
+                <div className="flex flex-col gap-1">
+                  <label htmlFor="ethAmount" className="text-xs">
+                    Pay with Eth
+                  </label>
+                  <div className="inline-flex gap-3 items-center justify-center rounded-md text-xs sm:text-sm font-medium ring ring-[.75px] ring-white h-10 px-2 sm:px-4 py-1 sm:py-2">
+                    <input
+                      id="ethAmount"
+                      type="number"
+                      className="w-fit min-w-0 bg-transparent focus:outline-none"
+                      placeholder="0"
+                    />
+                    <div className="h-full aspect-square relative">
+                      <Image
+                        fill
+                        className="object-contain"
+                        src="/images/icons/eth.svg"
+                        alt="ethereum Icon"
+                      />{" "}
+                    </div>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-1">
+                  <label htmlFor="ethAmount" className="text-xs">
+                    Receive Fennec
+                  </label>
+                  <div className="inline-flex gap-3 items-center justify-center rounded-md text-xs sm:text-sm font-medium ring ring-[.75px] ring-white h-10 px-2 sm:px-4 py-1 sm:py-2">
+                    <input
+                      id="ethAmount"
+                      type="number"
+                      className="w-fit min-w-0 bg-transparent focus:outline-none"
+                      placeholder="0"
+                    />
+                    <div className="h-full aspect-square relative">
+                      <Image
+                        fill
+                        className="object-contain"
+                        src="/logo.svg"
+                        alt="ethereum Icon"
+                      />{" "}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="flex justify-center mt-8">
+                <Button fullWidth className="" >
                   Buy Fennec
                 </Button>
               </div>

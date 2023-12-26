@@ -44,7 +44,7 @@ const HeroTimer = () => {
       {Object.entries(timeRemaining).map(([unit, value], i) => (
         <div key={i} className="bg-gradient-to-b from-[#EB6335] to-[#FFD300] rounded-lg lg:p-4 aspect-square w-full flex items-center justify-center flex-col">
           <span
-            className="text-xl sm:text-2xl lg:text-3xl font-bold"
+            className="text-2xl sm:text-2xl lg:text-3xl font-bold"
             dangerouslySetInnerHTML={{ __html: value }}
           />
           <p className="text-[10px] sm:text-xs lg:text-sm font-semibold uppercase">{unit.toUpperCase()}</p>

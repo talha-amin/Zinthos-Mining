@@ -7,7 +7,7 @@ import { motion, useAnimation, useInView } from "framer-motion";
 
 const Ecosystem = () => {
   const showRef = useRef(null);
-  const isInView = useInView(showRef, { amount: 0.3 });
+  const isInView = useInView(showRef);
   const mainControls = useAnimation();
 
   useEffect(() => {

@@ -1,6 +1,7 @@
 "use client";
 import React, { ReactNode } from "react";
 import { motion } from "framer-motion";
+import useMobileDetect from "@/app/hooks/useMobileDetect";
 
 type Props = {
   children: ReactNode;
@@ -9,11 +10,13 @@ type Props = {
 };
 
 function Fade({ children, left = false, className = "" }: Props) {
+  const isMobile = useMobileDetect();
+  const x = isMobile ? 0 : left ? -100 : 100;
   return (
     <motion.div
       className={className}
       initial={{
-        x: left ? -100 : 100,
+        x,
         opacity: 0,
       }}
       whileInView={{

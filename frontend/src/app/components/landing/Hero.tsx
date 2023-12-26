@@ -3,6 +3,7 @@ import React from "react";
 import HeroTimer from "./HeroTimer";
 import Button from "../ui/Button";
 import Container from "../ui/Container";
+import Fade from "../animation/Fade";
 
 const Hero = () => {
   return (
@@ -19,7 +20,7 @@ const Hero = () => {
       </div>
       <Container>
         <div className="grid lg:grid-cols-2 items-center gap-8 pt-32">
-          <div className="flex flex-col gap-6 text-center lg:text-start">
+          <Fade left className="flex flex-col gap-6 text-center lg:text-start">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold xl:w-[20ch]">
               Revolutionizing <span className="text-primary">Crypto</span> and{" "}
               <span className="text-primary">Fintech</span> Products
@@ -28,9 +29,9 @@ const Hero = () => {
               Explore the Future of Finance with Innovative Solutions,
               Seamlessly Bridging Traditional and Digital Economies.
             </p>
-          </div>
+          </Fade>
           {/* hero box */}
-          <div className="p-[1px] max-w-md mx-auto lg:ms-auto overflow-hidden hero-box-wrapper w-full mt-5">
+          <Fade className="p-[1px] max-w-md mx-auto lg:ms-auto overflow-hidden hero-box-wrapper w-full mt-5">
             <div className="hero-box w-full bg-black px-4 py-6 lg:p-6 text-white mx-auto w-full relative">
               <div className="absolute left-[50%] top-0 -translate-x-1/2 -translate-y-1/2 opacity-[65%] pointer-events-none">
                 <div className="shadow-effect blur-[150px] aspect-square w-[350px]"></div>
@@ -140,12 +141,12 @@ const Hero = () => {
                 </div>
               </div>
               <div className="flex justify-center mt-8">
-                <Button fullWidth className="" >
+                <Button fullWidth className="">
                   Buy Fennec
                 </Button>
               </div>
             </div>
-          </div>
+          </Fade>
         </div>
       </Container>
     </section>

@@ -143,3 +143,41 @@ export const ecosystem = [
     desc: "comming Soon & mores",
   },
 ];
+
+export const staggeredPop = {
+  initial: (index: number) => ({
+    opacity: 0,
+    scale: 0,
+    transition: {
+      delay: 0,
+      duration: 0.25,
+    },
+  }),
+  animate: (index: number) => ({
+    opacity: 1,
+    scale: 1,
+    transition: {
+      delay: 0.05 * index,
+      duration: 0.25,
+    },
+  }),
+};
+
+export const staggeredSlide = {
+  initial: (index: number) => ({
+    opacity: 0,
+    x: 100,
+    transition: {
+      delay: 0,
+      duration: 0.25,
+    },
+  }),
+  animate: (index: number) => ({
+    opacity: 1,
+    x: 0,
+    transition: {
+      delay: 0.1 * index,
+      duration: 0.25,
+    },
+  }),
+};

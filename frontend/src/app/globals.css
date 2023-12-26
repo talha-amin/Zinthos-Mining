@@ -29,23 +29,34 @@
 
 }
 
-.shadow-effect::after {
+.shadow-effect::after{
   content: "";
   position: absolute;
   inset: 0; 
   z-index: -1; 
-  background: radial-gradient(circle, #eb6335, #ffd300);
+  background: radial-gradient(circle, #EB6335, #FFD300);
   border-radius: 50%;
 }
+
 
 .primary-shadow::after{
   content: "";
   position: absolute;
   inset: 0; 
   z-index: -1; 
-  background: radial-gradient(circle, #981B001A, #FFB8001A);
+  background: radial-gradient(circle, #FC483033, #FFB80033);
   border-radius: 50%;
 }
+
+.primary-shadow::before {
+  content: "";
+  position: absolute;
+  inset: 0; 
+  z-index: -1; 
+  background: radial-gradient(circle, #FF4F1800, #FF4117);
+  border-radius: 50%;
+}
+
 
 
 .hero-box-wrapper {

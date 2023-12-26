@@ -1,12 +1,13 @@
 import Image from "next/image";
 import React from "react";
 import Button from "../ui/Button";
+import Fade from "../animation/Fade";
 
 const Contact = () => {
   return (
     <div className="text-white min-h-screen flex items-center justify-center p-4 pb-24">
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between w-full max-w-6xl">
-        <div className="flex flex-col space-y-6 lg:w-1/2">
+        <Fade left className="flex flex-col space-y-6 lg:w-1/2">
           <h1 className="text-5xl font-bold text-primary">Let&apos;s Talk</h1>
           <p className="text-neutral-300">
             If you have any questions about membership or usage, please fill out
@@ -48,10 +49,10 @@ const Contact = () => {
               </span>
             </div>
           </div>
-        </div>
-        <div className="relative overflow-hidden bg-darkGray px-4 py-8 lg:p-8 rounded-xl mt-10 lg:mt-0 lg:w-1/2 lg:ml-10">
-          <div className="absolute left-[50%] top-0 -translate-x-1/2 -translate-y-1/2 opacity-[65%] pointer-events-none">
-            <div className="shadow-effect blur-[150px] aspect-square w-[200px]"></div>
+        </Fade>
+        <Fade className="relative overflow-hidden bg-darkGray px-4 py-8 lg:p-8 rounded-xl mt-10 lg:mt-0 lg:w-1/2 lg:ml-10">
+          <div className="absolute left-[50%] top-0 -translate-x-1/2 -translate-y-1/2 opacity-25 pointer-events-none">
+            <div className="shadow-effect blur-[150px] aspect-square w-[300px]"></div>
           </div>
           <h2 className="text-xl lg:text-2xl font-bold text-white mb-6 text-center">
             Say Something
@@ -92,10 +93,10 @@ const Contact = () => {
               className="resize-none h-32 ring ring-1 ring-white/25 flex h-12 w-full rounded-md px-3 py-2 text-sm bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
             ></textarea>
             <div className="flex justify-center">
-            <Button squared>Submit</Button>
+              <Button squared>Submit</Button>
             </div>
           </form>
-        </div>
+        </Fade>
       </div>
     </div>
   );

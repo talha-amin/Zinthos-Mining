@@ -1,7 +1,9 @@
-import React from "react";
+"use client";
+import React, { useEffect, useRef } from "react";
 import Container from "../ui/Container";
 import Image from "next/image";
 import { tokenomics } from "@/app/data";
+import Fade from "../animation/Fade";
 
 const Tokenomics = () => {
   return (
@@ -18,17 +20,23 @@ const Tokenomics = () => {
             alt="title vector shape"
           />
         </div>
-        <p className="text-center text-neutral-400">Fennec tokenomics drive ecosystem growth, balancing supply, demand, and utility for sustained value creation.</p>
+        <p className="text-center text-neutral-400">
+          Fennec tokenomics drive ecosystem growth, balancing supply, demand,
+          and utility for sustained value creation.
+        </p>
         <div className="grid lg:grid-cols-2 items-center pt-12">
-          <div className="relative w-full aspect-square">
+          <Fade left className="relative w-full aspect-square">
+            <div className="absolute pointer-events-none flex items-start justify-center opacity-[40%] w-full h-full">
+              <div className="primary-shadow blur-[100px] h-[75%] w-[75%]"></div>
+            </div>
             <Image
               fill
               src="/images/landing/tokenomics.png"
               className="object-contain"
               alt="tokenomics chart"
             />
-          </div>
-          <div>
+          </Fade>
+          <Fade>
             <ul className="flex flex-col gap-3">
               {tokenomics.map(({ label, value, tokens, colorClass }, i) => {
                 return (
@@ -48,7 +56,7 @@ const Tokenomics = () => {
                 );
               })}
             </ul>
-          </div>
+          </Fade>
         </div>
       </Container>
     </section>

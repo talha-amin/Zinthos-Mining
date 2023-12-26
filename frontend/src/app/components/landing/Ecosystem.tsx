@@ -1,9 +1,24 @@
-import React from "react";
+"use client"
+import React, { useEffect, useRef } from "react";
 import Container from "../ui/Container";
 import Image from "next/image";
-import { ecosystem } from "@/app/data";
+import { ecosystem, staggeredPop } from "@/app/data";
+import { motion, useAnimation, useInView } from "framer-motion";
 
 const Ecosystem = () => {
+  const showRef = useRef(null);
+  const isInView = useInView(showRef, { amount: 0.3 });
+  const mainControls = useAnimation();
+
+  useEffect(() => {
+    if (isInView) {
+      mainControls.start("animate");
+    } else {
+      mainControls.start("initial");
+    }
+  }, [isInView]);
+
+
   return (
     <section className="relative min-h-screen flex items-center">
       <div className="absolute pointer-events-none left-[50%] top-[50%] -translate-y-1/2 -translate-x-1/2 -z-10  w-full max-w-md">
@@ -28,12 +43,16 @@ const Ecosystem = () => {
             alt="title vector shape"
           />
         </div>
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-14 pt-12">
+        <div ref={showRef} className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-14 pt-12">
           {ecosystem.map(({ icon, title, desc }, i) => {
             return (
-              <div
+              <motion.div
                 key={i}
                 className="bg-gradient-to-l max-w-[17rem] mx-auto h-full from-[#EB6335] to-[#FFD300] rounded-3xl px-4 pb-4 aspect-[1.5] w-full flex items-center justify-center flex-col text-center text-black"
+                variants={staggeredPop}
+                initial="initial"
+                animate={mainControls}
+                custom={i}
               >
                 <div className="relative w-24 aspect-square -translate-y-1/2 after:content-[''] after:absolute after:bottom-0 after:left-[50%] after:-translate-x-1/2 after:w-[75%] after:aspect-[4] after:bg-black after:blur-[8px] after:opacity-[35%] after:translate-y-full">
                   <Image  
@@ -45,7 +64,7 @@ const Ecosystem = () => {
                 </div>
                 <span className="text-xl font-bold uppercase -mt-4">{title}</span>
                 <p className="text-sm font-semibold capitalize">{desc}</p>
-              </div>
+              </motion.div>
             );
           })}
         </div>

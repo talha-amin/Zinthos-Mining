@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useAnimation, useInView, motion } from "framer-motion";
 import { FaChevronDown } from "react-icons/fa6";
 import Container from "../ui/Container";
+import { staggeredSlide } from "@/app/data";
 
 const faqs = [
   {
@@ -46,27 +47,10 @@ const FAQs = () => {
     }
   }, [isInView]);
 
-  const animVars = {
-    initial: (index: number) => ({
-      x: "150%",
-      transition: {
-        delay: 0.05 * index,
-        duration: 0.75,
-      },
-    }),
-    animate: (index: number) => ({
-      x: 0,
-      transition: {
-        delay: 0.05 * index,
-        duration: 0.75,
-      },
-    }),
-  };
-
   return (
     <section className="relative py-20 ">
       <div className="absolute left-[50%] right-0 translate-x-1/2 -translate-y-1/2 pointer-events-none">
-        <div className="primary-shadow blur-[150px] aspect-square w-[600px]"></div>
+        <div className="primary-shadow blur-[150px] opacity-25 aspect-square w-[600px]"></div>
       </div>
       <Container>
         <div className="relative z-10 flex flex-col items-center justify-center text-center">
@@ -92,7 +76,14 @@ const FAQs = () => {
           >
             {faqs.map(({ summary, details }, index) => {
               return (
-                <div key={index} className="rounded-2xl">
+                <motion.div
+                  variants={staggeredSlide}
+                  initial="initial"
+                  animate={mainControls}
+                  custom={index}
+                  key={index}
+                  className="rounded-2xl"
+                >
                   <details className="border-1 group open:border-[#EB63354D] rounded-2xl border border-[#424141] bg-black px-5 py-3 text-sm text-neutral-400 transition duration-300 sm:text-lg md:px-6 md:py-4 [&_summary::-webkit-details-marker]:hidden">
                     <summary className="flex cursor-pointer items-center justify-between gap-1.5 rounded-[0.5rem] duration-200">
                       <h2 className="font-medium group-open:text-white">
@@ -105,7 +96,7 @@ const FAQs = () => {
                       {details}
                     </p>
                   </details>
-                </div>
+                </motion.div>
               );
             })}
           </div>

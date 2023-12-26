@@ -1,15 +1,42 @@
-import React from "react";
+"use client";
+import React, { useEffect, useRef } from "react";
 import Container from "../ui/Container";
 import Image from "next/image";
 import { roadmap } from "@/app/data";
+import { motion, useAnimation, useInView } from "framer-motion";
 
 const Roadmap = () => {
+  const showRef = useRef(null);
+  const hideRef = useRef(null);
+  const isInView = useInView(showRef);
+  const notHiding = useInView(hideRef);
+
+  const mainControls = useAnimation();
+
+  useEffect(() => {
+    if (isInView) {
+      mainControls.start("animate");
+    } else if (!notHiding) {
+      mainControls.start("initial");
+    }
+  }, [isInView, notHiding]);
+
+  const imageVars = {
+    initial: { rotateY: -15 },
+    animate: {
+      rotateY: 0,
+      transition: {
+        duration: 1,
+      },
+    },
+  };
+
   return (
-    <section className="relative">
+    <section className="relative" ref={showRef}>
       <div className="absolute left-[50%] top-[50%] -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-        <div className="primary-shadow blur-[150px] aspect-square w-[600px]"></div>
+        <div className="primary-shadow blur-[150px] opacity-[30%] aspect-square w-[600px]"></div>
       </div>
-      <Container>
+      <Container style={{perspective: "300px"}}>
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-center font-semibold pb-2">
           Fennnec Roadmap
         </h2>
@@ -25,7 +52,12 @@ const Roadmap = () => {
           Fennec tokenomics drive ecosystem growth, balancing supply, demand,
           and utility for sustained value creation.
         </p>
-        <div className="space-y-8 relative mt-12 before:hidden lg:before:block before:absolute before:inset-0 before:ml-5 before:-translate-x-px lg:before:mx-auto lg:before:translate-x-0 before:h-full before:w-0.5 before:bg-white">
+        <motion.div
+          variants={imageVars}
+          initial="initial"
+          animate={mainControls}
+          className="space-y-8 relative mt-12 before:hidden lg:before:block before:absolute before:inset-0 before:ml-5 before:-translate-x-px lg:before:mx-auto lg:before:translate-x-0 before:h-full before:w-0.5 before:bg-white"
+        >
           {roadmap.map(({ title, desc, img }, i) => {
             return (
               <div
@@ -61,13 +93,22 @@ const Roadmap = () => {
                     />
                   </div>
                   <div className="relative aspect-square w-72 hidden lg:inline-block">
-                    <Image src={img} fill alt="roadmap item image" className="object-contain"/>
+                    <Image
+                      src={img}
+                      fill
+                      alt="roadmap item image"
+                      className="object-contain"
+                    />
                   </div>
                   <div>
                     <div className="flex items-center justify-between space-x-2 mb-1">
-                      <div className="font-semibold text-2xl lg:text-3xl mx-auto lg:mx-0">{title}</div>
+                      <div className="font-semibold text-2xl lg:text-3xl mx-auto lg:mx-0">
+                        {title}
+                      </div>
                     </div>
-                    <div className="lg:text-lg font-light font-medium">{desc}</div>
+                    <div className="lg:text-lg font-light font-medium">
+                      {desc}
+                    </div>
                   </div>
                 </div>
                 <hr className="lg:w-1/5 h-[1px] bg-white hidden lg:block" />
@@ -76,7 +117,7 @@ const Roadmap = () => {
               </div>
             );
           })}
-        </div>
+        </motion.div>
       </Container>
     </section>
   );

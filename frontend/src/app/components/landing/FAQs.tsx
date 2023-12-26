@@ -8,11 +8,6 @@ import { staggeredSlide } from "@/app/data";
 
 const faqs = [
   {
-    summary: "What is the primary aim of Degen Forest?",
-    details:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vehicula massa in enim luctus. Rutrum arcu.Risus habitant leo egestas mauris diam eget morbi tempus vulputate. Et orci sagittis posuere.",
-  },
-  {
     summary: "dui consequat a pellentesque?",
     details:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vehicula massa in enim luctus. Rutrum arcu.Risus habitant leo egestas mauris diam eget morbi tempus vulputate. Et orci sagittis posuere.",

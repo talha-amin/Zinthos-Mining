@@ -129,7 +129,7 @@ export const ecosystem = [
   },
   {
     icon: "/images/landing/eco-6.png",
-    title: "battel Game",
+    title: "Battle Game",
     desc: "chance for Victory & Earn",
   },
   {

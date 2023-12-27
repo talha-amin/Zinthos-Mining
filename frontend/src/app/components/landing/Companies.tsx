@@ -19,7 +19,7 @@ const Companies = () => {
   };
 
   return (
-    <section className="mt-12 w-full ">
+    <section className="mt-12 w-full max-w-screen-2xl mx-auto">
       <div className="bg-neutralcolor py-12">
         <div className="relative w-full gap-20 overflow-hidden whitespace-nowrap">
           {Array.from({ length: 2 }).map((item, i) => {

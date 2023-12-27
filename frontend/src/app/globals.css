@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .sec-p-y {
+    @apply py-14 md:py-24
+  }
+/* 
+  .sec-gap{
+    @apply gap-6 md:gap-12 lg:gap-32
+  } */
+}
+
+
 /* For Chrome, Safari, and Opera */
 ::-webkit-scrollbar {
   width: 12px; /* Width of the scrollbar */

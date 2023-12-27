@@ -32,7 +32,7 @@ const Roadmap = () => {
   };
 
   return (
-    <section className="relative" ref={showRef}>
+    <section className="relative sec-p-y" ref={showRef}>
       <div className="absolute left-[50%] top-[50%] -translate-x-1/2 -translate-y-1/2 pointer-events-none">
         <div className="primary-shadow blur-[150px] opacity-[30%] aspect-square w-[600px]"></div>
       </div>

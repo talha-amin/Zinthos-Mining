@@ -43,7 +43,7 @@ const FAQs = () => {
   }, [isInView]);
 
   return (
-    <section className="relative py-20 ">
+    <section className="relative sec-p-y">
       <div className="absolute left-[50%] right-0 translate-x-1/2 -translate-y-1/2 pointer-events-none">
         <div className="primary-shadow blur-[150px] opacity-25 aspect-square w-[600px]"></div>
       </div>

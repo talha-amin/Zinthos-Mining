@@ -20,7 +20,7 @@ const Ecosystem = () => {
 
 
   return (
-    <section className="relative min-h-screen flex items-center">
+    <section className="relative sec-p-y flex items-center">
       <div className="absolute pointer-events-none left-[50%] top-[50%] -translate-y-1/2 -translate-x-1/2 -z-10  w-full max-w-md">
         <div className="relative w-full aspect-square">
           <Image

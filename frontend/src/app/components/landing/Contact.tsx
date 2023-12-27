@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { FADE_UP_ANIMATION_VARIANTS } from "@/app/data";
 const Contact = () => {
   return (
-    <div className="text-white min-h-screen flex items-center justify-center p-4 pb-24">
+    <div className="text-white sec-p-y flex items-center justify-center px-4">
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between w-full max-w-6xl">
         <motion.div
           initial="hidden"

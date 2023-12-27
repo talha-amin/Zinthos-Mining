@@ -20,7 +20,7 @@ const Tokenomics = () => {
   }, [isInView]);
 
   return (
-    <section className="py-24">
+    <section className="sec-p-y">
       <Container>
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-center font-semibold pb-2">
           Fennec Tokenomics

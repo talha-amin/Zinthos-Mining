@@ -2,7 +2,7 @@
 import React, { useEffect, useRef } from "react";
 import Container from "../ui/Container";
 import Image from "next/image";
-import { roadmap } from "@/app/data";
+import { FADE_UP_ANIMATION_VARIANTS, roadmap } from "@/app/data";
 import { motion, useAnimation, useInView } from "framer-motion";
 
 const Roadmap = () => {
@@ -36,7 +36,7 @@ const Roadmap = () => {
       <div className="absolute left-[50%] top-[50%] -translate-x-1/2 -translate-y-1/2 pointer-events-none">
         <div className="primary-shadow blur-[150px] opacity-[30%] aspect-square w-[600px]"></div>
       </div>
-      <Container style={{perspective: "576px"}}>
+      <Container style={{ perspective: "576px" }}>
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-center font-semibold pb-2">
           Fennnec Roadmap
         </h2>
@@ -100,16 +100,33 @@ const Roadmap = () => {
                       className="object-contain"
                     />
                   </div>
-                  <div>
-                    <div className="flex items-center justify-between space-x-2 mb-1">
+                  <motion.div
+                    initial="hidden"
+                    whileInView="show"
+                    variants={{
+                      hidden: {},
+                      show: {
+                        transition: {
+                          staggerChildren: 0.25,
+                        },
+                      },
+                    }}
+                  >
+                    <motion.div
+                      variants={FADE_UP_ANIMATION_VARIANTS}
+                      className="flex items-center justify-between space-x-2 mb-1"
+                    >
                       <div className="font-semibold text-2xl lg:text-3xl mx-auto lg:mx-0">
                         {title}
                       </div>
-                    </div>
-                    <div className="lg:text-lg font-light font-medium">
+                    </motion.div>
+                    <motion.div
+                      variants={FADE_UP_ANIMATION_VARIANTS}
+                      className="lg:text-lg font-light font-medium"
+                    >
                       {desc}
-                    </div>
-                  </div>
+                    </motion.div>
+                  </motion.div>
                 </div>
                 <hr className="lg:w-1/5 h-[1px] bg-white hidden lg:block" />
                 {/* MOBILE ONLY small LINE */}

@@ -92,7 +92,7 @@ const Contact = () => {
               },
             },
           }}
-          className="relative overflow-hidden bg-darkGray px-4 py-8 lg:p-8 rounded-xl mt-10 lg:mt-0 lg:w-1/2 lg:ml-10"
+          className="relative overflow-hidden bg-darkGray/25 px-4 py-8 lg:p-8 rounded-xl mt-10 lg:mt-0 lg:w-1/2 lg:ml-10"
         >
           <div className="absolute left-[50%] top-0 -translate-x-1/2 -translate-y-1/2 opacity-25 pointer-events-none">
             <div className="shadow-effect blur-[150px] aspect-square w-[300px]"></div>

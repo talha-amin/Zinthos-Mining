@@ -16,12 +16,12 @@ function Fade({ children, left = false, className = "" }: Props) {
     <motion.div
       className={className}
       initial={{
-        x,
+        y: -30,
         opacity: 0,
       }}
       whileInView={{
         opacity: 1,
-        x: 0, // Slide in to its original position
+        y: 0, // Slide in to its original position
         transition: {
           duration: 1, // Animation duration
         },

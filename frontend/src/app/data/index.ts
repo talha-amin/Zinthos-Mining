@@ -146,7 +146,7 @@ export const ecosystem = [
 
 export const staggeredPop = {
   initial: (index: number) => ({
-    opacity: 0,
+    opacity: 0.5,
     scale: 0,
     transition: {
       delay: 0,
@@ -157,8 +157,8 @@ export const staggeredPop = {
     opacity: 1,
     scale: 1,
     transition: {
-      delay: 0.05 * index,
-      duration: 0.25,
+      delay: 0.1 * index,
+      duration: 0.1,
     },
   }),
 };
@@ -181,3 +181,8 @@ export const staggeredSlide = {
     },
   }),
 };
+
+ export  const FADE_UP_ANIMATION_VARIANTS = {
+    hidden: { opacity: 0, y: 10 },
+    show: { opacity: 1, y: 0, transition: { type: "spring" } },
+  };

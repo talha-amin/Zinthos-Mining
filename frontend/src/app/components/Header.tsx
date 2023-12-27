@@ -101,7 +101,7 @@ const Header = () => {
                   data-text={link.title}
                   key={index}
                   href={link.href}
-                  className={`chain-link text-sm duration-200 rounded-full px-4 py-2 ${
+                  className={`chain-link text-sm duration-200 hover:text-white rounded-full px-4 py-2 ${
                     pathname == link.href ? "lg:bg-neutral-700" : ""
                   }`}
                 >

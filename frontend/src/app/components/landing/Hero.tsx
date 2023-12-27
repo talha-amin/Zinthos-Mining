@@ -1,9 +1,12 @@
+"use client";
 import Image from "next/image";
 import React from "react";
 import HeroTimer from "./HeroTimer";
 import Button from "../ui/Button";
 import Container from "../ui/Container";
 import Fade from "../animation/Fade";
+import { motion } from "framer-motion";
+import { FADE_UP_ANIMATION_VARIANTS } from "@/app/data";
 
 const Hero = () => {
   return (
@@ -20,16 +23,34 @@ const Hero = () => {
       </div>
       <Container>
         <div className="grid lg:grid-cols-2 items-center gap-8 pt-32">
-          <Fade left className="flex flex-col gap-6 text-center lg:text-start">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold xl:w-[20ch]">
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            variants={{
+              hidden: {},
+              show: {
+                transition: {
+                  staggerChildren: 0.25,
+                },
+              },
+            }}
+            className="flex flex-col gap-6 text-center lg:text-start"
+          >
+            <motion.h1
+              variants={FADE_UP_ANIMATION_VARIANTS}
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold xl:w-[20ch]"
+            >
               Revolutionizing <span className="text-primary">Crypto</span> and{" "}
               <span className="text-primary">Fintech</span> Products
-            </h1>
-            <p className="font-bold max-w-[45ch] text-xs md:text-sm lg:text-base text-neutral-300 mx-auto lg:mx-0">
+            </motion.h1>
+            <motion.p
+              variants={FADE_UP_ANIMATION_VARIANTS}
+              className="font-bold max-w-[45ch] text-xs md:text-sm lg:text-base text-neutral-300 mx-auto lg:mx-0"
+            >
               Explore the Future of Finance with Innovative Solutions,
               Seamlessly Bridging Traditional and Digital Economies.
-            </p>
-          </Fade>
+            </motion.p>
+          </motion.div>
           {/* hero box */}
           <Fade className="p-[1px] max-w-md mx-auto lg:ms-auto overflow-hidden hero-box-wrapper w-full mt-5">
             <div className="hero-box w-full bg-black px-4 py-6 lg:p-6 text-white mx-auto w-full relative">

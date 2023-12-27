@@ -23,13 +23,21 @@ const Footer = () => {
               eiusmod tempor.
             </p>
           </div>
-          <div className="flex content-center items-center md:justify-center gap-x-6 gap-y-4 flex-wrap col-span-3 text-lg font-bold text-neutral-300">
-            <Link href="/">Home</Link>
-            <Link href="/">NFT Marketplace</Link>
-            <Link href="/">Gaming Tournament</Link>
-            <Link href="/">Photography</Link>
-            <Link href="/">Art Tournament </Link>
-            <Link href="/">Roadmap</Link>
+          <div className="flex content-center items-center md:justify-center gap-x-6 gap-y-4 flex-wrap col-span-3 text-lg text-neutral-300">
+            {[
+              { label: "Home", href: "/" },
+              { label: "NFT Marketplace", href: "/" },
+              { label: "Gaming Tournament", href: "/" },
+              { label: "Photography", href: "/" },
+              { label: "Art Tournament", href: "/" },
+              { label: "Roadmap", href: "/" },
+            ].map(({ label, href }, index) => {
+              return (
+                <Link key={index} className="hover:text-white duration-300" href={href}>
+                  {label}
+                </Link>
+              );
+            })}
           </div>
           <div className="col-span-2 flex md:justify-end">
             <div className="flex flex-col gap-4">

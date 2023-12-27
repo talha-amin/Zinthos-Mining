@@ -22,7 +22,7 @@ const Roadmap = () => {
   }, [isInView, notHiding]);
 
   const imageVars = {
-    initial: { rotateY: -15 },
+    initial: { rotateY: -12 },
     animate: {
       rotateY: 0,
       transition: {
@@ -36,7 +36,7 @@ const Roadmap = () => {
       <div className="absolute left-[50%] top-[50%] -translate-x-1/2 -translate-y-1/2 pointer-events-none">
         <div className="primary-shadow blur-[150px] opacity-[30%] aspect-square w-[600px]"></div>
       </div>
-      <Container style={{perspective: "300px"}}>
+      <Container style={{perspective: "576px"}}>
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-center font-semibold pb-2">
           Fennnec Roadmap
         </h2>

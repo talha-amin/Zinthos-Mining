@@ -2,10 +2,23 @@
 import React, { useEffect, useRef } from "react";
 import Container from "../ui/Container";
 import Image from "next/image";
-import { tokenomics } from "@/app/data";
+import { staggeredSlide, tokenomics } from "@/app/data";
 import Fade from "../animation/Fade";
+import { motion, useAnimation, useInView } from "framer-motion";
 
 const Tokenomics = () => {
+  const showRef = useRef(null);
+  const isInView = useInView(showRef);
+  const mainControls = useAnimation();
+
+  useEffect(() => {
+    if (isInView) {
+      mainControls.start("animate");
+    } else {
+      mainControls.start("initial");
+    }
+  }, [isInView]);
+
   return (
     <section className="py-24">
       <Container>
@@ -37,11 +50,15 @@ const Tokenomics = () => {
             />
           </Fade>
           <Fade>
-            <ul className="flex flex-col gap-3">
+            <ul ref={showRef} className="flex flex-col gap-3">
               {tokenomics.map(({ label, value, tokens, colorClass }, i) => {
                 return (
-                  <li
+                  <motion.li
                     key={i}
+                    variants={staggeredSlide}
+                    initial="initial"
+                    animate={mainControls}
+                    custom={i}
                     className={`tokenomics-item relative overflow-hidden flex items-center justify-between bg-[#ffffff0f] py-3 pr-3 pl-5 rounded-lg after:absolute after:content-[''] after:top-0 after:left-0 after:h-full after:w-2 ${colorClass}`}
                   >
                     <div className="flex flex-col gap-2 justify-between">
@@ -52,7 +69,7 @@ const Tokenomics = () => {
                       <span>Tokens</span>
                       <span>{tokens.toLocaleString()}</span>
                     </div>
-                  </li>
+                  </motion.li>
                 );
               })}
             </ul>

@@ -1,20 +1,45 @@
+"use client";
 import Image from "next/image";
 import React from "react";
 import Button from "../ui/Button";
 import Fade from "../animation/Fade";
-
+import { motion } from "framer-motion";
+import { FADE_UP_ANIMATION_VARIANTS } from "@/app/data";
 const Contact = () => {
   return (
     <div className="text-white min-h-screen flex items-center justify-center p-4 pb-24">
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between w-full max-w-6xl">
-        <Fade left className="flex flex-col space-y-6 lg:w-1/2">
-          <h1 className="text-5xl font-bold text-primary">Let&apos;s Talk</h1>
-          <p className="text-neutral-300">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          variants={{
+            hidden: {},
+            show: {
+              transition: {
+                staggerChildren: 0.25,
+              },
+            },
+          }}
+          className="flex flex-col space-y-6 lg:w-1/2"
+        >
+          <motion.h1
+            variants={FADE_UP_ANIMATION_VARIANTS}
+            className="text-5xl font-bold text-primary"
+          >
+            Let&apos;s Talk
+          </motion.h1>
+          <motion.p
+            variants={FADE_UP_ANIMATION_VARIANTS}
+            className="text-neutral-300"
+          >
             If you have any questions about membership or usage, please fill out
             the form and our team will get back to you within 24 hours.
-          </p>
+          </motion.p>
           <div className="space-y-4">
-            <div className="flex items-center space-x-3 lg:text-xl text-neutral-300">
+            <motion.div
+              variants={FADE_UP_ANIMATION_VARIANTS}
+              className="flex items-center space-x-3 lg:text-xl text-neutral-300"
+            >
               <Image
                 width={40}
                 height={40}
@@ -23,8 +48,11 @@ const Contact = () => {
                 alt="emailIcon"
               />
               <span>kenzi.lawson@example.com</span>
-            </div>
-            <div className="flex items-center space-x-3 lg:text-xl text-neutral-300">
+            </motion.div>
+            <motion.div
+              variants={FADE_UP_ANIMATION_VARIANTS}
+              className="flex items-center space-x-3 lg:text-xl text-neutral-300"
+            >
               <Image
                 width={40}
                 height={40}
@@ -34,8 +62,11 @@ const Contact = () => {
               />
 
               <span>(603) 555-0123</span>
-            </div>
-            <div className="flex items-center space-x-3 lg:text-xl text-neutral-300">
+            </motion.div>
+            <motion.div
+              variants={FADE_UP_ANIMATION_VARIANTS}
+              className="flex items-center space-x-3 lg:text-xl text-neutral-300"
+            >
               <Image
                 width={40}
                 height={40}
@@ -47,9 +78,9 @@ const Contact = () => {
               <span>
                 4517 Washington Ave. Manchester, <br /> Kentucky 39495
               </span>
-            </div>
+            </motion.div>
           </div>
-        </Fade>
+        </motion.div>
         <Fade className="relative overflow-hidden bg-darkGray px-4 py-8 lg:p-8 rounded-xl mt-10 lg:mt-0 lg:w-1/2 lg:ml-10">
           <div className="absolute left-[50%] top-0 -translate-x-1/2 -translate-y-1/2 opacity-25 pointer-events-none">
             <div className="shadow-effect blur-[150px] aspect-square w-[300px]"></div>

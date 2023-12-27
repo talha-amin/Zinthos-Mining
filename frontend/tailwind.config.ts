@@ -16,7 +16,7 @@ const config: Config = {
       colors: {
         primary: "#FFD300",
         secondary: "#F89F2F",
-        darkGray: "#1A1A1A33"
+        darkGray: "#1A1A1A"
       }
     },
   },

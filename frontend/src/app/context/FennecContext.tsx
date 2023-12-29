@@ -2,7 +2,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import { useContractReads } from 'wagmi'
-import { FENNEC_ABI, FENNEC_ADDRESS } from '../data/constants';
+import { FENNEC_ABI, FENNEC_ADDRESS, USDT_ABI, USDT_ADDRESS } from '../data/constants';
 
 interface FennecContextProps {
   // provider?: ethers.providers.Web3Provider;
@@ -20,6 +20,10 @@ type nodeProps = {
 const FennecContract = {
   address: FENNEC_ADDRESS,
   abi: FENNEC_ABI,
+}
+const USDTContract = {
+  address: USDT_ADDRESS,
+  abi: USDT_ABI,
 }
 
 export const FennecContextProvider = ({ children }:nodeProps) => {

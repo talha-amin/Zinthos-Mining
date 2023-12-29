@@ -26,6 +26,19 @@ export const getEthertoWei = (_ether:string) => {
 
 }
 
+export const getEthertoWeiWithUnits = (_ether:string,units=18) => {
+   
+    return ethers.utils.parseUnits(_ether,units);
+
+
+}
+export const getWeitoEtherWithUnits = (_wei:string,units=18) => {
+   
+    return ethers.utils.parseUnits(_wei,units);
+
+
+}
+
 // Debounce function
 const debounce = (func:any, delay:number) => {
     let timeoutId;

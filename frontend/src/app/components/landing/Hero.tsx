@@ -7,8 +7,15 @@ import Container from "../ui/Container";
 import Fade from "../animation/Fade";
 import { motion } from "framer-motion";
 import { FADE_UP_ANIMATION_VARIANTS } from "@/app/data";
+import { UseFennecContext } from "@/app/context/FennecContext";
 
 const Hero = () => {
+
+
+  const {address,setAddress} = UseFennecContext();
+
+
+
   return (
     <section className="relative">
       <div className="absolute pointer-events-none left-0 top-0 -z-10  w-full">
@@ -162,8 +169,8 @@ const Hero = () => {
                 </div>
               </div>
               <div className="flex justify-center mt-8">
-                <Button fullWidth className="">
-                  Buy Fennec
+                <Button fullWidth className="" onClick={()=>setAddress("data 2")} >
+                  Buy Fennec {address}
                 </Button>
               </div>
             </div>

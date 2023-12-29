@@ -9,6 +9,10 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import Container from "./ui/Container";
 import Button from "./ui/Button";
+import { useAccount, useConnect, useEnsName,useNetwork, useSwitchNetwork } from 'wagmi'
+import { InjectedConnector } from 'wagmi/connectors/injected'
+import { VALID_CHAIN_ID, VALID_CHAIN_NAME } from "../data/constants";
+import { shortenAddress } from "../utils/tools";
 
 const navLinks = [
   { href: "/", icon: "/images/icons/home.svg" },
@@ -38,8 +42,33 @@ const Header = () => {
   //   }
   // })
 
+
+  //==============================
+  const { address, isConnected } = useAccount()
+  
+  const { connect } = useConnect({
+    connector: new InjectedConnector(),
+  })
+
+  const { chain } = useNetwork()
+  // console.log(chain);
+  
+  const { chains, error, pendingChainId, switchNetwork, status } = useSwitchNetwork()
+
+const connectWalletHanle =() => {
+  console.log("clicking connect");
+  
+
+  connect()
+}
+
+
+
+
+
+  //==============================
   useEffect(() => {
-    console.log("opennnnnn", open);
+    console.log("opennnnnnnnnn", open);
   }, [open]);
 
   const toggleMenu = () => {
@@ -143,7 +172,40 @@ const Header = () => {
                 </Link>
               );
             })} */}
-            <Button>Connect Your Wallet</Button>
+
+        {/* {chains.map((validChain:any) => (
+        validChain?.id !== chain?.id?
+
+        <Button
+          disabled={!switchNetwork}
+          key={validChain?.id}
+          variant="danger"
+          onClick={() => switchNetwork?.(validChain?.id)}
+        >
+          Switch to {validChain?.name}
+          {status === 'loading' && validChain?.id === pendingChainId && '…'}
+        </Button>
+        :isConnected?
+        <Button>Connected to {address ?? address}</Button>
+        :
+        <Button onClick={() => connectWalletHanle()}>Connect Your Wallet</Button>
+      ))} */}
+            {
+              isConnected?
+              chain?.unsupported?
+                <Button
+                disabled={!switchNetwork}
+                variant="danger"
+                onClick={() => switchNetwork?.(VALID_CHAIN_ID)}>
+                {status === 'loading' && VALID_CHAIN_ID === pendingChainId? 'Switching to ':"Switch to "}{VALID_CHAIN_NAME}
+                </Button>
+              :
+                <Button>Connected to {shortenAddress(address)}</Button>
+
+                :
+                <Button onClick={() => connectWalletHanle()}>Connect Your Wallet</Button>
+
+            }
 
             <div
               className="cursor-pointer text-xl lg:hidden"

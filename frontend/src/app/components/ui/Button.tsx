@@ -1,13 +1,12 @@
-import React from "react";
+import React, { ComponentPropsWithoutRef, ReactNode } from "react";
 
-type PropTypes = {
-  children: JSX.Element | string;
+type PropTypes = ComponentPropsWithoutRef<"button"> & {
+  children: ReactNode;
   variant?: string;
   fullWidth?: boolean;
-  className?: string;
   squared?: boolean;
+  isLoading?: boolean;
   customVariant?: string; //takes in tailwind class including background color and text color
-  [key: string]: any;
 };
 
 const variants: { [key: string]: string } = {
@@ -23,11 +22,13 @@ const Button = ({
   fullWidth = false,
   className,
   squared = false,
+  isLoading=false,
   customVariant,
   ...rest
 }: PropTypes) => {
   return (
     <button
+    disabled={isLoading}
       {...rest}
       className={`${
         customVariant ? customVariant : variants[variant]
@@ -35,7 +36,7 @@ const Button = ({
         fullWidth ? "w-full" : ""
       } rounded ${className? className: ""}`}
     >
-      {children}
+      {isLoading?"Loading...":children}
     </button>
   );
 };

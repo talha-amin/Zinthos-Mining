@@ -4,6 +4,12 @@ import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import SmoothScroll from "./components/animation/SmoothScroll";
+import { FennecContextProvider } from "./context/FennecContext";
+import { WagmiContextProvider } from "./context/WagmiContext";
+
+
+
+
 
 const quicksand = Quicksand({ subsets: ["latin"] });
 
@@ -19,13 +25,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="overflow-x-hidden">
-      <body className={`${quicksand.className} bg-black text-white overflow-x-hidden`}>
-        <div className="fixed z-50 inset-0 pointer-events-none bg-white/[7%]"></div>
-        <SmoothScroll />
-        <Header />
-        {children}
-        <Footer />
-      </body>
+
+      <WagmiContextProvider>
+        <FennecContextProvider>
+          <body className={`${quicksand.className} bg-black text-white overflow-x-hidden`}>
+            <div className="fixed z-50 inset-0 pointer-events-none bg-white/[7%]"></div>
+            <SmoothScroll />
+            <Header />
+            {children}
+            <Footer />
+          </body>
+        </FennecContextProvider>
+      </WagmiContextProvider>
+
     </html>
   );
 }

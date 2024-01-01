@@ -7,8 +7,8 @@ import { FENNEC_ABI, FENNEC_ADDRESS, USDT_ABI, USDT_ADDRESS } from '../data/cons
 interface FennecContextProps {
   // provider?: ethers.providers.Web3Provider;
   // signer?: ethers.Signer;
-  // address: string;
-  // setAddress: React.Dispatch<React.SetStateAction<string>>
+  address: string;
+  setAddress: React.Dispatch<React.SetStateAction<string>>
 }
 
 const FennecContext = createContext<FennecContextProps | undefined>(undefined);
@@ -28,44 +28,46 @@ const USDTContract = {
 
 export const FennecContextProvider = ({ children }:nodeProps) => {
 
-
-  const { data, isError, isLoading } = useContractReads({
-    contracts: [
-      {
-        ...FennecContract,
-        functionName: 'owner',
-      },
-      {
-        ...FennecContract,
-        functionName: 'getRoundOneLimitRemaining',
-      },
-      {
-        ...FennecContract,
-        functionName: 'getRoundTwoLimitRemaining',
-      },
-      {
-        ...FennecContract,
-        functionName: 'getRoundThreeLimitRemaining',
-      },
-      {
-        ...FennecContract,
-        functionName: 'getRound',
-      },
-      {
-        ...FennecContract,
-        functionName: 'isPaused',
-      }
-    ],
-  })
+  const [address, setAddress] = useState<string>("")
 
 
-  useEffect(() => {
-   console.log(data);
+  // const { data, isError, isLoading } = useContractReads({
+  //   contracts: [
+  //     {
+  //       ...FennecContract,
+  //       functionName: 'owner',
+  //     },
+  //     {
+  //       ...FennecContract,
+  //       functionName: 'getRoundOneLimitRemaining',
+  //     },
+  //     {
+  //       ...FennecContract,
+  //       functionName: 'getRoundTwoLimitRemaining',
+  //     },
+  //     {
+  //       ...FennecContract,
+  //       functionName: 'getRoundThreeLimitRemaining',
+  //     },
+  //     {
+  //       ...FennecContract,
+  //       functionName: 'getRound',
+  //     },
+  //     {
+  //       ...FennecContract,
+  //       functionName: 'isPaused',
+  //     }
+  //   ],
+  // })
+
+
+  // useEffect(() => {
+  //  console.log(data);
    
-  }, [data]);
+  // }, [data]);
 
   return (
-    <FennecContext.Provider value={{ }}>
+    <FennecContext.Provider value={{address,setAddress }}>
       {children}
     </FennecContext.Provider>
   );

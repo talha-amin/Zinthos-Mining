@@ -191,18 +191,18 @@ const connectWalletHanle =() => {
         <Button onClick={() => connectWalletHanle()}>Connect Your Wallet</Button>
       ))} */}
             {
-              isConnected?
-              chain?.unsupported?
-                <Button
-                disabled={!switchNetwork}
-                variant="danger"
-                onClick={() => switchNetwork?.(VALID_CHAIN_ID)}>
-                {status === 'loading' && VALID_CHAIN_ID === pendingChainId? 'Switching to ':"Switch to "}{VALID_CHAIN_NAME}
-                </Button>
-              :
-                <Button>Connected to {address?shortenAddress(address):""}</Button>
+              isConnected && address?
+                    chain?.unsupported?
+                      <Button
+                      disabled={!switchNetwork}
+                      variant="danger"
+                      onClick={() => switchNetwork?.(VALID_CHAIN_ID)}>
+                      {status === 'loading' && VALID_CHAIN_ID === pendingChainId? 'Switching to ':"Switch to "}{VALID_CHAIN_NAME}
+                      </Button>
+                    :
+                      <Button>Connected to {address?shortenAddress(address):""}</Button>
 
-                :
+              :
                 <Button onClick={() => connectWalletHanle()}>Connect Your Wallet</Button>
 
             }

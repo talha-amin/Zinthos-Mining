@@ -1,5 +1,10 @@
+import axios from 'axios';
 import {ethers} from 'ethers';
 import { useEffect, useState } from 'react';
+
+// const apiURL = process.env.REACT_APP_API_URL;
+const apiURL = "http://localhost:8000";
+
 
 export function shortenAddress(address: string, length: number = 5): string {
     if (!address || address.length < length) {
@@ -38,6 +43,21 @@ export const getWeitoEtherWithUnits = (_wei:string,units=18) => {
 
 
 }
+
+export const getApplicantId = async (accountAddress:string) => {
+    try {
+      const _data = await axios.get(`${apiURL}/api/getApplicant/`, {
+        params: {
+          externalUserId: accountAddress,
+        },
+      });
+
+      return String(_data.data.applicantId);
+    } catch (error) {
+        console.log("🚀", error);
+        return "";
+    }
+  };
 
 // Debounce function
 // const debounce = (func:any, delay:number) => {

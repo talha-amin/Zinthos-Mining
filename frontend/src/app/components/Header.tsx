@@ -200,7 +200,7 @@ const connectWalletHanle =() => {
                 {status === 'loading' && VALID_CHAIN_ID === pendingChainId? 'Switching to ':"Switch to "}{VALID_CHAIN_NAME}
                 </Button>
               :
-                <Button>Connected to {shortenAddress(address)}</Button>
+                <Button>Connected to {address?shortenAddress(address):""}</Button>
 
                 :
                 <Button onClick={() => connectWalletHanle()}>Connect Your Wallet</Button>

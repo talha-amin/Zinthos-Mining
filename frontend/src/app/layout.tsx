@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import SmoothScroll from "./components/animation/SmoothScroll";
 import { FennecContextProvider } from "./context/FennecContext";
 import { WagmiContextProvider } from "./context/WagmiContext";
+import Preloader from "./components/animation/Preloader";
 
 
 
@@ -25,7 +26,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="overflow-x-hidden">
-
       <WagmiContextProvider>
         <FennecContextProvider>
           <body className={`${quicksand.className} bg-black text-white overflow-x-hidden`}>

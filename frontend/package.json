@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@nivo/core": "^0.84.0",
+    "@nivo/line": "^0.84.0",
     "@studio-freight/lenis": "^1.0.29",
     "axios": "^1.6.3",
     "ethers": "5.7.2",

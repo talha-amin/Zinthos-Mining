@@ -62,22 +62,22 @@ export default function Vesting() {
                 <div className="sm:flex-1 w-full sm:w-auto flex flex-col gap-3">
                   <div className="flex items-center justify-between">
                     <p className="text-sm text-neutral-400">Locked</p>
-                    <p className="text-sm sm:text-base">1,000,000.000 DCB</p>
+                    <p className="text-sm sm:text-base">1,000,000.000 FTK</p>
                   </div>
                   <div className="flex items-center justify-between">
                     <p className="text-sm text-neutral-400">Claimed</p>
-                    <p className="text-sm sm:text-base">118,200 DCB | 0.24%</p>
+                    <p className="text-sm sm:text-base">118,200 FTK | 0.24%</p>
                   </div>
                   <div className="flex items-center justify-between">
                     <p className="text-sm text-neutral-400">Unlocked</p>
-                    <p className="text-sm sm:text-base">0.217 DCB</p>
+                    <p className="text-sm sm:text-base">0.217 FTK</p>
                   </div>
                 </div>
                 <div className="flex flex-col gap-1 items-center">
                   <p className="text-xs font-medium text-neutral-400">
                     Available now
                   </p>
-                  <p className="text-xl font-bold mb-1">0.217 DCB</p>
+                  <p className="text-xl font-bold mb-1">0.217 FTK</p>
                   <Button>Claim all tokens</Button>
                 </div>
               </div>

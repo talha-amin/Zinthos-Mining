@@ -6,11 +6,6 @@ import Footer from "./components/Footer";
 import SmoothScroll from "./components/animation/SmoothScroll";
 import { FennecContextProvider } from "./context/FennecContext";
 import { WagmiContextProvider } from "./context/WagmiContext";
-import Preloader from "./components/animation/Preloader";
-
-
-
-
 
 const quicksand = Quicksand({ subsets: ["latin"] });
 

@@ -59,7 +59,7 @@ const Hero = () => {
             </motion.p>
           </motion.div>
           {/* hero box */}
-          <Fade className="p-[1px] max-w-md mx-auto lg:ms-auto overflow-hidden hero-box-wrapper w-full mt-5">
+          <Fade className="p-[1.5px] max-w-md mx-auto lg:ms-auto overflow-hidden hero-box-wrapper w-full mt-5">
             <div className="hero-box w-full bg-black px-4 py-6 lg:p-6 text-white mx-auto w-full relative">
               <div className="absolute left-[50%] top-0 -translate-x-1/2 -translate-y-1/2 opacity-[65%] pointer-events-none">
                 <div className="shadow-effect blur-[150px] aspect-square w-[350px]"></div>

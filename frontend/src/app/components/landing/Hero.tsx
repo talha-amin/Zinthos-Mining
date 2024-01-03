@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import HeroTimer from "./HeroTimer";
 import Button from "../ui/Button";
 import Container from "../ui/Container";
@@ -10,10 +10,11 @@ import { FADE_UP_ANIMATION_VARIANTS } from "@/app/data";
 import { UseFennecContext } from "@/app/context/FennecContext";
 
 const Hero = () => {
+const [buyMethod, setBuyMethod] = useState<number>(1)
 
-
-  const {address,setAddress} = UseFennecContext();
-
+  const {isApprovedUSDT,approveMaxUSDThandle,userUSDTAmount,setUserUSDTAmount,ROUND,buyFennecHandle} = UseFennecContext();
+const buyMethodText = ["ETH","USDT","VISA"]
+const buyMethodIcon = ["eth.svg","usdt.svg","visa.svg"]
 
 
   return (
@@ -89,36 +90,37 @@ const Hero = () => {
                 <span className="text-xs whitespace-nowrap">Instant Buy</span>
                 <hr className="h-[1px] bg-white w-full" />
               </div>
-              <div className="text-white grid grid-cols-3 gap-5 sm:gap-8 items-center mb-6  mx-auto">
-                <button className="inline-flex gap-1 sm:gap-3 items-center justify-center rounded-md text-[9px] sm:text-sm font-medium ring ring-[.75px] ring-white h-10 px-2 sm:px-4 py-1 sm:py-2">
+              <div className="text-white grid grid-cols-2 gap-3 items-center mb-6  mx-auto">
+                {/* <button onClick={()=>setBuyMethod(0)} className={`inline-flex gap-1 sm:gap-3 items-center justify-center rounded-md text-[9px] sm:text-sm font-medium ring ring-[.75px] ${buyMethod==0?"ring-primary text-primary":"ring-white"} duration-300  h-10 px-2 sm:px-4 py-1 sm:py-2`}>
                   <div className="h-[75%] sm:h-full aspect-square relative">
                     <Image
                       fill
                       className="object-contain"
                       src="/images/icons/eth.svg"
-                      alt="ethereum Icon"
+                      alt="ethereum icon"
                     />{" "}
                   </div>{" "}
                   ETH
-                </button>
-                <button className="inline-flex gap-1 sm:gap-3 items-center justify-center rounded-md text-[9px] sm:text-sm font-medium ring ring-[.75px] ring-white h-10 px-2 sm:px-4 py-1 sm:py-2">
+                </button> */}
+                <button onClick={()=>setBuyMethod(1)} className={`inline-flex gap-1 sm:gap-3 items-center justify-center rounded-md text-[9px] sm:text-sm font-medium ring ring-[.75px] ${buyMethod==1?"ring-primary text-primary ":"ring-white"} duration-300 h-10 px-2 sm:px-4 py-1 sm:py-2`}>
+
                   <div className="h-[75%] sm:h-full aspect-square relative">
                     <Image
                       fill
                       className="object-contain"
                       src="/images/icons/usdt.svg"
-                      alt="ethereum Icon"
+                      alt="usdt icon"
                     />{" "}
                   </div>{" "}
                   USDT
                 </button>
-                <button className="inline-flex gap-1 sm:gap-3 items-center justify-center rounded-md text-[9px] sm:text-sm font-medium ring ring-[.75px] ring-white h-10 px-2 sm:px-4 py-1 sm:py-2">
+                <button onClick={()=>setBuyMethod(2)} className={`inline-flex gap-1 sm:gap-3 items-center justify-center rounded-md text-[9px] sm:text-sm font-medium ring ring-[.75px] ${buyMethod==2?"ring-primary text-primary":"ring-white"} duration-300  h-10 px-2 sm:px-4 py-1 sm:py-2`}>
                   <div className="h-[75%] sm:h-full aspect-square relative">
                     <Image
                       fill
                       className="object-contain"
                       src="/images/icons/visa.svg"
-                      alt="ethereum Icon"
+                      alt="visa icon"
                     />{" "}
                   </div>{" "}
                   Card
@@ -127,7 +129,7 @@ const Hero = () => {
               <div className="grid grid-cols-2 gap-3">
                 <div className="flex flex-col gap-1">
                   <label htmlFor="ethAmount" className="text-xs">
-                    Pay with Eth
+                    Pay with {buyMethodText[buyMethod]}
                   </label>
                   <div className="inline-flex gap-3 items-center justify-center rounded-md text-xs sm:text-sm font-medium ring ring-[.75px] ring-white h-10 px-2 sm:px-4 py-1 sm:py-2">
                     <input
@@ -135,13 +137,18 @@ const Hero = () => {
                       type="number"
                       className="w-fit min-w-0 bg-transparent focus:outline-none"
                       placeholder="0"
+                      value={userUSDTAmount}
+                      min={0}
+                      onChange={(e)=>{setUserUSDTAmount(String(e.target.value))}}
+
+                      
                     />
                     <div className="h-full aspect-square relative">
                       <Image
                         fill
                         className="object-contain"
-                        src="/images/icons/eth.svg"
-                        alt="ethereum Icon"
+                        src={`/images/icons/${buyMethodIcon[buyMethod]}`}
+                        alt="buy icon"
                       />{" "}
                     </div>
                   </div>
@@ -156,22 +163,38 @@ const Hero = () => {
                       type="number"
                       className="w-fit min-w-0 bg-transparent focus:outline-none"
                       placeholder="0"
+                      disabled
                     />
                     <div className="h-full aspect-square relative">
                       <Image
                         fill
                         className="object-contain"
                         src="/logo.svg"
-                        alt="ethereum Icon"
+                        alt="fennec icon"
                       />{" "}
                     </div>
                   </div>
                 </div>
               </div>
               <div className="flex justify-center mt-8">
-                <Button fullWidth className="" onClick={()=>setAddress("data 2")} >
-                  Buy Fennec {address}
+        
+                  {isApprovedUSDT?
+                  <Button fullWidth className=""
+                  disabled={ROUND==0|| Number(userUSDTAmount)<=0}
+                  onClick={()=>buyFennecHandle?.()}
+                  >
+                  {ROUND==0?"Round isn't started yet":"Buy Fennec"}
+                  
                 </Button>
+                :
+                  <Button fullWidth className=""
+                  disabled={ROUND==0|| Number(userUSDTAmount)<=0}
+
+                  onClick={()=>approveMaxUSDThandle?.()}
+                  >
+                  {ROUND==0?"Round isn't started yet":"Approve USDT"}
+                </Button>}
+                
               </div>
             </div>
           </Fade>

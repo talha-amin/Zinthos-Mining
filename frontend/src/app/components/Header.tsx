@@ -13,7 +13,8 @@ import { useAccount, useConnect, useEnsName,useNetwork, useSwitchNetwork } from 
 import { InjectedConnector } from 'wagmi/connectors/injected'
 import { VALID_CHAIN_ID, VALID_CHAIN_NAME } from "../data/constants";
 import { shortenAddress } from "../utils/tools";
-
+import { UseFennecContext } from "../context/FennecContext";
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 const navLinks = [
   { href: "/", icon: "/images/icons/home.svg" },
   { title: "Tokenomic", href: "#" },
@@ -41,26 +42,9 @@ const Header = () => {
   //     window.removeEventListener("scroll", changeBackground)
   //   }
   // })
+    
 
-
-  //==============================
-  const { address, isConnected } = useAccount()
-  
-  const { connect } = useConnect({
-    connector: new InjectedConnector(),
-  })
-
-  const { chain } = useNetwork()
-  // console.log(chain);
-  
-  const { chains, error, pendingChainId, switchNetwork, status } = useSwitchNetwork()
-
-const connectWalletHanle =() => {
-  console.log("clicking connect");
-  
-
-  connect()
-}
+ 
 
 
 
@@ -173,40 +157,10 @@ const connectWalletHanle =() => {
               );
             })} */}
 
-        {/* {chains.map((validChain:any) => (
-        validChain?.id !== chain?.id?
-
-        <Button
-          disabled={!switchNetwork}
-          key={validChain?.id}
-          variant="danger"
-          onClick={() => switchNetwork?.(validChain?.id)}
-        >
-          Switch to {validChain?.name}
-          {status === 'loading' && validChain?.id === pendingChainId && '…'}
-        </Button>
-        :isConnected?
-        <Button>Connected to {address ?? address}</Button>
-        :
-        <Button onClick={() => connectWalletHanle()}>Connect Your Wallet</Button>
-      ))} */}
-            {
-              isConnected && address?
-                    chain?.unsupported?
-                      <Button
-                      disabled={!switchNetwork}
-                      variant="danger"
-                      onClick={() => switchNetwork?.(VALID_CHAIN_ID)}>
-                      {status === 'loading' && VALID_CHAIN_ID === pendingChainId? 'Switching to ':"Switch to "}{VALID_CHAIN_NAME}
-                      </Button>
-                    :
-                      <Button>Connected to {address?shortenAddress(address):""}</Button>
-
-              :
-                <Button onClick={() => connectWalletHanle()}>Connect Your Wallet</Button>
-
-            }
-
+       
+            
+                  {/* <Button onClick={() => !ConnectedWallet && connectWalletHanle()}>{ConnectedWallet?`Connected to  ${shortenAddress(ConnectedWallet)}`:"Connect Your Wallet"}</Button> */}
+                  <ConnectButton />
             <div
               className="cursor-pointer text-xl lg:hidden"
               onClick={toggleMenu}

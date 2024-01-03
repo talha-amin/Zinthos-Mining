@@ -6,6 +6,19 @@ import { useEffect, useState } from 'react';
 const apiURL = "http://localhost:8000";
 
 
+
+
+
+export const getBigintToString = (value:any) => {
+    
+    let data = ethers.BigNumber.from(value);
+return data.toString();
+
+
+
+}
+
+
 export function shortenAddress(address: string, length: number = 5): string {
     if (!address || address.length < length) {
       return address;
@@ -33,16 +46,19 @@ export const getEthertoWei = (_ether:string) => {
 
 export const getEthertoWeiWithUnits = (_ether:string,units=18) => {
    
-    return ethers.utils.parseUnits(_ether,units);
+    return ethers.utils.parseUnits(_ether,units).toString();
 
 
 }
-export const getWeitoEtherWithUnits = (_wei:string,units=18) => {
+export const getWeitoEtherWithUnits = (_wei:any,units=18) => {
    
-    return ethers.utils.parseUnits(_wei,units);
+    return ethers.utils.parseUnits(_wei.toString(),units);
 
 
 }
+
+export const REPLACER = (key:any, value:any) =>
+  typeof value === 'bigint' ? value.toString() : value
 
 export const getApplicantId = async (accountAddress:string) => {
     try {

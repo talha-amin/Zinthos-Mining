@@ -32,7 +32,7 @@ const Button = ({
       {...rest}
       className={`${
         customVariant ? customVariant : variants[variant]
-      } block ${squared? "rounded-lg": "rounded-full"} bg-gradient-to-l from-[#EB6335] to-[#FFD300] px-4 sm:px-8 py-2 sm:py-3 text-center text-xs sm:text-sm font-medium text-white hover:bg-transparent hover:text-white focus:outline-none focus:ring active:text-opacity-75 whitespace-nowrap ${
+      } block ${squared? "rounded-lg": "rounded-full"} disabled:cursor-not-allowed bg-gradient-to-l from-[#EB6335] to-[#FFD300] px-4 sm:px-8 py-2 sm:py-3 text-center text-xs sm:text-sm font-medium text-white hover:bg-transparent hover:text-white focus:outline-none focus:ring active:text-opacity-75 whitespace-nowrap ${
         fullWidth ? "w-full" : ""
       } rounded ${className? className: ""}`}
     >

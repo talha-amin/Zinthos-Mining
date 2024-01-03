@@ -1636,7 +1636,24 @@ export const FENNEC_ICO_ABI = [
 		"type": "function"
 	}
 ]
+//================
 
+export const fennecContractConfig = {
+	address: FENNEC_ADDRESS,
+	abi: FENNEC_ABI
+  } as const
+export const vestingContractConfig = {
+	address: VESTING_ADDRESS,
+	abi: VESTING_ABI
+  } as const
+export const usdtContractConfig = {
+	address: USDT_ADDRESS,
+	abi: USDT_ABI
+  } as const
+export const fennecIcoContractConfig = {
+	address: FENNEC_ICO_ADDRESS,
+	abi: FENNEC_ICO_ABI
+  } as const
 
 
 

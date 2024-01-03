@@ -109,7 +109,7 @@ export default function Vesting() {
           </div>
         </div>
         <h2 className="text-lg font-semibold mb-4 md:ps-8">Vesting schedule</h2>
-        <div className="bg-neutral-950 rounded-lg">
+        <div className="bg-neutral-950 rounded-lg relative">
           <div className="absolute w-full h-full overflow-hidden">
             <div className="relative w-full h-full">
               <div className="absolute left-[50%] top-0 -translate-x-1/2 -translate-y-1/2 opacity-25 pointer-events-none">

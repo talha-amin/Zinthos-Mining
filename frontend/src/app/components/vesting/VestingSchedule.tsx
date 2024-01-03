@@ -5,7 +5,7 @@ const customYAxisTicks = [0, 250000, 500000, 750000, 1000000];
 
 const VestingSchedule = () => {
   return (
-    <div className="w-full h-[500px] relative">
+    <div className="w-full h-[500px]">
 
       <LineChart />
     </div>

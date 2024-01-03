@@ -1,3 +1,4 @@
+import useMobileDetect from "@/app/hooks/useMobileDetect";
 import { ResponsiveLine } from "@nivo/line";
 
 const customYAxisTicks = [0, 250000, 500000, 750000, 1000000];
@@ -31,7 +32,7 @@ const CustomTooltip = ({
   },
 }: any) => (
   <div
-    className="relative bg-black text-sm shadow-lg"
+    className="relative bg-black text-xs sm:text-sm shadow-lg rounded-lg"
     style={{ borderRadius: "5px", boxShadow: "0 0 5px rgba(0, 0, 0, 0.3)" }}
   >
     <div className="px-5 py-2 bg-neutral-950">{xFormatted}</div>
@@ -46,6 +47,8 @@ const CustomTooltip = ({
 );
 
 const LineChart = (props: any) => {
+  const isMobile = useMobileDetect()
+
   return (
     <div {...props} className="w-full h-full">
       <ResponsiveLine
@@ -113,7 +116,7 @@ const LineChart = (props: any) => {
         animate={false}
         theme={{
           text: {
-            fontSize: 16,
+            fontSize: isMobile? 11: 16,
             fill: "#ffffff55",
             outlineWidth: 3,
           },

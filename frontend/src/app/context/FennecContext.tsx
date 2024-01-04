@@ -16,8 +16,8 @@ interface FennecContextProps {
   connectWalletHanle: () => void;
   approveMaxUSDThandle:  (() => void) | undefined;
   buyFennecHandle:  (() => void) | undefined;
-  setUserUSDTAmount: React.Dispatch<React.SetStateAction<string>>;
-  userUSDTAmount: string;
+  setUserInputAmount: React.Dispatch<React.SetStateAction<string>>;
+  userInputAmount: string;
   ROUND:number
 }
 
@@ -48,8 +48,8 @@ const USDTContract = {
 export const FennecContextProvider = ({ children }:nodeProps) => {
 
   const [ConnectedWallet, setConnectedWallet] = useState<string | null>(null)
-  const [userUSDTAmount, setUserUSDTAmount] = useState<string>('0')
-  const [userUSDTAmountInWei, setUserUSDTAmountInWei] = useState<string>('0')
+  const [userInputAmount, setUserInputAmount] = useState<string>('')
+  const [userFennecAmountInWei, setUserFennecAmountInWei] = useState<string>('0')
   const [isApprovedUSDT, setIsApprovedUSDT] = useState<boolean>(false)
   const [ROUND, setROUND] = useState<number>(0)
 
@@ -167,7 +167,7 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
     const { config:buyFennecConfig } = usePrepareContractWrite({
       ...fennecIcoContractConfig,
       functionName: 'buy',
-      args: [userUSDTAmountInWei],
+      args: [userFennecAmountInWei],
       account:address??address,
       enabled: (ConnectedWallet?true:false) && (ROUND>0),
     })
@@ -210,19 +210,19 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
 
 
     useEffect(() => {
-      // console.log(getEthertoWeiWithUnits(userUSDTAmount));
-      if (Number(userUSDTAmount)>0) {
-        setUserUSDTAmountInWei(getEthertoWeiWithUnits(userUSDTAmount,6))
+      // console.log(getEthertoWeiWithUnits(userInputAmount));
+      if (userInputAmount!==''&&Number(userInputAmount)>0) {
+        setUserFennecAmountInWei(getEthertoWeiWithUnits(userInputAmount,18))
       }
       else{
-        setUserUSDTAmountInWei('0')
+        setUserFennecAmountInWei('0')
 
       }
-    }, [userUSDTAmount])
+    }, [userInputAmount])
     useEffect(() => {
-     console.log(userUSDTAmountInWei);
+     console.log(userFennecAmountInWei);
      
-    }, [userUSDTAmountInWei])
+    }, [userFennecAmountInWei])
     
 
 
@@ -265,7 +265,7 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
 
 
   return (
-    <FennecContext.Provider value={{ConnectedWallet,connectWalletHanle,isApprovedUSDT,approveMaxUSDThandle,buyFennecHandle,userUSDTAmount,setUserUSDTAmount ,ROUND}}>
+    <FennecContext.Provider value={{ConnectedWallet,connectWalletHanle,isApprovedUSDT,approveMaxUSDThandle,buyFennecHandle,userInputAmount,setUserInputAmount ,ROUND}}>
       {children}
     </FennecContext.Provider>
   );

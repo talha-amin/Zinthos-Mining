@@ -76,26 +76,26 @@ export const getApplicantId = async (accountAddress:string) => {
   };
 
 // Debounce function
-// const debounce = (func:any, delay:number) => {
-//     let timeoutId;
-//     return (...args) => {
-//       clearTimeout(timeoutId);
-//       timeoutId = setTimeout(() => {
-//         func(...args);
-//       }, delay);
-//     };
-//   };
+const debounce = (func:any, delay:number) => {
+    let timeoutId:any;
+    return (...args:any[]) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func(...args);
+      }, delay);
+    };
+  };
   
-//   // Custom hook
-// export const useDebouncedState = (initialValue, delay) => {
-//     const [debouncedValue, setDebouncedValue] = useState(initialValue);
+  // Custom hook
+export const useDebouncedState = (initialValue:string, delay:number) => {
+    const [debouncedValue, setDebouncedValue] = useState(initialValue);
   
-//     const updateDebouncedValue = debounce((newValue) => {
-//       setDebouncedValue(newValue);
-//     }, delay);
+    const updateDebouncedValue = debounce((newValue:string) => {
+      setDebouncedValue(newValue);
+    }, delay);
   
-//     return [debouncedValue, updateDebouncedValue];
-//   };
+    return [debouncedValue, updateDebouncedValue];
+  };
 
 //  export function convertSecondsToDate(seconds) {
 //     // Convert seconds to milliseconds by multiplying by 1000

@@ -54,6 +54,10 @@ module.exports = {
       url: `https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_SEPOLIA}`,
       accounts: [`0x${process.env.privateKey}`],
     },
+    mumbai: {
+      url: `https://polygon-mumbai.g.alchemy.com/v2/${process.env.ALCHEMY_API_MUMBAI}`,
+      accounts: [`0x${process.env.privateKey}`],
+    },
     testnet: {
       url: "https://data-seed-prebsc-1-s1.binance.org:8545/",
       chainId: 97,
@@ -73,8 +77,8 @@ module.exports = {
   },
 
   etherscan: {
-    // apiKey: "CJ7TB195YK5BTVMHJGRZMD1XFU72BM41V1"         //ETH
-    apiKey: "DTZ2S1S4M5DQD58AGCIF4P3I2HPVEEQGG4"            //BNB
+    apiKey: "CJ7TB195YK5BTVMHJGRZMD1XFU72BM41V1"         //ETH
+    // apiKey: "DTZ2S1S4M5DQD58AGCIF4P3I2HPVEEQGG4"            //BNB
   },
   mocha: {
     timeout: 1000000

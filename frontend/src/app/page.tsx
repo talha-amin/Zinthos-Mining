@@ -6,13 +6,15 @@ import Ecosystem from "../components/landing/Ecosystem";
 import Roadmap from "../components/landing/Roadmap";
 import FAQs from "../components/landing/FAQs";
 import Tokenomics from "../components/landing/Tokenomics";
+import Orbits from "@/components/landing/Orbits";
 
 export default function Home() {
   return (
     <main>
       <Hero />
       <Companies />
-      <Ecosystem />
+      {/* <Ecosystem /> */}
+      <Orbits />
       <Tokenomics />
       <Roadmap />
       <FAQs />

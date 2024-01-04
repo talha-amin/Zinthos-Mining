@@ -118,8 +118,15 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 0;
 }
 
-button[data-testid="rk-connect-button"]{
+button[data-testid="rk-connect-button"] {
   @apply bg-gradient-to-l from-[#EB6335] to-[#FFD300] px-4 sm:px-8 py-2 sm:py-3 text-center text-xs sm:text-sm font-medium text-white hover:bg-transparent hover:text-white focus:outline-none focus:ring active:text-opacity-75 whitespace-nowrap rounded-full !important;
   line-height: 1 !important;
+}
 
+.tempclass {
+  clip-path: polygon(0 0, 85% 0, 100% 50%, 85% 100%, 0 100%, 15% 50%);
+}
+
+.logoShadow{
+  filter: drop-shadow(0 2px 6px #FC48304D)
 }

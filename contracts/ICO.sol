@@ -17,6 +17,10 @@ interface IVesting {
     /// @param _round The round number that exceeded the limit
     error ICO__RoundsLimitExceeded(uint256 _round);
 
+    /// @dev Error for when the user try to send the invalid amount of tokens
+    /// @param _tokenAmount The amount that is invalid
+    error ICO__InvalidAmount(uint256 _tokenAmount);
+
     /// @dev Error for when an invalid price (e.g., zero) is set for a round
     error ICO__InvalidPrice();
 
@@ -109,7 +113,7 @@ contract FennecICO is Ownable{
     }
 
     /// @notice Allows users to buy tokens
-    /// @dev Checks the current round and calls the respective internal function for the round
+    /// @dev Checks the current round and calls the respective internal function for the round and update the remaining tokens limit accordingly
     /// @param _tokenAmount The amount of tokens to buy
     /// @custom:modifier unPaused Ensures the contract is not paused
     function buy(uint256 _tokenAmount) external unPaused {
@@ -119,66 +123,41 @@ contract FennecICO is Ownable{
 
         if(_roundOneLimitRemaining == 0) revert ICO__RoundCompleted();
         if(_tokenAmount > _roundOneLimitRemaining) revert ICO__NotEnoughTokens();
-        _roundOne(_msgSender(), _tokenAmount);
+        _buy(_msgSender(), _tokenAmount);
+        roundOneLimitRemaining = _roundOneLimitRemaining - _tokenAmount;
 
         }else if(round == 2){
         uint256 _roundTwoLimitRemaining = roundTwoLimitRemaining;
 
         if(_roundTwoLimitRemaining == 0) revert ICO__RoundCompleted();
         if(_tokenAmount > _roundTwoLimitRemaining) revert ICO__NotEnoughTokens();            
-        _roundTwo(_msgSender(), _tokenAmount);
- 
+        _buy(_msgSender(), _tokenAmount);
+        roundTwoLimitRemaining = _roundTwoLimitRemaining - _tokenAmount;
+
         }else {
         uint256 _roundThreeLimitRemaining = roundThreeLimitRemaining;
-
         if(_roundThreeLimitRemaining == 0) revert ICO__RoundCompleted();
         if(_tokenAmount > _roundThreeLimitRemaining) revert ICO__NotEnoughTokens();            
-        _roundThree(_msgSender(), _tokenAmount);
+        _buy(_msgSender(), _tokenAmount);
+        roundThreeLimitRemaining = _roundThreeLimitRemaining - _tokenAmount;
+
         }
         emit TokenBought(_msgSender(), _tokenAmount, round);
     }
 
-    
-     // @dev Handles token purchases for Round One
+     // @dev Handles token purchases for all rounds
      // Transfers USDT from the buyer to the admin wallet and transfers the corresponding
      // amount of Fennec tokens to the vesting contract.
-     // Updates the remaining token limit for Round One.
      // @param _user The address of user who is buying
      // @param _tokenAmount The amount of tokens being purchased
-    function _roundOne(address _user, uint256 _tokenAmount) private {
+    function _buy(address _user, uint256 _tokenAmount) private {
         uint256 _price = (_tokenAmount * pricePerToken) / 1e18;
+        if(_price == 0) revert ICO__InvalidAmount(_tokenAmount);
         _helperUSDT.transferFrom(_user, adminWallet, _price);
         _helperFennec.transfer(address(_helperVesting), _tokenAmount);
         _helperVesting.deposit(_user, _tokenAmount, ((_tokenAmount * PERCENTAGE) / BASE), true);
-        roundOneLimitRemaining = roundOneLimitRemaining - _tokenAmount;
     }
     
-    
-     // @dev Handles token purchases for Round Two
-     // Similar to _roundOne, but updates the remaining token limit for Round Two.
-     // @param _user The address of user who is buying
-     // @param _tokenAmount The amount of tokens being purchased
-    function _roundTwo(address _user, uint256 _tokenAmount) private {
-        uint256 _price = (_tokenAmount * pricePerToken) / 1e18;
-        _helperUSDT.transferFrom(_user, adminWallet, _price);
-        _helperFennec.transfer(address(_helperVesting), _tokenAmount);
-        _helperVesting.deposit(_user, _tokenAmount, ((_tokenAmount * PERCENTAGE) / BASE), true);
-        roundTwoLimitRemaining = roundTwoLimitRemaining - _tokenAmount;   
-    }
-    
-    
-     // @dev Handles token purchases for Round Three
-     // Similar to _roundOne and _roundTwo, but updates the remaining token limit for Round Three.
-     // @param _user The address of user who is buying
-     // @param _tokenAmount The amount of tokens being purchased
-    function _roundThree(address _user, uint256 _tokenAmount) private {
-        uint256 _price = (_tokenAmount * pricePerToken) / 1e18;
-        _helperUSDT.transferFrom(_user, adminWallet, _price);
-        _helperFennec.transfer(address(_helperVesting), _tokenAmount);
-        _helperVesting.deposit(_user, _tokenAmount, ((_tokenAmount * PERCENTAGE) / BASE), true);
-        roundThreeLimitRemaining = roundThreeLimitRemaining - _tokenAmount;
-    }
-
     /// @notice Starts a new round of the ICO
     /// @param _pricePerToken The price per token for the new round
     /// @custom:modifier onlyOwner Restricts the function access to the contract owner.
@@ -236,6 +215,12 @@ contract FennecICO is Ownable{
     /// @return The current round number of the ICO
     function getRound() external view returns (uint256) {
         return round;
+    } 
+
+    /// @notice Retrieves the current round's price
+    /// @return The price of current round
+    function getPrice() external view returns (uint256) {
+        return pricePerToken;
     } 
 
     /// @notice Checks if the ICO contract is currently paused

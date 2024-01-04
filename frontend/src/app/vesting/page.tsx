@@ -1,9 +1,9 @@
 "use client";
 import { ResponsiveLine } from "@nivo/line";
-import Button from "../components/ui/Button";
+import Button from "../../components/ui/Button";
 import { useState } from "react";
-import Container from "../components/ui/Container";
-import VestingSchedule from "../components/vesting/VestingSchedule";
+import Container from "../../components/ui/Container";
+import VestingSchedule from "../../components/vesting/VestingSchedule";
 
 const tabs = [
   {

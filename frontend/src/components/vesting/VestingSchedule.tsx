@@ -1,4 +1,4 @@
-import useMobileDetect from "@/app/hooks/useMobileDetect";
+import useMobileDetect from "@/hooks/useMobileDetect";
 import { ResponsiveLine } from "@nivo/line";
 
 const customYAxisTicks = [0, 250000, 500000, 750000, 1000000];

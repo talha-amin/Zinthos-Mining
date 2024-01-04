@@ -1,5 +1,5 @@
 "use client";
-import { companies } from "@/app/data";
+import { companies } from "@/data";
 import { motion } from "framer-motion";
 import Image from "next/image";
 

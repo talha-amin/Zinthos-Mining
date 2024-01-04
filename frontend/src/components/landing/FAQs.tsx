@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useAnimation, useInView, motion } from "framer-motion";
 import { FaChevronDown } from "react-icons/fa6";
 import Container from "../ui/Container";
-import { staggeredSlide } from "@/app/data";
+import { staggeredSlide } from "@/data";
 
 const faqs = [
   {

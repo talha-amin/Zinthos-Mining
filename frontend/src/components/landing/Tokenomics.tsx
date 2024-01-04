@@ -2,7 +2,7 @@
 import React, { useEffect, useRef } from "react";
 import Container from "../ui/Container";
 import Image from "next/image";
-import { staggeredSlide, tokenomics } from "@/app/data";
+import { staggeredSlide, tokenomics } from "@/data";
 import Fade from "../animation/Fade";
 import { motion, useAnimation, useInView } from "framer-motion";
 

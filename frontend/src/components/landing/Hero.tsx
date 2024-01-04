@@ -6,8 +6,8 @@ import Button from "../ui/Button";
 import Container from "../ui/Container";
 import Fade from "../animation/Fade";
 import { motion } from "framer-motion";
-import { FADE_UP_ANIMATION_VARIANTS } from "@/app/data";
-import { UseFennecContext } from "@/app/context/FennecContext";
+import { FADE_UP_ANIMATION_VARIANTS } from "@/data";
+import { UseFennecContext } from "@/context/FennecContext";
 
 const Hero = () => {
 const [buyMethod, setBuyMethod] = useState<number>(1)

@@ -2,7 +2,7 @@
 import React, { useEffect, useRef } from "react";
 import Container from "../ui/Container";
 import Image from "next/image";
-import { FADE_UP_ANIMATION_VARIANTS, roadmap } from "@/app/data";
+import { FADE_UP_ANIMATION_VARIANTS, roadmap } from "@/data";
 import { motion, useAnimation, useInView } from "framer-motion";
 
 const Roadmap = () => {

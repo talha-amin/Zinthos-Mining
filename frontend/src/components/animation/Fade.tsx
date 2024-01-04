@@ -1,7 +1,7 @@
 "use client";
 import React, { ReactNode } from "react";
 import { motion } from "framer-motion";
-import useMobileDetect from "@/app/hooks/useMobileDetect";
+import useMobileDetect from "@/hooks/useMobileDetect";
 
 type Props = {
   children: ReactNode;

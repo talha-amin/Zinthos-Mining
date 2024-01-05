@@ -33,6 +33,7 @@ const FerrisWheel = () => {
       href: "/",
     },
   ];
+
   return (
     <section className="sec-p-y">
       <Container>
@@ -67,7 +68,7 @@ const FerrisWheel = () => {
                   </div>
                   <div
                     className={
-                      "w-16 h-16 rounded-10 top-0 left-0 -translate-x-1/2 -translate-y-1/2 absolute revolving-object"
+                      `w-16 h-16 xs:w-20 xs:h-20 rounded-10 top-0 left-0 -translate-x-1/2 -translate-y-1/2 absolute revolving-object`
                     }
                   >
                     <Link

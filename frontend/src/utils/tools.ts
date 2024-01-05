@@ -52,10 +52,11 @@ export const getEthertoWeiWithUnits = (_ether:string,units=18) => {
 }
 export const getWeitoEtherWithUnits = (_wei:any,units=18) => {
    
-    return ethers.utils.parseUnits(_wei.toString(),units);
+    return ethers.utils.formatUnits(_wei.toString(),units);
 
 
 }
+export const currentUnixTimestamp: number = Math.floor(new Date().getTime() / 1000);
 
 export const REPLACER = (key:any, value:any) =>
   typeof value === 'bigint' ? value.toString() : value

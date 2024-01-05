@@ -12,10 +12,11 @@ import { UseFennecContext } from "@/context/FennecContext";
 const Hero = () => {
 const [buyMethod, setBuyMethod] = useState<number>(1)
 
-  const {isApprovedUSDT,approveMaxUSDThandle,userInputAmount,setUserInputAmount,ROUND,buyFennecHandle} = UseFennecContext();
+  const {isApprovedUSDT,approveMaxUSDThandle,userInputAmount,setUserInputAmount,ROUND,buyFennecHandle,FennecTokenPrice} = UseFennecContext();
 const buyMethodText = ["ETH","USDT","VISA"]
 const buyMethodIcon = ["eth.svg","usdt.svg","visa.svg"]
 
+const ROUND_TITLE = ["Round Not Yet Started","Round 1 Tilte","Round 2 Tilte","Round 3 Tilte"]
 
   return (
     <section className="relative">
@@ -69,7 +70,7 @@ const buyMethodIcon = ["eth.svg","usdt.svg","visa.svg"]
                 Buy In Before Price Increase
               </h2>
               <p className="text-center text-xs md:text-sm lg:text-lg font-bold mb-6">
-                STAGE 2: PUBLIC ROUND
+                STAGE {ROUND} : {ROUND_TITLE[ROUND]}
               </p>
               <HeroTimer />
               <div className=" mx-auto">
@@ -161,7 +162,7 @@ const buyMethodIcon = ["eth.svg","usdt.svg","visa.svg"]
                       type="number"
                       className="w-fit min-w-0 bg-transparent focus:outline-none"
                       placeholder="0"
-                     
+                     value={Number(userInputAmount)<=0?'':Number(userInputAmount)*Number(FennecTokenPrice)}
                       disabled
                       
                     />

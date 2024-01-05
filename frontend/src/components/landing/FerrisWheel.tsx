@@ -13,23 +13,23 @@ const FerrisWheel = () => {
       href: "/",
     },
     {
-      image: "/images/landing/circle-1.png",
+      image: "/images/landing/circle-2.png",
       href: "/",
     },
     {
-      image: "/images/landing/circle-1.png",
+      image: "/images/landing/circle-3.png",
       href: "/",
     },
     {
-      image: "/images/landing/circle-1.png",
+      image: "/images/landing/circle-4.png",
       href: "/",
     },
     {
-      image: "/images/landing/circle-1.png",
+      image: "/images/landing/circle-5.png",
       href: "/",
     },
     {
-      image: "/images/landing/circle-1.png",
+      image: "/images/landing/circle-6.png",
       href: "/",
     },
   ];
@@ -50,11 +50,12 @@ const FerrisWheel = () => {
         <motion.div
           animate={{ rotate: "360deg" }}
           transition={{ duration, ease: "linear", repeat: Infinity }}
-          className="w-2/3 rounded-full aspect-square relative mx-auto mt-16"
+          className="w-4/5 sm:w-2/3 rounded-full aspect-square relative mx-auto mt-16"
         >
-          {ferrisItems.map((item, idx) => {
+          {ferrisItems.map(({image, href}, idx) => {
             return (
               <div
+                key={idx}
                 className="w-[1px] bg-[#D9D9D9] h-1/2 bg-black absolute left-1/2 top-0 origin-bottom -translate-x-1/2"
                 style={{ rotate: `${idx * 60}deg` }}
               >
@@ -70,7 +71,7 @@ const FerrisWheel = () => {
                     }
                   >
                     <Link
-                      href="/"
+                      href={href}
                       className="inline-block relative w-full h-full rounded-full pointer-events-auto"
                     >
                       <motion.div
@@ -83,7 +84,7 @@ const FerrisWheel = () => {
                         className="w-full h-full"
                       >
                         <Image
-                          src="/images/landing/circle-1.png"
+                          src={image}
                           fill
                           alt="Image"
                           style={{ rotate: `-${idx * 60}deg` }}

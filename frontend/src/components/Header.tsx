@@ -20,6 +20,7 @@ const navLinks = [
   { title: "Tokenomic", href: "#" },
   { title: "Roadmap", href: "#" },
   { title: "Whitepaper", href: "#" },
+  { title: "Vesting", href: "/vesting" },
 ];
 
 const Header = () => {

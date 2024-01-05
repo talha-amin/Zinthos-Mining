@@ -1,9 +1,14 @@
 "use client";
 import { ResponsiveLine } from "@nivo/line";
-import Button from "../components/ui/Button";
-import { useState } from "react";
-import Container from "../components/ui/Container";
-import VestingSchedule from "../components/vesting/VestingSchedule";
+import Button from "../../components/ui/Button";
+import { useEffect, useState } from "react";
+import Container from "../../components/ui/Container";
+import VestingSchedule from "../../components/vesting/VestingSchedule";
+import { UseFennecContext } from "@/context/FennecContext";
+import { currentUnixTimestamp, getWeitoEther } from "@/utils/tools";
+import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from "wagmi";
+import { vestingContractConfig } from "@/data/constants";
+import CountdownTimer from "@/components/ui/CountdownTimer";
 
 const tabs = [
   {
@@ -20,6 +25,8 @@ const tabs = [
   },
 ];
 export default function Vesting() {
+  const {isApprovedUSDT,approveMaxUSDThandle,userInputAmount,setUserInputAmount,ROUND,buyFennecHandle,FennecTokenPrice,userTxHistoryData} = UseFennecContext();
+
   const [selectedTab, setSelectedTab] = useState(1);
 
   return (
@@ -48,7 +55,19 @@ export default function Vesting() {
             );
           })}
         </div>
-        <div className="grid xl:grid-cols-2 gap-8 mb-8">
+        <div className="grid xl:grid-cols-1 gap-8 mb-8">
+          {
+            userTxHistoryData && userTxHistoryData.length > 0?
+            userTxHistoryData.map((data,i) =>(
+
+              <TxHistoryView key={i} data={data} txId={i}/>
+            ))
+            :
+            <p>no tx history</p>
+          }
+       
+
+          {/* <>
           <div className="h-full flex flex-col">
             <h2 className="text-lg font-semibold mb-4 md:ps-8">
               Vesting Summary
@@ -107,6 +126,7 @@ export default function Vesting() {
               </div>
             </div>
           </div>
+          </> */}
         </div>
         <h2 className="text-lg font-semibold mb-4 md:ps-8">Vesting schedule</h2>
         <div className="bg-neutral-950 rounded-lg relative">
@@ -125,3 +145,117 @@ export default function Vesting() {
     </section>
   );
 }
+
+
+
+const TxHistoryView = ({data,txId}:any) => {
+
+
+  const { config:withdrawFennecConfig } = usePrepareContractWrite({
+    ...vestingContractConfig,
+    functionName: 'withdraw',
+    args: [String(txId)],
+    enabled: (currentUnixTimestamp>data.endTime) && Number(getWeitoEther(data.amountToBeGiven))>0,
+  })
+  const { data:withdrawFennecData, isLoading:withdrawFennecLoading, isSuccess:withdrawFennecSuccess,status:withdrawFennecStatus, write:withdrawFennechandle } = useContractWrite(withdrawFennecConfig)
+  
+  useEffect(() => {
+    
+    console.log("withdrawFennecStatus", withdrawFennecStatus);
+
+    if (withdrawFennecStatus == "loading") {
+     
+    }
+    if (withdrawFennecStatus == "success") {
+    
+    }
+    if (withdrawFennecStatus == "error") {
+     
+    }
+  }, [withdrawFennecStatus]);
+
+  const { data: withdrawFennecResponse } = useWaitForTransaction({
+    hash: withdrawFennecData?.hash,
+    onSuccess(data) {
+      console.log("final succes", data);
+      
+
+      // notifySuccessWithHash("Transaction Confirmed", String(withdrawFennecData?.hash))
+      // setLoader1(false);
+      // setLoaderMsg("");
+    },
+    onError(data) {
+      console.log("final error", data);
+      
+      // notifyError("Transaction Failed")
+      // setLoader1(false);
+      // setLoaderMsg("");
+    },
+  });
+
+
+
+  return (
+    <>
+          <div className="h-full flex flex-col">
+            {/* <h2 className="text-lg font-semibold mb-4 md:ps-8">
+              Vesting Summary
+            </h2> */}
+
+            <div className="bg-neutral-950 p-8 relative overflow-hidden rounded-lg flex-1">
+              <div className="absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 opacity-25 pointer-events-none">
+                <div className="shadow-effect blur-[150px] aspect-square w-[200px]"></div>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-16 items-center">
+                <div className="sm:flex-1 w-full sm:w-auto flex flex-col gap-3">
+                  <div className="flex items-center justify-between">
+                    <p className="text-sm text-neutral-400">Amount Remaining</p>
+                    <p className="text-sm sm:text-base">{getWeitoEther(data.amountRemaining)} FTK</p>
+                  </div>
+                  {/* <div className="flex items-center justify-between">
+                    <p className="text-sm text-neutral-400">Claimed</p>
+                    <p className="text-sm sm:text-base">118,200 FTK | 0.24% dummy</p>
+                  </div> */}
+                  <div className="flex items-center justify-between">
+                    <p className="text-sm text-neutral-400">End Time</p>
+                    <p><CountdownTimer targetUnixTimestamp={data.endTime} /></p>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-1 items-center">
+                  <p className="text-xs font-medium text-neutral-400">
+                    Available now
+                  </p>
+                  <p className="text-xl font-bold mb-1">{getWeitoEther(data.amountToBeGiven)} FTK</p>
+                  <Button disabled={(Number(getWeitoEther(data.amountToBeGiven))<=0) || (currentUnixTimestamp<data.endTime) }>Claim all tokens</Button>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* <div className="h-full flex flex-col">
+            <h2 className="text-lg font-semibold mb-4 md:ps-8">
+              Vesting period
+            </h2>
+            <div className="bg-neutral-950 relative overflow-hidden p-8 rounded-lg flex-1">
+              <div className="absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 opacity-25 pointer-events-none">
+                <div className="shadow-effect blur-[150px] aspect-square w-[200px]"></div>
+              </div>
+              <div className="flex-1 flex flex-col gap-3">
+                <div className="flex sm:items-center justify-between flex-col sm:flex-row">
+                  <p className="text-sm text-neutral-400">Start date</p>
+                  <p>25/06/2021 | 14:38:20</p>
+                </div>
+                <div className="flex sm:items-center justify-between flex-col sm:flex-row">
+                  <p className="text-sm text-neutral-400">Cliff</p>
+                  <p>25/06/2021 | 15:38:20</p>
+                </div>
+                <div className="flex sm:items-center justify-between flex-col sm:flex-row">
+                  <p className="text-sm text-neutral-400">End date</p>
+                  <p><CountdownTimer targetUnixTimestamp={data.endTime} /></p>
+                </div>
+              </div>
+            </div>
+          </div> */}
+          </>
+  )
+}
+

@@ -52,10 +52,11 @@ export const getEthertoWeiWithUnits = (_ether:string,units=18) => {
 }
 export const getWeitoEtherWithUnits = (_wei:any,units=18) => {
    
-    return ethers.utils.parseUnits(_wei.toString(),units);
+    return ethers.utils.formatUnits(_wei.toString(),units);
 
 
 }
+export const currentUnixTimestamp: number = Math.floor(new Date().getTime() / 1000);
 
 export const REPLACER = (key:any, value:any) =>
   typeof value === 'bigint' ? value.toString() : value
@@ -76,26 +77,26 @@ export const getApplicantId = async (accountAddress:string) => {
   };
 
 // Debounce function
-// const debounce = (func:any, delay:number) => {
-//     let timeoutId;
-//     return (...args) => {
-//       clearTimeout(timeoutId);
-//       timeoutId = setTimeout(() => {
-//         func(...args);
-//       }, delay);
-//     };
-//   };
+const debounce = (func:any, delay:number) => {
+    let timeoutId:any;
+    return (...args:any[]) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func(...args);
+      }, delay);
+    };
+  };
   
-//   // Custom hook
-// export const useDebouncedState = (initialValue, delay) => {
-//     const [debouncedValue, setDebouncedValue] = useState(initialValue);
+  // Custom hook
+export const useDebouncedState = (initialValue:string, delay:number) => {
+    const [debouncedValue, setDebouncedValue] = useState(initialValue);
   
-//     const updateDebouncedValue = debounce((newValue) => {
-//       setDebouncedValue(newValue);
-//     }, delay);
+    const updateDebouncedValue = debounce((newValue:string) => {
+      setDebouncedValue(newValue);
+    }, delay);
   
-//     return [debouncedValue, updateDebouncedValue];
-//   };
+    return [debouncedValue, updateDebouncedValue];
+  };
 
 //  export function convertSecondsToDate(seconds) {
 //     // Convert seconds to milliseconds by multiplying by 1000

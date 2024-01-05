@@ -4,7 +4,7 @@ import React from "react";
 import Button from "../ui/Button";
 import Fade from "../animation/Fade";
 import { motion } from "framer-motion";
-import { FADE_UP_ANIMATION_VARIANTS } from "@/app/data";
+import { FADE_UP_ANIMATION_VARIANTS } from "@/data";
 const Contact = () => {
   return (
     <div className="text-white sec-p-y flex items-center justify-center px-4">

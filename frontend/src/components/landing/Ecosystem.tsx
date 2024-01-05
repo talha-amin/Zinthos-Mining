@@ -2,7 +2,7 @@
 import React, { useEffect, useRef } from "react";
 import Container from "../ui/Container";
 import Image from "next/image";
-import { ecosystem, staggeredPop } from "@/app/data";
+import { ecosystem, staggeredPop } from "@/data";
 import { motion, useAnimation, useInView } from "framer-motion";
 
 const Ecosystem = () => {

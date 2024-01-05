@@ -6,16 +6,17 @@ import Button from "../ui/Button";
 import Container from "../ui/Container";
 import Fade from "../animation/Fade";
 import { motion } from "framer-motion";
-import { FADE_UP_ANIMATION_VARIANTS } from "@/app/data";
-import { UseFennecContext } from "@/app/context/FennecContext";
+import { FADE_UP_ANIMATION_VARIANTS } from "@/data";
+import { UseFennecContext } from "@/context/FennecContext";
 
 const Hero = () => {
 const [buyMethod, setBuyMethod] = useState<number>(1)
 
-  const {isApprovedUSDT,approveMaxUSDThandle,userUSDTAmount,setUserUSDTAmount,ROUND,buyFennecHandle} = UseFennecContext();
+  const {isApprovedUSDT,approveMaxUSDThandle,userInputAmount,setUserInputAmount,ROUND,buyFennecHandle,FennecTokenPrice} = UseFennecContext();
 const buyMethodText = ["ETH","USDT","VISA"]
 const buyMethodIcon = ["eth.svg","usdt.svg","visa.svg"]
 
+const ROUND_TITLE = ["Round Not Yet Started","Round 1 Tilte","Round 2 Tilte","Round 3 Tilte"]
 
   return (
     <section className="relative">
@@ -69,7 +70,7 @@ const buyMethodIcon = ["eth.svg","usdt.svg","visa.svg"]
                 Buy In Before Price Increase
               </h2>
               <p className="text-center text-xs md:text-sm lg:text-lg font-bold mb-6">
-                STAGE 2: PUBLIC ROUND
+                STAGE {ROUND} : {ROUND_TITLE[ROUND]}
               </p>
               <HeroTimer />
               <div className=" mx-auto">
@@ -127,6 +128,30 @@ const buyMethodIcon = ["eth.svg","usdt.svg","visa.svg"]
                 </button>
               </div>
               <div className="grid grid-cols-2 gap-3">
+              <div className="flex flex-col gap-1">
+                  <label htmlFor="ethAmount" className="text-xs">
+                    Fennec amount to buy:
+                  </label>
+                  <div className="inline-flex gap-3 items-center justify-center rounded-md text-xs sm:text-sm font-medium ring ring-[.75px] ring-white h-10 px-2 sm:px-4 py-1 sm:py-2">
+                    <input
+                      id="ethAmount"
+                      type="number"
+                      className="w-fit min-w-0 bg-transparent focus:outline-none"
+                      placeholder="0"
+                      value={userInputAmount}
+                      min={0}
+                      onChange={(e)=>{setUserInputAmount(String(e.target.value))}}
+                    />
+                    <div className="h-full aspect-square relative">
+                      <Image
+                        fill
+                        className="object-contain"
+                        src="/logo.svg"
+                        alt="fennec icon"
+                      />{" "}
+                    </div>
+                  </div>
+                </div>
                 <div className="flex flex-col gap-1">
                   <label htmlFor="ethAmount" className="text-xs">
                     Pay with {buyMethodText[buyMethod]}
@@ -137,10 +162,8 @@ const buyMethodIcon = ["eth.svg","usdt.svg","visa.svg"]
                       type="number"
                       className="w-fit min-w-0 bg-transparent focus:outline-none"
                       placeholder="0"
-                      value={userUSDTAmount}
-                      min={0}
-                      onChange={(e)=>{setUserUSDTAmount(String(e.target.value))}}
-
+                     value={Number(userInputAmount)<=0?'':Number(userInputAmount)*Number(FennecTokenPrice)}
+                      disabled
                       
                     />
                     <div className="h-full aspect-square relative">
@@ -153,34 +176,13 @@ const buyMethodIcon = ["eth.svg","usdt.svg","visa.svg"]
                     </div>
                   </div>
                 </div>
-                <div className="flex flex-col gap-1">
-                  <label htmlFor="ethAmount" className="text-xs">
-                    Receive Fennec
-                  </label>
-                  <div className="inline-flex gap-3 items-center justify-center rounded-md text-xs sm:text-sm font-medium ring ring-[.75px] ring-white h-10 px-2 sm:px-4 py-1 sm:py-2">
-                    <input
-                      id="ethAmount"
-                      type="number"
-                      className="w-fit min-w-0 bg-transparent focus:outline-none"
-                      placeholder="0"
-                      disabled
-                    />
-                    <div className="h-full aspect-square relative">
-                      <Image
-                        fill
-                        className="object-contain"
-                        src="/logo.svg"
-                        alt="fennec icon"
-                      />{" "}
-                    </div>
-                  </div>
-                </div>
+                
               </div>
               <div className="flex justify-center mt-8">
         
                   {isApprovedUSDT?
                   <Button fullWidth className=""
-                  disabled={ROUND==0|| Number(userUSDTAmount)<=0}
+                  disabled={ROUND==0|| Number(userInputAmount)<=0}
                   onClick={()=>buyFennecHandle?.()}
                   >
                   {ROUND==0?"Round isn't started yet":"Buy Fennec"}
@@ -188,7 +190,7 @@ const buyMethodIcon = ["eth.svg","usdt.svg","visa.svg"]
                 </Button>
                 :
                   <Button fullWidth className=""
-                  disabled={ROUND==0|| Number(userUSDTAmount)<=0}
+                  disabled={ROUND==0|| Number(userInputAmount)<=0}
 
                   onClick={()=>approveMaxUSDThandle?.()}
                   >

@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { Quicksand } from "next/font/google";
 import "./globals.css";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import SmoothScroll from "./components/animation/SmoothScroll";
-import { FennecContextProvider } from "./context/FennecContext";
-import { WagmiContextProvider } from "./context/WagmiContext";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import SmoothScroll from "../components/animation/SmoothScroll";
+import { WagmiContextProvider } from "@/context/WagmiContext";
+import { FennecContextProvider } from "@/context/FennecContext";
+
 
 const quicksand = Quicksand({ subsets: ["latin"] });
 

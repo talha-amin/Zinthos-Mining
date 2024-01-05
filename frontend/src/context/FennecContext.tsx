@@ -174,28 +174,28 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
 
    //======================== KYC Verification =================
 
-   const [kycStatus, setKycStatus] = useState("");
+   const [kycStatus, setKycStatus] = useState("completed");
    const [kycAccessToken, setKycAccessToken] = useState("");
 
-   useEffect(() => {
-     if (ConnectedWallet !== null) {
-       (async () => {
-         const _id = await getApplicantId(ConnectedWallet?.toLowerCase());
-        //  console.log("response kyc", _id);  // demo 6597e268c29a737c8164ab13
-         const response = await applicantStatus(_id);
-        //  console.log("response kyc", response);
-         setKycStatus(response);
-         if (response === "notFound") {
-           const accessToken = await kycVerification(ConnectedWallet?.toLowerCase(),setKycAccessToken);
-          //  console.log("response accessToken", accessToken);
-         } else {
-           const res = await generateAccessToken(ConnectedWallet?.toLowerCase());
-           console.log("CHECKK", res);
-           setKycAccessToken(res as string);
-         }
-       })();
-     }
-   }, [ConnectedWallet]);
+  //  useEffect(() => {
+  //    if (ConnectedWallet !== null) {
+  //      (async () => {
+  //        const _id = await getApplicantId(ConnectedWallet?.toLowerCase());
+  //       //  console.log("response kyc", _id);  // demo 6597e268c29a737c8164ab13
+  //        const response = await applicantStatus(_id);
+  //       //  console.log("response kyc", response);
+  //        setKycStatus(response);
+  //        if (response === "notFound") {
+  //          const accessToken = await kycVerification(ConnectedWallet?.toLowerCase(),setKycAccessToken);
+  //         //  console.log("response accessToken", accessToken);
+  //        } else {
+  //          const res = await generateAccessToken(ConnectedWallet?.toLowerCase());
+  //          console.log("CHECKK", res);
+  //          setKycAccessToken(res as string);
+  //        }
+  //      })();
+  //    }
+  //  }, [ConnectedWallet]);
 
    
 

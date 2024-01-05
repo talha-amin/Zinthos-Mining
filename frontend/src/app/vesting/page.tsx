@@ -243,6 +243,7 @@ const TxHistoryView = ({data,txId}:{data:any,txId:number}) => {
                   <Button
                    disabled={(Number(getWeitoEther(data.amountToBeGiven))<=0) || (currentUnixTimestamp<data.endTime) || (withrawId!==null&&withrawId===Number(txId))}
                    isLoading={(withrawId!==null&&withrawId===Number(txId))}
+                   onClick={withdrawFennechandle}
                    >Claim Tokens</Button>
                 </div>
               </div>

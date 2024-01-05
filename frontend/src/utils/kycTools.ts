@@ -1,5 +1,6 @@
 import axios from "axios";
-const apiURL = "http://localhost:8000";
+const apiURL = "https://fennec-backend.vercel.app";
+// const apiURL = "http://localhost:8000";
 
 export const getApplicantId = async (account:string) => {
     try {
@@ -38,8 +39,8 @@ export const getApplicantId = async (account:string) => {
       const _data = await axios.post(`${apiURL}/api/kycverification/`, obj);
       if (_data.status === 200) {
         console.log("CHECKK", _data.response.token);
-        setAccessToken(_data.response.token);
-        accessToken=_data.response.token
+        accessToken=_data.response.token as string;
+        setAccessToken(accessToken);
         console.log("ENDED.........");
         
       }
@@ -57,6 +58,7 @@ export const getApplicantId = async (account:string) => {
     };
     try {
       const _data = await axios.post(`${apiURL}/api/generateAccessToken/`, obj);
+      console.log("CHECKK generateAccessToken",_data);
 
       return _data.data.token;
     } catch (err) {

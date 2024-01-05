@@ -6,6 +6,10 @@ import { FENNEC_ABI, FENNEC_ADDRESS, USDT_ABI, USDT_ADDRESS, fennecContractConfi
 import { REPLACER, getBigintToString, getEthertoWeiWithUnits, getWeitoEtherWithUnits } from '../utils/tools';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import UseFennecTxHistory from '@/hooks/fennecHooks';
+import { applicantStatus, generateAccessToken, getApplicantId, kycVerification } from '@/utils/kycTools';
+import { toast } from "react-toastify";
+
+
 
 interface FennecContextProps {
   // provider?: ethers.providers.Web3Provider;
@@ -20,8 +24,17 @@ interface FennecContextProps {
   setUserInputAmount: React.Dispatch<React.SetStateAction<string>>;
   userInputAmount: string;
   ROUND:number;
+  kycStatus:string;
+  kycAccessToken:string;
   FennecTokenPrice:string;
-  userTxHistoryData: any[] | []
+  approveMaxUSDTLoadingState:boolean;
+  buyFennecLoadingState:boolean;
+  isUserWitdrawing:boolean;
+  setIsUserWitdrawing: React.Dispatch<React.SetStateAction<boolean>>;
+  userTxHistoryData: any[] | [];
+  notifyError: (msg: string) => void
+  notifySuccess: (msg: string) => void
+  notifySuccessWithHash: (msg: string, txHash: string) => void
 }
 
 const FennecContext = createContext<FennecContextProps | undefined>(undefined);
@@ -50,11 +63,89 @@ const USDTContract = {
 
 export const FennecContextProvider = ({ children }:nodeProps) => {
 
+      //======================== message toasts =================
+      type Id = {current:number | string};
+
+      const errorToastId:Id = { current: ""};
+  const notifyError = (msg:string) => {  
+      if (!toast.isActive(errorToastId.current)) {
+          errorToastId.current = toast.error(
+              <span className="text-sm leading-3 text-neutral-200">{msg}</span>,
+              {
+                  position: "top-center",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "dark",
+                  progressClassName: "custom-progress",
+              }
+          );
+      }
+  };
+  
+  
+  const notifySuccessToastId:Id = { current: 0 };
+  
+  const notifySuccess = (msg:string) => {
+      if (!toast.isActive(notifySuccessToastId.current)) {
+          notifySuccessToastId.current = toast.success(
+              <span className="text-sm leading-3 text-neutral-200">{msg}</span>,
+              {
+                  position: "top-center",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "dark",
+                  progressClassName: "custom-progress",
+              }
+          );
+      }
+  };
+  
+  
+  const notifySuccessWithHashToastId:Id = { current: 0 };
+  
+  const notifySuccessWithHash = (msg:string,txHash:string) => {
+      if (!toast.isActive(notifySuccessWithHashToastId.current)) {
+        let link = `https://mumbai.polygonscan.com/tx/${txHash}`;
+          notifySuccessWithHashToastId.current = toast.success(
+            <a
+            href={link}
+            target="_blank"
+            className="text-sm leading-3 text-neutral-200"
+        >
+            {msg}
+        </a>,
+              {
+                  position: "top-center",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "dark",
+                  progressClassName: "custom-progress",
+              }
+          );
+      }
+  };
+
+      //======================== STATES =================
+
+
   const [ConnectedWallet, setConnectedWallet] = useState<string | null>(null)
   const [userInputAmount, setUserInputAmount] = useState<string>('')
   const [userFennecAmountInWei, setUserFennecAmountInWei] = useState<string>('0')
   const [FennecTokenPrice, setFennecTokenPrice] = useState<string>('')
   const [isApprovedUSDT, setIsApprovedUSDT] = useState<boolean>(false)
+  const [isUserWitdrawing, setIsUserWitdrawing] = useState<boolean>(false)
   const [ROUND, setROUND] = useState<number>(0)
   const [allTxReqState, setAllTxReqState] = useState<[]| any[]>([])
   const [userTxHistoryData, setUserTxHistoryData] = useState<[]| any[]>([])
@@ -79,6 +170,37 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
     setConnectedWallet(address?address:null)
      
     }, [address]);
+
+
+   //======================== KYC Verification =================
+
+   const [kycStatus, setKycStatus] = useState("completed");
+   const [kycAccessToken, setKycAccessToken] = useState("");
+
+  //  useEffect(() => {
+  //    if (ConnectedWallet !== null) {
+  //      (async () => {
+  //        const _id = await getApplicantId(ConnectedWallet?.toLowerCase());
+  //       //  console.log("response kyc", _id);  // demo 6597e268c29a737c8164ab13
+  //        const response = await applicantStatus(_id);
+  //       //  console.log("response kyc", response);
+  //        setKycStatus(response);
+  //        if (response === "notFound") {
+  //          const accessToken = await kycVerification(ConnectedWallet?.toLowerCase(),setKycAccessToken);
+  //         //  console.log("response accessToken", accessToken);
+  //        } else {
+  //          const res = await generateAccessToken(ConnectedWallet?.toLowerCase());
+  //         //  console.log("CHECKK", res);
+  //          setKycAccessToken(res);
+  //        }
+  //      })();
+  //    }
+  //  }, [ConnectedWallet]);
+
+   
+
+
+
     //======================== TOKEN PRICE IN USDT =================
     const { data:currentTokenPrice, } = useContractRead({
       ...fennecIcoContractConfig,
@@ -208,6 +330,9 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
     }, [userUSDTAllowance]);
     
     //======================== Approve MAX USDT to ICO =================
+
+  const [approveMaxUSDTLoadingState, setApproveMaxUSDTLoadingState] = useState(false)
+
     
     const { config:approveMaxUSDTConfig } = usePrepareContractWrite({
       ...usdtContractConfig,
@@ -223,12 +348,15 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
       console.log("approveMaxStatus", approveMaxStatus);
 
       if (approveMaxStatus == "loading") {
-       
+        setApproveMaxUSDTLoadingState(true)
+        
       }
       if (approveMaxStatus == "success") {
-      
+        
       }
       if (approveMaxStatus == "error") {
+        setApproveMaxUSDTLoadingState(false)
+        notifyError("User Rejected Transaction")
        
       }
     }, [approveMaxStatus]);
@@ -237,8 +365,12 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
       hash: approveMaxData?.hash,
       onSuccess(data) {
         console.log("final succes", data);
+        setApproveMaxUSDTLoadingState(false)
+
         setIsApprovedUSDT(true);
         buyFennecHandle?.()
+        notifySuccessWithHash("Transaction Confirmed", String(data?.transactionHash));
+
   
         // notifySuccessWithHash("Transaction Confirmed", String(approveMaxData?.hash))
         // setLoader1(false);
@@ -246,8 +378,9 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
       },
       onError(data) {
         console.log("final error", data);
+        setApproveMaxUSDTLoadingState(false)
         setIsApprovedUSDT(false);
-        // notifyError("Transaction Failed")
+        notifyError("Something went wrong")
         // setLoader1(false);
         // setLoaderMsg("");
       },
@@ -255,6 +388,10 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
 
 
     //======================== BUY Fennec =================
+
+
+
+  const [buyFennecLoadingState, setBuyFennecLoadingState] = useState(false)
 
     const { data:currentRoundNo, isRefetching, isSuccess, refetch } = useContractRead({
       ...fennecIcoContractConfig,
@@ -287,13 +424,15 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
       console.log("buyFennecStatus", buyFennecStatus);
 
       if (buyFennecStatus == "loading") {
-       
+        setBuyFennecLoadingState(true)
       }
       if (buyFennecStatus == "success") {
       
       }
       if (buyFennecStatus == "error") {
-       
+        setBuyFennecLoadingState(false)
+        notifyError("User Rejected Transaction")
+
       }
     }, [buyFennecStatus]);
 
@@ -301,19 +440,20 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
       hash: buyFennecData?.hash,
       onSuccess(data) {
         console.log("final succes", data);
+        setBuyFennecLoadingState(false)
         
-  
-        // notifySuccessWithHash("Transaction Confirmed", String(buyFennecData?.hash))
-        // setLoader1(false);
-        // setLoaderMsg("");
+        notifySuccessWithHash("Transaction Confirmed", String(data?.transactionHash));
+
+      
       },
       onError(data) {
         console.log("final error", data);
+        setBuyFennecLoadingState(false)
+        notifyError("Something went wrong")
+
         
 
-        // notifyError("Transaction Failed")
-        // setLoader1(false);
-        // setLoaderMsg("");
+
       },
     });
 
@@ -334,47 +474,14 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
     }, [userFennecAmountInWei])
     
 
+ 
 
 
-
-
-    //======================== NEXT =================
-
-
-
-  // const { data, isError, isLoading } = useContractReads({
-  //   contracts: [
-  //     {
-  //       ...fennecContractConfig,
-  //       functionName: 'owner',
-  //     },
-      // {
-      //   ...FennecContract,
-      //   functionName: 'getRoundOneLimitRemaining',
-      // },
-      // {
-      //   ...FennecContract,
-      //   functionName: 'getRoundTwoLimitRemaining',
-      // },
-      // {
-      //   ...FennecContract,
-      //   functionName: 'getRoundThreeLimitRemaining',
-      // },
-      // {
-      //   ...FennecContract,
-      //   functionName: 'getRound',
-      // },
-      // {
-      //   ...FennecContract,
-      //   functionName: 'isPaused',
-      // }
-  //   ] as const,
-  // })
 
 
 
   return (
-    <FennecContext.Provider value={{ConnectedWallet,connectWalletHanle,isApprovedUSDT,approveMaxUSDThandle,buyFennecHandle,userInputAmount,setUserInputAmount ,ROUND,FennecTokenPrice,userTxHistoryData}}>
+    <FennecContext.Provider value={{notifyError,notifySuccess,notifySuccessWithHash,  isUserWitdrawing,setIsUserWitdrawing,approveMaxUSDTLoadingState,buyFennecLoadingState,ConnectedWallet,connectWalletHanle,isApprovedUSDT,approveMaxUSDThandle,buyFennecHandle,userInputAmount,setUserInputAmount ,ROUND,FennecTokenPrice,userTxHistoryData,kycStatus,kycAccessToken}}>
       {children}
     </FennecContext.Provider>
   );

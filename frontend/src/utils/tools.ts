@@ -9,6 +9,8 @@ const apiURL = "http://localhost:8000";
 
 
 
+
+
 export const getBigintToString = (value:any) => {
     
     let data = ethers.BigNumber.from(value);
@@ -61,20 +63,7 @@ export const currentUnixTimestamp: number = Math.floor(new Date().getTime() / 10
 export const REPLACER = (key:any, value:any) =>
   typeof value === 'bigint' ? value.toString() : value
 
-export const getApplicantId = async (accountAddress:string) => {
-    try {
-      const _data = await axios.get(`${apiURL}/api/getApplicant/`, {
-        params: {
-          externalUserId: accountAddress,
-        },
-      });
 
-      return String(_data.data.applicantId);
-    } catch (error) {
-        console.log("🚀", error);
-        return "";
-    }
-  };
 
 // Debounce function
 const debounce = (func:any, delay:number) => {

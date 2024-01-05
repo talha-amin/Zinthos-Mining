@@ -1,4 +1,5 @@
 import React, { ComponentPropsWithoutRef, ReactNode } from "react";
+import Loader from "./Loader";
 
 type PropTypes = ComponentPropsWithoutRef<"button"> & {
   children: ReactNode;
@@ -28,7 +29,6 @@ const Button = ({
 }: PropTypes) => {
   return (
     <button
-    disabled={isLoading}
       {...rest}
       className={`${
         customVariant ? customVariant : variants[variant]
@@ -36,7 +36,7 @@ const Button = ({
         fullWidth ? "w-full" : ""
       } rounded ${className? className: ""}`}
     >
-      {isLoading?"Loading...":children}
+      {isLoading ? <Loader size={25} color="white"/> :children}
     </button>
   );
 };

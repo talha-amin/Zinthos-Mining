@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HeroTimer from "./HeroTimer";
 import Button from "../ui/Button";
 import Container from "../ui/Container";
@@ -8,11 +8,21 @@ import Fade from "../animation/Fade";
 import { motion } from "framer-motion";
 import { FADE_UP_ANIMATION_VARIANTS } from "@/data";
 import { UseFennecContext } from "@/context/FennecContext";
+import SumsubWebSdk from "@sumsub/websdk-react";
 
 const Hero = () => {
 const [buyMethod, setBuyMethod] = useState<number>(1)
 
-  const {isApprovedUSDT,approveMaxUSDThandle,userInputAmount,setUserInputAmount,ROUND,buyFennecHandle,FennecTokenPrice} = UseFennecContext();
+  const {buyFennecLoadingState,approveMaxUSDTLoadingState,isApprovedUSDT,approveMaxUSDThandle,userInputAmount,setUserInputAmount,ROUND,buyFennecHandle,FennecTokenPrice,kycStatus,kycAccessToken} = UseFennecContext();
+  // console.log("kycStatus",kycStatus);
+
+  useEffect(() => {
+  console.log("kycStatus",kycStatus);
+  console.log("kycAccessToken",kycAccessToken);
+  
+  }, [kycStatus,kycAccessToken])
+  
+  
 const buyMethodText = ["ETH","USDT","VISA"]
 const buyMethodIcon = ["eth.svg","usdt.svg","visa.svg"]
 
@@ -86,7 +96,11 @@ const ROUND_TITLE = ["Round Not Yet Started","Round 1 Tilte","Round 2 Tilte","Ro
                   USDT RAISED: $5,161,020.05 / $5,828,309
                 </span>
               </div>
-              <div className="flex items-center gap-5 md:gap-4 mb-6  mx-auto">
+
+              {
+                kycStatus === "completed" &&
+                <>
+                <div className="flex items-center gap-5 md:gap-4 mb-6  mx-auto">
                 <hr className="h-[1px] bg-white w-full" />
                 <span className="text-xs whitespace-nowrap">Instant Buy</span>
                 <hr className="h-[1px] bg-white w-full" />
@@ -177,10 +191,57 @@ const ROUND_TITLE = ["Round Not Yet Started","Round 1 Tilte","Round 2 Tilte","Ro
                   </div>
                 </div>
                 
-              </div>
+              </div></>
+              }
+             
+              {kycAccessToken !== "" && kycStatus !== "completed" && (
+          <SumsubWebSdk
+            // onResize={{
+            //   height: 1000,
+            // }}
+            accessToken={kycAccessToken}
+            expirationHandler={() => Promise.resolve(kycAccessToken)}
+            config={{
+              lang: "ru-RU",
+            }}
+            // theme='dark'
+            // style={{"margin-top":"10px","border-radius":"50px"}}
+            // className="my-10"
+          />
+        )}
               <div className="flex justify-center mt-8">
+
+              {
+                kycStatus !== "completed"?
+
+                  <Button fullWidth className=""
+                  disabled
+                  >
+                  {`Verify Your KYC Documents`}
+                  
+                </Button>
+                :
+                isApprovedUSDT?
+                  <Button fullWidth className=""
+                  disabled={ROUND==0|| (Number(userInputAmount)<=0)  || buyFennecLoadingState}
+                  isLoading={buyFennecLoadingState}
+
+                  onClick={()=>buyFennecHandle?.()}
+                  >
+                  {ROUND==0?"Round isn't started yet":"Buy Fennec"}
+                  
+                </Button>
+                :
+                  <Button fullWidth className=""
+                  disabled={ROUND==0|| (Number(userInputAmount)<=0) || approveMaxUSDTLoadingState}
+                  isLoading={approveMaxUSDTLoadingState}
+                  onClick={()=>approveMaxUSDThandle?.()}
+                  >
+                  {ROUND==0?"Round isn't started yet":"Approve USDT"}
+                </Button>
+              }
         
-                  {isApprovedUSDT?
+                  {/* {isApprovedUSDT?
                   <Button fullWidth className=""
                   disabled={ROUND==0|| Number(userInputAmount)<=0}
                   onClick={()=>buyFennecHandle?.()}
@@ -195,7 +256,7 @@ const ROUND_TITLE = ["Round Not Yet Started","Round 1 Tilte","Round 2 Tilte","Ro
                   onClick={()=>approveMaxUSDThandle?.()}
                   >
                   {ROUND==0?"Round isn't started yet":"Approve USDT"}
-                </Button>}
+                </Button>} */}
                 
               </div>
             </div>

@@ -148,7 +148,11 @@ export default function Vesting() {
 
 
 
-const TxHistoryView = ({data,txId}:any) => {
+const TxHistoryView = ({data,txId}:{data:any,txId:number}) => {
+
+  const [withdrawFennecLoadingState, setWithdrawFennecLoadingState] = useState(false)
+  const [withrawId, setWithdrawId] = useState<number|null>(null)
+  const {notifyError,notifySuccess,notifySuccessWithHash} = UseFennecContext();
 
 
   const { config:withdrawFennecConfig } = usePrepareContractWrite({
@@ -164,12 +168,19 @@ const TxHistoryView = ({data,txId}:any) => {
     console.log("withdrawFennecStatus", withdrawFennecStatus);
 
     if (withdrawFennecStatus == "loading") {
+      // setWithdrawFennecLoadingState(true)
+      setWithdrawId(txId)
      
     }
     if (withdrawFennecStatus == "success") {
     
     }
     if (withdrawFennecStatus == "error") {
+      // setWithdrawFennecLoadingState(false)
+      setWithdrawId(null)
+      notifyError("User Rejected Transaction")
+
+
      
     }
   }, [withdrawFennecStatus]);
@@ -178,18 +189,21 @@ const TxHistoryView = ({data,txId}:any) => {
     hash: withdrawFennecData?.hash,
     onSuccess(data) {
       console.log("final succes", data);
-      
+      // setWithdrawFennecLoadingState(false)
+      setWithdrawId(null)
+      notifySuccessWithHash("Transaction Confirmed", String(data?.transactionHash));
 
-      // notifySuccessWithHash("Transaction Confirmed", String(withdrawFennecData?.hash))
-      // setLoader1(false);
-      // setLoaderMsg("");
+      
+      
+ 
     },
     onError(data) {
       console.log("final error", data);
-      
-      // notifyError("Transaction Failed")
-      // setLoader1(false);
-      // setLoaderMsg("");
+      // setWithdrawFennecLoadingState(false)
+      setWithdrawId(null)
+      notifyError("Something went wrong")
+
+    
     },
   });
 
@@ -226,7 +240,10 @@ const TxHistoryView = ({data,txId}:any) => {
                     Available now
                   </p>
                   <p className="text-xl font-bold mb-1">{getWeitoEther(data.amountToBeGiven)} FTK</p>
-                  <Button disabled={(Number(getWeitoEther(data.amountToBeGiven))<=0) || (currentUnixTimestamp<data.endTime) }>Claim all tokens</Button>
+                  <Button
+                   disabled={(Number(getWeitoEther(data.amountToBeGiven))<=0) || (currentUnixTimestamp<data.endTime) || (withrawId!==null&&withrawId===Number(txId))}
+                   isLoading={(withrawId!==null&&withrawId===Number(txId))}
+                   >Claim Tokens</Button>
                 </div>
               </div>
             </div>

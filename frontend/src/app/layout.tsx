@@ -7,6 +7,8 @@ import SmoothScroll from "../components/animation/SmoothScroll";
 import { WagmiContextProvider } from "@/context/WagmiContext";
 import { FennecContextProvider } from "@/context/FennecContext";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const quicksand = Quicksand({ subsets: ["latin"] });
 
@@ -27,6 +29,18 @@ export default function RootLayout({
         <FennecContextProvider>
             <div className="fixed z-50 inset-0 pointer-events-none bg-white/[7%]"></div>
             <SmoothScroll />
+            <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
             <Header />
             {children}
             <Footer />

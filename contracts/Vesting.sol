@@ -97,7 +97,7 @@ contract Vesting is Ownable {
     /// @param _investor to ensure tx initiator is a investor
     /// @custom:modifier onlyOwner Restricts the function access to the authorizer.
     function deposit(address _userAddr, uint256 _amount, uint256 _amountToBeGiven, bool _investor) external onlyAuthorized {
-        txHistory[_userAddr].push(Transaction(_amount, (block.timestamp + 356 days), _amountToBeGiven,_investor));
+        txHistory[_userAddr].push(Transaction(_amount, (block.timestamp + 365 days), _amountToBeGiven,_investor));
         noOfTx[_userAddr] += 1;
     }
 

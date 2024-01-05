@@ -5,7 +5,7 @@ import Container from "../ui/Container";
 
 const Orbits = () => {
   return (
-    <section className="min-h-screen flex items-center justify-center">
+    <section className="min-h-screen flex items-center justify-center sec-p-y">
       <Container className="flex flex-col items-center">
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-center font-semibold pb-2">
           Fennec ecosystem
@@ -18,7 +18,7 @@ const Orbits = () => {
             alt="title vector shape"
           />
         </div>
-        <div className="relative w-3/5 aspect-square">
+        <div className="relative w-full md:max-w-[750px] aspect-square">
           <div className="absolute left-[50%] top-[50%] w-3/5 -translate-x-1/2 -translate-y-1/2 opacity-25 pointer-events-none">
             <div className="shadow-effect blur-[200px] aspect-square w-full"></div>
           </div>

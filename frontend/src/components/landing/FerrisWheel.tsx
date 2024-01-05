@@ -56,12 +56,12 @@ const FerrisWheel = () => {
             return (
               <div
                 key={idx}
-                className="w-[1px] bg-[#D9D9D9] h-1/2 bg-black absolute left-1/2 top-0 origin-bottom -translate-x-1/2"
+                className="w-[1px] bg-[#D9D9D9] h-1/2 absolute left-1/2 top-0 origin-bottom -translate-x-1/2"
                 style={{ rotate: `${idx * 60}deg` }}
               >
                 <div className="relative w-full h-full">
                   <div className="absolute top-8 left-0 -translate-x-1/2 -translate-y-1/2 z-10">
-                    <div className="relative w-4 h-4">
+                    <div className="relative w-3 h-3">
                       <Image src="/images/icons/bead.svg" fill alt="Image" />
                     </div>
                   </div>

@@ -12,7 +12,7 @@ app.use(cors())
 app.use(express.json());
 
 app.get('/', (req, res) => {
-  res.send('Hello World i am alive!')
+  res.json({message:'Hello World i am alive!'})
 })
 
 app.use('/api/', kycRoute)

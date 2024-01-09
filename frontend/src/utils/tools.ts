@@ -35,13 +35,14 @@ export function shortenAddress(address: string, length: number = 5): string {
 
 export const getWeitoEther = (_wei:string) => {
     
-    return ethers.utils.formatEther(_wei);
+    return ethers.utils.formatEther(_wei).toString();
 
 
 }
 export const getEthertoWei = (_ether:string) => {
    
-    return ethers.utils.parseEther(_ether);
+  let weiData = ethers.utils.parseEther(_ether);
+    return weiData.toString()
 
 
 }

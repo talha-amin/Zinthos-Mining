@@ -23,31 +23,32 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="overflow-x-hidden">
-          <body className={`${quicksand.className} bg-black text-white overflow-x-hidden`}>
-      <WagmiContextProvider>
-        <FennecContextProvider>
+    <html lang="en" className="overflow-x-hidden select-none">
+      <body
+        className={`${quicksand.className} bg-black text-white overflow-x-hidden`}
+      >
+        <WagmiContextProvider>
+          <FennecContextProvider>
             <div className="fixed z-50 inset-0 pointer-events-none bg-white/[7%]"></div>
             <SmoothScroll />
             <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="dark"
-        />
+              position="top-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="dark"
+            />
             <Header />
             {children}
             <Footer />
-        </FennecContextProvider>
-      </WagmiContextProvider>
-          </body>
-
+          </FennecContextProvider>
+        </WagmiContextProvider>
+      </body>
     </html>
   );
 }

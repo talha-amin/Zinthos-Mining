@@ -25,7 +25,7 @@ const tabs = [
   },
 ];
 export default function Vesting() {
-  const {isApprovedUSDT,approveMaxUSDThandle,userInputAmount,setUserInputAmount,ROUND,buyFennecHandle,FennecTokenPrice,userTxHistoryData} = UseFennecContext();
+  const {userTxHistoryData} = UseFennecContext();
 
   const [selectedTab, setSelectedTab] = useState(1);
 
@@ -207,6 +207,22 @@ const TxHistoryView = ({data,txId}:{data:any,txId:number}) => {
     },
   });
 
+  const [timestamp, setTimestamp] = useState<number | null>(null);
+
+  useEffect(() => {
+    const getCurrentTimestamp = () => {
+      const currentTimestamp = Math.floor(Date.now() / 1000);
+      setTimestamp(currentTimestamp);
+    };
+
+    getCurrentTimestamp(); // Call the function immediately
+
+    const intervalId = setInterval(getCurrentTimestamp, 1000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+  
+
 
 
   return (
@@ -241,7 +257,7 @@ const TxHistoryView = ({data,txId}:{data:any,txId:number}) => {
                   </p>
                   <p className="text-xl font-bold mb-1">{getWeitoEther(data.amountToBeGiven)} FTK</p>
                   <Button
-                   disabled={(Number(getWeitoEther(data.amountToBeGiven))<=0) || (currentUnixTimestamp<data.endTime) || (withrawId!==null&&withrawId===Number(txId))}
+                   disabled={(Number(getWeitoEther(data.amountToBeGiven))<=0) || (timestamp&&timestamp<data.endTime) || (withrawId!==null&&withrawId===Number(txId))}
                    isLoading={(withrawId!==null&&withrawId===Number(txId))}
                    onClick={withdrawFennechandle}
                    >Claim Tokens</Button>

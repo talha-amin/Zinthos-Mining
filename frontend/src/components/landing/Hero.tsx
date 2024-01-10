@@ -9,11 +9,12 @@ import { motion } from "framer-motion";
 import { FADE_UP_ANIMATION_VARIANTS } from "@/data";
 import { UseFennecContext } from "@/context/FennecContext";
 import SumsubWebSdk from "@sumsub/websdk-react";
-
+import { getEthertoWei } from "@/utils/tools";
+import { CheckoutWithCard } from "@paperxyz/react-client-sdk";
 const Hero = () => {
 const [buyMethod, setBuyMethod] = useState<number>(1)
 
-  const {buyFennecLoadingState,approveMaxUSDTLoadingState,isApprovedUSDT,approveMaxUSDThandle,userInputAmount,setUserInputAmount,ROUND,buyFennecHandle,FennecTokenPrice,kycStatus,kycAccessToken} = UseFennecContext();
+  const {buyFennecLoadingState,FennecTokenPriceInEth,approveMaxUSDTLoadingState,ConnectedWallet,isApprovedUSDT,approveMaxUSDThandle,userInputAmount,setUserInputAmount,ROUND,buyFennecHandle,FennecTokenPrice,kycStatus,kycAccessToken} = UseFennecContext();
   // console.log("kycStatus",kycStatus);
 
   useEffect(() => {
@@ -221,6 +222,9 @@ const ROUND_TITLE = ["Round Not Yet Started","Round 1 Tilte","Round 2 Tilte","Ro
                   
                 </Button>
                 :
+
+                buyMethod==1?
+
                 isApprovedUSDT?
                   <Button fullWidth className=""
                   disabled={ROUND==0|| (Number(userInputAmount)<=0)  || buyFennecLoadingState}
@@ -239,6 +243,55 @@ const ROUND_TITLE = ["Round Not Yet Started","Round 1 Tilte","Round 2 Tilte","Ro
                   >
                   {ROUND==0?"Round isn't started yet":"Approve USDT"}
                 </Button>
+
+                :buyMethod==2?
+
+                ConnectedWallet && userInputAmount!=='' && FennecTokenPriceInEth!=='' &&
+                <CheckoutWithCard
+
+
+                                    configs={{
+                                        // Registered contract ID
+                                        contractId: "2d744cce-c454-4e3c-8f81-51d13e780849", //Fennec ICO
+                                        // contractId: "95d73389-8908-4378-b76e-3c337c577670", //res
+                                        // Buyer wallet address
+                                        walletAddress: ConnectedWallet.toLowerCase(),
+                                        // walletAddress: "0x808f0597D8B83189ED43d61d40064195F71C0D15",
+                                        title: "Fennec Buy With With ETH",
+
+
+                                        mintMethod: {
+                                            name: "buyWithEth",
+                                            args: {
+                                              _tokenAmount:getEthertoWei(String(userInputAmount)),
+                                                _recipient: ConnectedWallet.toLowerCase(),
+                                            },
+                                            payment: {
+                                                value: "0.000005",
+                                                // value: "FennecTokenPriceInEth",
+                                                currency: "MATIC"
+                                            }
+                                        },
+
+
+                                        email: "uf80902@gmail.com",
+                                    }}
+
+                                    onPaymentSuccess={(result: any) => console.log("Payment success! " + result.transactionId)}
+                                    onReview={(result: any) => console.log(result)}
+                                    onError={(error: any) => console.error(error)}
+                                    options={{
+                                        colorBackground: '#fefae0',
+                                        colorPrimary: '#606c38',
+                                        colorText: '#283618',
+                                        borderRadius: 6,
+                                        inputBackgroundColor: '#faedcd',
+                                        inputBorderColor: '#d4a373',
+                                    }}
+
+                                />
+
+                :null
               }
         
                   {/* {isApprovedUSDT?

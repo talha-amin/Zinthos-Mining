@@ -93,6 +93,26 @@ async function main() {
       const tx1 = await ico.startRound(ethers.utils.parseUnits("0.5","6"))
       await tx1.wait();
       console.log("Each Fennec token price in usdt ",  await ico.getPrice());
+      
+      const mintTx =  await usdt.mint(ethers.utils.parseEther("10000000"))
+      await mintTx.wait();
+      let usdtBalance = await usdt.balanceOf(deployer.getAddress())
+      console.log("User USDT balance ", ethers.utils.formatEther(usdtBalance.toString()) );
+
+      
+      
+      let ethPrice3Token = await ico.getEthPriceOfToken(ethers.utils.parseUnits("3","18"));
+      ethPrice3Token = ethPrice3Token.toString();
+      console.log("Et price of 3 token",ethPrice3Token);
+      
+      
+      // const tx2  = await ico.buyWithEth(ethers.utils.parseUnits("3","18"),deployer.getAddress(),{value:ethPrice3Token})
+      // await tx2.wait();
+      
+      // const tx0Data = await vesting.txHistory(deployer.getAddress(), 0)
+      // console.log(tx0Data.toString());
+
+// ===============================XXXXXXXXXXXXXXXXXXXXX========================
 
       // await usdt.connect(per1).mint(ethers.utils.parseUnits("100","6"))
       // await usdt.connect(per1).approve(ico.address,ethers.utils.parseUnits("200"))

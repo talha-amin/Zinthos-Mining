@@ -6,7 +6,11 @@ import Container from "../../components/ui/Container";
 import VestingSchedule from "../../components/vesting/VestingSchedule";
 import { UseFennecContext } from "@/context/FennecContext";
 import { currentUnixTimestamp, getWeitoEther } from "@/utils/tools";
-import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from "wagmi";
+import {
+  useContractWrite,
+  usePrepareContractWrite,
+  useWaitForTransaction,
+} from "wagmi";
 import { vestingContractConfig } from "@/data/constants";
 import CountdownTimer from "@/components/ui/CountdownTimer";
 
@@ -25,7 +29,7 @@ const tabs = [
   },
 ];
 export default function Vesting() {
-  const {userTxHistoryData} = UseFennecContext();
+  const { userTxHistoryData } = UseFennecContext();
 
   const [selectedTab, setSelectedTab] = useState(1);
 
@@ -56,16 +60,15 @@ export default function Vesting() {
           })}
         </div>
         <div className="grid xl:grid-cols-1 gap-8 mb-8">
-          {
-            userTxHistoryData && userTxHistoryData.length > 0?
-            userTxHistoryData.map((data,i) =>(
-
-              <TxHistoryView key={i} data={data} txId={i}/>
+          {userTxHistoryData && userTxHistoryData.length > 0 ? (
+            userTxHistoryData.map((data, i) => (
+              <TxHistoryView key={i} data={data} txId={i} />
             ))
-            :
-            <p>no tx history</p>
-          }
-       
+          ) : (
+            <div className="bg-neutral-950 p-8 relative overflow-hidden rounded-lg flex items-center justify-center text-center text-lg font-medium">
+              <p className="capitalize text-neutral-500">transaction history is empty</p>
+            </div>
+          )}
 
           {/* <>
           <div className="h-full flex flex-col">
@@ -146,42 +149,42 @@ export default function Vesting() {
   );
 }
 
+const TxHistoryView = ({ data, txId }: { data: any; txId: number }) => {
+  const [withdrawFennecLoadingState, setWithdrawFennecLoadingState] =
+    useState(false);
+  const [withrawId, setWithdrawId] = useState<number | null>(null);
+  const { notifyError, notifySuccess, notifySuccessWithHash } =
+    UseFennecContext();
 
-
-const TxHistoryView = ({data,txId}:{data:any,txId:number}) => {
-
-  const [withdrawFennecLoadingState, setWithdrawFennecLoadingState] = useState(false)
-  const [withrawId, setWithdrawId] = useState<number|null>(null)
-  const {notifyError,notifySuccess,notifySuccessWithHash} = UseFennecContext();
-
-
-  const { config:withdrawFennecConfig } = usePrepareContractWrite({
+  const { config: withdrawFennecConfig } = usePrepareContractWrite({
     ...vestingContractConfig,
-    functionName: 'withdraw',
+    functionName: "withdraw",
     args: [String(txId)],
-    enabled: (currentUnixTimestamp>data.endTime) && Number(getWeitoEther(data.amountToBeGiven))>0,
-  })
-  const { data:withdrawFennecData, isLoading:withdrawFennecLoading, isSuccess:withdrawFennecSuccess,status:withdrawFennecStatus, write:withdrawFennechandle } = useContractWrite(withdrawFennecConfig)
-  
+    enabled:
+      currentUnixTimestamp > data.endTime &&
+      Number(getWeitoEther(data.amountToBeGiven)) > 0,
+  });
+  const {
+    data: withdrawFennecData,
+    isLoading: withdrawFennecLoading,
+    isSuccess: withdrawFennecSuccess,
+    status: withdrawFennecStatus,
+    write: withdrawFennechandle,
+  } = useContractWrite(withdrawFennecConfig);
+
   useEffect(() => {
-    
     console.log("withdrawFennecStatus", withdrawFennecStatus);
 
     if (withdrawFennecStatus == "loading") {
       // setWithdrawFennecLoadingState(true)
-      setWithdrawId(txId)
-     
+      setWithdrawId(txId);
     }
     if (withdrawFennecStatus == "success") {
-    
     }
     if (withdrawFennecStatus == "error") {
       // setWithdrawFennecLoadingState(false)
-      setWithdrawId(null)
-      notifyError("User Rejected Transaction")
-
-
-     
+      setWithdrawId(null);
+      notifyError("User Rejected Transaction");
     }
   }, [withdrawFennecStatus]);
 
@@ -190,20 +193,17 @@ const TxHistoryView = ({data,txId}:{data:any,txId:number}) => {
     onSuccess(data) {
       console.log("final succes", data);
       // setWithdrawFennecLoadingState(false)
-      setWithdrawId(null)
-      notifySuccessWithHash("Transaction Confirmed", String(data?.transactionHash));
-
-      
-      
- 
+      setWithdrawId(null);
+      notifySuccessWithHash(
+        "Transaction Confirmed",
+        String(data?.transactionHash)
+      );
     },
     onError(data) {
       console.log("final error", data);
       // setWithdrawFennecLoadingState(false)
-      setWithdrawId(null)
-      notifyError("Something went wrong")
-
-    
+      setWithdrawId(null);
+      notifyError("Something went wrong");
     },
   });
 
@@ -221,51 +221,60 @@ const TxHistoryView = ({data,txId}:{data:any,txId:number}) => {
 
     return () => clearInterval(intervalId);
   }, []);
-  
-
-
 
   return (
     <>
-          <div className="h-full flex flex-col">
-            {/* <h2 className="text-lg font-semibold mb-4 md:ps-8">
+      <div className="h-full flex flex-col">
+        {/* <h2 className="text-lg font-semibold mb-4 md:ps-8">
               Vesting Summary
             </h2> */}
 
-            <div className="bg-neutral-950 p-8 relative overflow-hidden rounded-lg flex-1">
-              <div className="absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 opacity-25 pointer-events-none">
-                <div className="shadow-effect blur-[150px] aspect-square w-[200px]"></div>
+        <div className="bg-neutral-950 p-8 relative overflow-hidden rounded-lg flex-1">
+          <div className="absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 opacity-25 pointer-events-none">
+            <div className="shadow-effect blur-[150px] aspect-square w-[200px]"></div>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-16 items-center">
+            <div className="sm:flex-1 w-full sm:w-auto flex flex-col gap-3">
+              <div className="flex items-center justify-between">
+                <p className="text-sm text-neutral-400">Amount Remaining</p>
+                <p className="text-sm sm:text-base">
+                  {getWeitoEther(data.amountRemaining)} FTK
+                </p>
               </div>
-              <div className="flex flex-col sm:flex-row gap-4 sm:gap-16 items-center">
-                <div className="sm:flex-1 w-full sm:w-auto flex flex-col gap-3">
-                  <div className="flex items-center justify-between">
-                    <p className="text-sm text-neutral-400">Amount Remaining</p>
-                    <p className="text-sm sm:text-base">{getWeitoEther(data.amountRemaining)} FTK</p>
-                  </div>
-                  {/* <div className="flex items-center justify-between">
+              {/* <div className="flex items-center justify-between">
                     <p className="text-sm text-neutral-400">Claimed</p>
                     <p className="text-sm sm:text-base">118,200 FTK | 0.24% dummy</p>
                   </div> */}
-                  <div className="flex items-center justify-between">
-                    <p className="text-sm text-neutral-400">End Time</p>
-                    <p><CountdownTimer targetUnixTimestamp={data.endTime} /></p>
-                  </div>
-                </div>
-                <div className="flex flex-col gap-1 items-center">
-                  <p className="text-xs font-medium text-neutral-400">
-                    Available now
-                  </p>
-                  <p className="text-xl font-bold mb-1">{getWeitoEther(data.amountToBeGiven)} FTK</p>
-                  <Button
-                   disabled={(Number(getWeitoEther(data.amountToBeGiven))<=0) || (timestamp&&timestamp<data.endTime) || (withrawId!==null&&withrawId===Number(txId))}
-                   isLoading={(withrawId!==null&&withrawId===Number(txId))}
-                   onClick={withdrawFennechandle}
-                   >Claim Tokens</Button>
-                </div>
+              <div className="flex items-center justify-between">
+                <p className="text-sm text-neutral-400">End Time</p>
+                <p>
+                  <CountdownTimer targetUnixTimestamp={data.endTime} />
+                </p>
               </div>
             </div>
+            <div className="flex flex-col gap-1 items-center">
+              <p className="text-xs font-medium text-neutral-400">
+                Available now
+              </p>
+              <p className="text-xl font-bold mb-1">
+                {getWeitoEther(data.amountToBeGiven)} FTK
+              </p>
+              <Button
+                disabled={
+                  Number(getWeitoEther(data.amountToBeGiven)) <= 0 ||
+                  (timestamp && timestamp < data.endTime) ||
+                  (withrawId !== null && withrawId === Number(txId))
+                }
+                isLoading={withrawId !== null && withrawId === Number(txId)}
+                onClick={withdrawFennechandle}
+              >
+                Claim Tokens
+              </Button>
+            </div>
           </div>
-          {/* <div className="h-full flex flex-col">
+        </div>
+      </div>
+      {/* <div className="h-full flex flex-col">
             <h2 className="text-lg font-semibold mb-4 md:ps-8">
               Vesting period
             </h2>
@@ -289,7 +298,6 @@ const TxHistoryView = ({data,txId}:{data:any,txId:number}) => {
               </div>
             </div>
           </div> */}
-          </>
-  )
-}
-
+    </>
+  );
+};

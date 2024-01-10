@@ -81,91 +81,53 @@ const Contact = () => {
             </motion.div>
           </div>
         </motion.div>
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          variants={{
-            hidden: {},
-            show: {
-              transition: {
-                staggerChildren: 0.1,
-              },
-            },
-          }}
-          className="relative overflow-hidden bg-darkGray/25 px-4 py-8 lg:p-8 rounded-xl mt-10 lg:mt-0 lg:w-1/2 lg:ml-10"
-        >
+        <div className="relative overflow-hidden bg-darkGray/25 px-4 py-8 lg:p-8 rounded-xl mt-10 lg:mt-0 lg:w-1/2 lg:ml-10">
           <div className="absolute left-[50%] top-0 -translate-x-1/2 -translate-y-1/2 opacity-25 pointer-events-none">
             <div className="shadow-effect blur-[150px] aspect-square w-[300px]"></div>
           </div>
-          <motion.h2
-            variants={FADE_UP_ANIMATION_VARIANTS}
-            className="text-xl lg:text-2xl font-bold text-white mb-6 text-center"
-          >
+          <h2 className="text-xl lg:text-2xl font-bold text-white mb-6 text-center">
             Say Something
-          </motion.h2>
+          </h2>
           <form className="flex flex-col space-y-4">
-            <motion.label
-              variants={FADE_UP_ANIMATION_VARIANTS}
-              htmlFor="name"
-              className="font-medium"
-            >
+            <label htmlFor="name" className="font-medium">
               Name
-            </motion.label>
-            <motion.input
-              variants={FADE_UP_ANIMATION_VARIANTS}
+            </label>
+            <input
               className="ring ring-1 ring-white/25 flex h-12 w-full rounded-md px-3 py-2 text-sm bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
               id="name"
               placeholder="Your name"
             />
-            <motion.label
-              variants={FADE_UP_ANIMATION_VARIANTS}
-              htmlFor="phone"
-              className="font-medium"
-            >
+            <label htmlFor="phone" className="font-medium">
               Phone
-            </motion.label>
+            </label>
 
-            <motion.input
-              variants={FADE_UP_ANIMATION_VARIANTS}
+            <input
               className="ring ring-1 ring-white/25 flex h-12 w-full rounded-md px-3 py-2 text-sm bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
               id="email"
               placeholder="Phone number"
             />
-            <motion.label
-              variants={FADE_UP_ANIMATION_VARIANTS}
-              htmlFor="email"
-              className="font-medium"
-            >
+            <label htmlFor="email" className="font-medium">
               Email
-            </motion.label>
+            </label>
 
-            <motion.input
-              variants={FADE_UP_ANIMATION_VARIANTS}
+            <input
               className="ring ring-1 ring-white/25 flex h-12 w-full rounded-md px-3 py-2 text-sm bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
               id="email"
               placeholder="Email"
             />
-            <motion.label
-              variants={FADE_UP_ANIMATION_VARIANTS}
-              htmlFor="message"
-              className="font-medium"
-            >
+            <label htmlFor="message" className="font-medium">
               Message
-            </motion.label>
-            <motion.textarea
-              variants={FADE_UP_ANIMATION_VARIANTS}
+            </label>
+            <textarea
               id="message"
               placeholder="Your text..."
               className="resize-none h-32 ring ring-1 ring-white/25 flex h-12 w-full rounded-md px-3 py-2 text-sm bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-            ></motion.textarea>
-            <motion.div
-              variants={FADE_UP_ANIMATION_VARIANTS}
-              className="flex justify-center"
-            >
+            ></textarea>
+            <div className="flex justify-center">
               <Button squared>Submit</Button>
-            </motion.div>
+            </div>
           </form>
-        </motion.div>
+        </div>
       </div>
     </div>
   );

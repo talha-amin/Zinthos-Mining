@@ -46,6 +46,7 @@
 }
 
 .primary-shadow {
+  pointer-events: none;
 }
 
 .shadow-effect::after {

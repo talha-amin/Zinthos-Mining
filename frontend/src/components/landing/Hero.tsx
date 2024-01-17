@@ -29,7 +29,7 @@ const ROUND_TITLE = ["Round Not Yet Started","Round 1 Tilte","Round 2 Tilte","Ro
 
 const transakConfig: TransakConfig = {
   apiKey: process.env.NEXT_PUBLIC_TRANSAK_API_KEY,
-  environment: Transak.ENVIRONMENTS.STAGING, // Transak.ENVIRONMENTS.PRODUCTION
+  environment: Transak.ENVIRONMENTS.STAGING as string, // Transak.ENVIRONMENTS.PRODUCTION
   widgetHeight: "100%",
   exchangeScreenTitle : "Buy USDT",
   productsAvailed : "BUY",

@@ -474,12 +474,6 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
     }, [userFennecAmountInWei])
     
 
- 
-
-
-
-
-
   return (
     <FennecContext.Provider value={{notifyError,notifySuccess,notifySuccessWithHash,  isUserWitdrawing,setIsUserWitdrawing,approveMaxUSDTLoadingState,buyFennecLoadingState,ConnectedWallet,connectWalletHanle,isApprovedUSDT,approveMaxUSDThandle,buyFennecHandle,userInputAmount,setUserInputAmount ,ROUND,FennecTokenPrice,userTxHistoryData,kycStatus,kycAccessToken}}>
       {children}

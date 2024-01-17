@@ -9,12 +9,11 @@ import { motion } from "framer-motion";
 import { FADE_UP_ANIMATION_VARIANTS } from "@/data";
 import { UseFennecContext } from "@/context/FennecContext";
 import SumsubWebSdk from "@sumsub/websdk-react";
-import { getEthertoWei } from "@/utils/tools";
-import { CheckoutWithCard } from "@paperxyz/react-client-sdk";
+
 const Hero = () => {
 const [buyMethod, setBuyMethod] = useState<number>(1)
 
-  const {buyFennecLoadingState,FennecTokenPriceInEth,approveMaxUSDTLoadingState,ConnectedWallet,isApprovedUSDT,approveMaxUSDThandle,userInputAmount,setUserInputAmount,ROUND,buyFennecHandle,FennecTokenPrice,kycStatus,kycAccessToken} = UseFennecContext();
+  const {buyFennecLoadingState,approveMaxUSDTLoadingState,ConnectedWallet,isApprovedUSDT,approveMaxUSDThandle,userInputAmount,setUserInputAmount,ROUND,buyFennecHandle,FennecTokenPrice,kycStatus,kycAccessToken} = UseFennecContext();
   // console.log("kycStatus",kycStatus);
 
   useEffect(() => {

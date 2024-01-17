@@ -1,21 +1,14 @@
 "use client"
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { ethers } from 'ethers';
 import { useAccount, useConnect, useContractRead, useContractReads, useContractWrite, useNetwork, usePrepareContractWrite, useSwitchNetwork, useWaitForTransaction } from 'wagmi'
-import { FENNEC_ABI, FENNEC_ADDRESS, USDT_ABI, USDT_ADDRESS, fennecContractConfig, fennecIcoContractConfig, usdtContractConfig, vestingContractConfig } from '../data/constants';
-import { REPLACER, getBigintToString, getEthertoWeiWithUnits, getWeitoEtherWithUnits } from '../utils/tools';
-import { InjectedConnector } from 'wagmi/connectors/injected';
-import UseFennecTxHistory from '@/hooks/fennecHooks';
+import { FENNEC_ABI, FENNEC_ADDRESS, USDT_ABI, USDT_ADDRESS, fennecIcoContractConfig, usdtContractConfig, vestingContractConfig } from '../data/constants';
+import { getEthertoWeiWithUnits, getWeitoEtherWithUnits } from '../utils/tools';
 import { applicantStatus, generateAccessToken, getApplicantId, kycVerification } from '@/utils/kycTools';
 import { toast } from "react-toastify";
 
 
 
 interface FennecContextProps {
-  // provider?: ethers.providers.Web3Provider;
-  // signer?: ethers.Signer;
-  // address: string;
-  // setAddress: React.Dispatch<React.SetStateAction<string>>
   connectWallet: string| null;
   isApprovedUSDT: boolean;
   connectWalletHanle: () => void;
@@ -174,28 +167,28 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
 
    //======================== KYC Verification =================
 
-   const [kycStatus, setKycStatus] = useState("completed");
+   const [kycStatus, setKycStatus] = useState("");
    const [kycAccessToken, setKycAccessToken] = useState("");
 
-  //  useEffect(() => {
-  //    if (connectWallet !== null) {
-  //      (async () => {
-  //        const _id = await getApplicantId(connectWallet?.toLowerCase());
-  //       //  console.log("response kyc", _id);  // demo 6597e268c29a737c8164ab13
-  //        const response = await applicantStatus(_id);
-  //       //  console.log("response kyc", response);
-  //        setKycStatus(response);
-  //        if (response === "notFound") {
-  //          const accessToken = await kycVerification(connectWallet?.toLowerCase(),setKycAccessToken);
-  //         //  console.log("response accessToken", accessToken);
-  //        } else {
-  //          const res = await generateAccessToken(connectWallet?.toLowerCase());
-  //         //  console.log("CHECKK", res);
-  //          setKycAccessToken(res);
-  //        }
-  //      })();
-  //    }
-  //  }, [connectWallet]);
+   useEffect(() => {
+     if (connectWallet !== null) {
+       (async () => {
+         const _id = await getApplicantId(connectWallet?.toLowerCase());
+        //  console.log("response kyc", _id);  // demo 6597e268c29a737c8164ab13
+         const response = await applicantStatus(_id);
+        //  console.log("response kyc", response);
+         setKycStatus(response);
+         if (response === "notFound") {
+           const accessToken = await kycVerification(connectWallet?.toLowerCase(),setKycAccessToken);
+          //  console.log("response accessToken", accessToken);
+         } else {
+           const res = await generateAccessToken(connectWallet?.toLowerCase());
+          //  console.log("CHECKK", res);
+           setKycAccessToken(res);
+         }
+       })();
+     }
+   }, [connectWallet]);
 
    
 

@@ -36,10 +36,10 @@ export const getApplicantId = async (account:string) => {
     let accessToken = ""
     try {
       console.log("STatring.........");
-      const _data = await axios.post(`${apiURL}/api/kycverification/`, obj);
+      const _data : any = await axios.post(`${apiURL}/api/kycverification/`, obj);
       if (_data.status === 200) {
-        console.log("CHECKK", _data.response.token);
-        accessToken=_data.response.token as string;
+        // console.log("CHECKK", _data.response.token);
+        accessToken = _data.response.token as string;
         setAccessToken(accessToken);
         console.log("ENDED.........");
         

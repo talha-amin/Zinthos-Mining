@@ -33,7 +33,7 @@ const transakConfig: TransakConfig = {
   widgetHeight: "100%",
   exchangeScreenTitle : "Buy USDT",
   productsAvailed : "BUY",
-  defaultFiatAmount : "100",
+  defaultFiatAmount : 100,
   defaultFiatCurrency : "USD",
   network : "polygon",
   defaultPaymentMethod : "credit_debit_card",

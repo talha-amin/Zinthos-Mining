@@ -37,23 +37,6 @@ type nodeProps = {
 }
 
 
-const FENNEC_ABI_VIEW = FENNEC_ABI.filter((contractFunction) => {
-  return contractFunction.stateMutability === 'view';
-});
-
-
-const FennecContract = {
-  address: FENNEC_ADDRESS,
-  abi: FENNEC_ABI_VIEW,
-} as const
-
-
-const USDTContract = {
-  address: USDT_ADDRESS,
-  abi: USDT_ABI,
-}
-
-
 export const FennecContextProvider = ({ children }:nodeProps) => {
 
       //======================== message toasts =================
@@ -167,28 +150,28 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
 
    //======================== KYC Verification =================
 
-   const [kycStatus, setKycStatus] = useState("");
+   const [kycStatus, setKycStatus] = useState("completed");
    const [kycAccessToken, setKycAccessToken] = useState("");
 
-   useEffect(() => {
-     if (connectWallet !== null) {
-       (async () => {
-         const _id = await getApplicantId(connectWallet?.toLowerCase());
-        //  console.log("response kyc", _id);  // demo 6597e268c29a737c8164ab13
-         const response = await applicantStatus(_id);
-        //  console.log("response kyc", response);
-         setKycStatus(response);
-         if (response === "notFound") {
-           const accessToken = await kycVerification(connectWallet?.toLowerCase(),setKycAccessToken);
-          //  console.log("response accessToken", accessToken);
-         } else {
-           const res = await generateAccessToken(connectWallet?.toLowerCase());
-          //  console.log("CHECKK", res);
-           setKycAccessToken(res);
-         }
-       })();
-     }
-   }, [connectWallet]);
+  //  useEffect(() => {
+  //    if (connectWallet !== null) {
+  //      (async () => {
+  //        const _id = await getApplicantId(connectWallet?.toLowerCase());
+  //       //  console.log("response kyc", _id);  // demo 6597e268c29a737c8164ab13
+  //        const response = await applicantStatus(_id);
+  //       //  console.log("response kyc", response);
+  //        setKycStatus(response);
+  //        if (response === "notFound") {
+  //          const accessToken = await kycVerification(connectWallet?.toLowerCase(),setKycAccessToken);
+  //         //  console.log("response accessToken", accessToken);
+  //        } else {
+  //          const res = await generateAccessToken(connectWallet?.toLowerCase());
+  //         //  console.log("CHECKK", res);
+  //          setKycAccessToken(res);
+  //        }
+  //      })();
+  //    }
+  //  }, [connectWallet]);
 
    
 
@@ -284,10 +267,6 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
             endTime:Number(item.result[1].toString()),
             amountToBeGiven:item.result[2].toString(),
             investor:item.result[3]
-            // maining:getWeitoEther(item.result[0].toString()),
-            // endTime:Number(item.result[1].toString()),
-            // amountToBeGiven:getWeitoEther(item.result[2].toString()),
-            // investor:item.result[3]
           }
         }
       }) as any
@@ -300,7 +279,7 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
     //======================== Allowance =================
     
     
-    const { data:userUSDTAllowance , isError, isLoading ,isFetched:usdtAllowanceFetched} = useContractRead({
+    const { data:userUSDTAllowance ,isFetched:usdtAllowanceFetched} = useContractRead({
       ...usdtContractConfig,
       functionName: 'allowance',
       args: [connectWallet,fennecIcoContractConfig.address ],
@@ -466,12 +445,6 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
      
     }, [userFennecAmountInWei])
     
-
- 
-
-
-
-
 
   return (
     <FennecContext.Provider value={{notifyError,notifySuccess,notifySuccessWithHash,  isUserWitdrawing,setIsUserWitdrawing,approveMaxUSDTLoadingState,buyFennecLoadingState,connectWallet,connectWalletHanle,isApprovedUSDT,approveMaxUSDThandle,buyFennecHandle,userInputAmount,setUserInputAmount ,ROUND,FennecTokenPrice,userTxHistoryData,kycStatus,kycAccessToken}}>

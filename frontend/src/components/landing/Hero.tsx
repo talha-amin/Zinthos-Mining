@@ -28,8 +28,8 @@ const buyMethodIcon = ["eth.svg","usdt.svg","visa.svg"]
 const ROUND_TITLE = ["Round Not Yet Started","Round 1 Tilte","Round 2 Tilte","Round 3 Tilte"]
 
 const transakConfig: TransakConfig = {
-  apiKey: process.env.NEXT_PUBLIC_TRANSAK_API_KEY,
-  environment: Transak.ENVIRONMENTS.STAGING as string, // Transak.ENVIRONMENTS.PRODUCTION
+  apiKey: process.env.NEXT_PUBLIC_TRANSAK_API_KEY as string,
+  environment: Transak.ENVIRONMENTS.STAGING, // Transak.ENVIRONMENTS.PRODUCTION
   widgetHeight: "100%",
   exchangeScreenTitle : "Buy USDT",
   productsAvailed : "BUY",

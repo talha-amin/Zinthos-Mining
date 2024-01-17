@@ -3,7 +3,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import { useAccount, useConnect, useContractRead, useContractReads, useContractWrite, useNetwork, usePrepareContractWrite, useSwitchNetwork, useWaitForTransaction } from 'wagmi'
 import { FENNEC_ABI, FENNEC_ADDRESS, USDT_ABI, USDT_ADDRESS, fennecContractConfig, fennecIcoContractConfig, usdtContractConfig, vestingContractConfig } from '../data/constants';
-import { REPLACER, getBigintToString, getEthertoWei, getEthertoWeiWithUnits, getWeitoEther, getWeitoEtherWithUnits } from '../utils/tools';
+import { REPLACER, getBigintToString, getEthertoWeiWithUnits, getWeitoEtherWithUnits } from '../utils/tools';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import UseFennecTxHistory from '@/hooks/fennecHooks';
 import { applicantStatus, generateAccessToken, getApplicantId, kycVerification } from '@/utils/kycTools';
@@ -16,7 +16,7 @@ interface FennecContextProps {
   // signer?: ethers.Signer;
   // address: string;
   // setAddress: React.Dispatch<React.SetStateAction<string>>
-  ConnectedWallet: string| null;
+  connectWallet: string| null;
   isApprovedUSDT: boolean;
   connectWalletHanle: () => void;
   approveMaxUSDThandle:  (() => void) | undefined;
@@ -27,7 +27,6 @@ interface FennecContextProps {
   kycStatus:string;
   kycAccessToken:string;
   FennecTokenPrice:string;
-  FennecTokenPriceInEth:string;
   approveMaxUSDTLoadingState:boolean;
   buyFennecLoadingState:boolean;
   isUserWitdrawing:boolean;
@@ -141,11 +140,10 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
       //======================== STATES =================
 
 
-  const [ConnectedWallet, setConnectedWallet] = useState<string | null>(null)
+  const [connectWallet, setConnectedWallet] = useState<string | null>(null)
   const [userInputAmount, setUserInputAmount] = useState<string>('')
   const [userFennecAmountInWei, setUserFennecAmountInWei] = useState<string>('0')
   const [FennecTokenPrice, setFennecTokenPrice] = useState<string>('')
-  const [FennecTokenPriceInEth, setFennecTokenPriceInEth] = useState<string>('')
   const [isApprovedUSDT, setIsApprovedUSDT] = useState<boolean>(false)
   const [isUserWitdrawing, setIsUserWitdrawing] = useState<boolean>(false)
   const [ROUND, setROUND] = useState<number>(0)
@@ -180,52 +178,27 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
    const [kycAccessToken, setKycAccessToken] = useState("");
 
   //  useEffect(() => {
-  //    if (ConnectedWallet !== null) {
+  //    if (connectWallet !== null) {
   //      (async () => {
-  //        const _id = await getApplicantId(ConnectedWallet?.toLowerCase());
+  //        const _id = await getApplicantId(connectWallet?.toLowerCase());
   //       //  console.log("response kyc", _id);  // demo 6597e268c29a737c8164ab13
   //        const response = await applicantStatus(_id);
   //       //  console.log("response kyc", response);
   //        setKycStatus(response);
   //        if (response === "notFound") {
-  //          const accessToken = await kycVerification(ConnectedWallet?.toLowerCase(),setKycAccessToken);
+  //          const accessToken = await kycVerification(connectWallet?.toLowerCase(),setKycAccessToken);
   //         //  console.log("response accessToken", accessToken);
   //        } else {
-  //          const res = await generateAccessToken(ConnectedWallet?.toLowerCase());
-  //          console.log("CHECKK", res);
-  //          setKycAccessToken(res as string);
+  //          const res = await generateAccessToken(connectWallet?.toLowerCase());
+  //         //  console.log("CHECKK", res);
+  //          setKycAccessToken(res);
   //        }
   //      })();
   //    }
-  //  }, [ConnectedWallet]);
+  //  }, [connectWallet]);
 
    
 
-
-
-    //======================== TOKEN PRICE IN ETH =================
-    const { data:currentTokenPriceInEth, } = useContractRead({
-      ...fennecIcoContractConfig,
-      functionName: 'getEthPriceOfToken',
-      args: [userInputAmount!==''?getEthertoWei(userInputAmount):'0'],
-      enabled: (userInputAmount!==''),
-      watch:true
-    })
-
-    useEffect(() => {
-    if (currentTokenPriceInEth) {
-
-      const ethTokenPrice = getWeitoEtherWithUnits(currentTokenPriceInEth.toString(),18).toString()
-      // console.log("ethTokenPrice",ethTokenPrice);
-      
-      setFennecTokenPriceInEth(ethTokenPrice)
-      
-    }else{
-      
-      setFennecTokenPriceInEth('')
-    }
-      
-    }, [currentTokenPriceInEth])
 
 
     //======================== TOKEN PRICE IN USDT =================
@@ -256,14 +229,14 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
     const { data:userNoOfTx, } = useContractRead({
       ...vestingContractConfig,
       functionName: 'noOfTx',
-      args: [ConnectedWallet],
-      enabled: ConnectedWallet?true:false,
+      args: [connectWallet],
+      enabled: connectWallet?true:false,
       watch: true
       
     })
 
     useEffect(() => {
-    if (ConnectedWallet && userNoOfTx && Number(userNoOfTx.toString())>0 ) {
+    if (connectWallet && userNoOfTx && Number(userNoOfTx.toString())>0 ) {
 
       let allTx = Number(userNoOfTx.toString())
       let allTxReq = []
@@ -275,7 +248,7 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
          {
           ...vestingContractConfig,
           functionName: 'txHistory',
-          args: [ConnectedWallet,String(i)],
+          args: [connectWallet,String(i)],
           // watch:true
         };
         console.log("allTx index object",allTxReq);
@@ -293,7 +266,7 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
    
     }
       
-    }, [userNoOfTx,ConnectedWallet])
+    }, [userNoOfTx,connectWallet])
 
     // console.log("allTxReqState",allTxReqState);
     
@@ -337,14 +310,14 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
     const { data:userUSDTAllowance , isError, isLoading ,isFetched:usdtAllowanceFetched} = useContractRead({
       ...usdtContractConfig,
       functionName: 'allowance',
-      args: [ConnectedWallet,fennecIcoContractConfig.address ],
-      enabled: ConnectedWallet?true:false,
+      args: [connectWallet,fennecIcoContractConfig.address ],
+      enabled: connectWallet?true:false,
       watch: true
     })
     
     useEffect(() => {
       
-      if (ConnectedWallet && usdtAllowanceFetched && Number(getWeitoEtherWithUnits(userUSDTAllowance as string,6)) > 0) {
+      if (connectWallet && usdtAllowanceFetched && Number(getWeitoEtherWithUnits(userUSDTAllowance as string,6)) > 0) {
         // console.log("userUSDTAllowance",userUSDTAllowance);
         setIsApprovedUSDT(true);
         
@@ -366,7 +339,7 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
       functionName: 'approve',
       args: [fennecIcoContractConfig.address,"100000000000000000000000000000000000000000000000000000000000000000" ],
       account:address??address,
-      enabled: ConnectedWallet?true:false,
+      enabled: connectWallet?true:false,
     })
     const { data:approveMaxData, isLoading:approveMaxLoading, isSuccess:approveMaxSuccess,status:approveMaxStatus, write:approveMaxUSDThandle } = useContractWrite(approveMaxUSDTConfig)
     
@@ -390,12 +363,12 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
 
     const { data: approveMaxResponse } = useWaitForTransaction({
       hash: approveMaxData?.hash,
-      onSuccess(data) {
+      onSuccess(data:any) {
         console.log("final succes", data);
         setApproveMaxUSDTLoadingState(false)
 
         setIsApprovedUSDT(true);
-        // buyFennecHandle?.()
+        buyFennecHandle?.()
         notifySuccessWithHash("Transaction Confirmed", String(data?.transactionHash));
 
   
@@ -403,7 +376,7 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
         // setLoader1(false);
         // setLoaderMsg("");
       },
-      onError(data) {
+      onError(data:any) {
         console.log("final error", data);
         setApproveMaxUSDTLoadingState(false)
         setIsApprovedUSDT(false);
@@ -442,7 +415,7 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
       functionName: 'buy',
       args: [userFennecAmountInWei],
       account:address??address,
-      enabled: (ConnectedWallet?true:false) && (ROUND>0) && (Number(userInputAmount)>0),
+      enabled: (connectWallet?true:false) && (ROUND>0) && (Number(userInputAmount)>0),
     })
     const { data:buyFennecData, isLoading:buyFennecLoading, isSuccess:buyFennecSuccess,status:buyFennecStatus, write:buyFennecHandle } = useContractWrite(buyFennecConfig)
     
@@ -465,7 +438,7 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
 
     const { data: buyFennecResponse } = useWaitForTransaction({
       hash: buyFennecData?.hash,
-      onSuccess(data) {
+      onSuccess(data:any) {
         console.log("final succes", data);
         setBuyFennecLoadingState(false)
         
@@ -473,7 +446,7 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
 
       
       },
-      onError(data) {
+      onError(data:any) {
         console.log("final error", data);
         setBuyFennecLoadingState(false)
         notifyError("Something went wrong")
@@ -508,7 +481,7 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
 
 
   return (
-    <FennecContext.Provider value={{FennecTokenPriceInEth,notifyError,notifySuccess,notifySuccessWithHash,  isUserWitdrawing,setIsUserWitdrawing,approveMaxUSDTLoadingState,buyFennecLoadingState,ConnectedWallet,connectWalletHanle,isApprovedUSDT,approveMaxUSDThandle,buyFennecHandle,userInputAmount,setUserInputAmount ,ROUND,FennecTokenPrice,userTxHistoryData,kycStatus,kycAccessToken}}>
+    <FennecContext.Provider value={{notifyError,notifySuccess,notifySuccessWithHash,  isUserWitdrawing,setIsUserWitdrawing,approveMaxUSDTLoadingState,buyFennecLoadingState,connectWallet,connectWalletHanle,isApprovedUSDT,approveMaxUSDThandle,buyFennecHandle,userInputAmount,setUserInputAmount ,ROUND,FennecTokenPrice,userTxHistoryData,kycStatus,kycAccessToken}}>
       {children}
     </FennecContext.Provider>
   );

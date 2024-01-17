@@ -160,7 +160,7 @@ const Header = () => {
 
        
             
-                  {/* <Button onClick={() => !ConnectedWallet && connectWalletHanle()}>{ConnectedWallet?`Connected to  ${shortenAddress(ConnectedWallet)}`:"Connect Your Wallet"}</Button> */}
+                  {/* <Button onClick={() => !connectWallet && connectWalletHanle()}>{connectWallet?`Connected to  ${shortenAddress(connectWallet)}`:"Connect Your Wallet"}</Button> */}
                   <ConnectButton />
             <div
               className="cursor-pointer text-xl lg:hidden"

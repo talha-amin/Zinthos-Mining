@@ -13,7 +13,7 @@ import { TransakConfig, Transak } from '@transak/transak-sdk';
 const Hero = () => {
 const [buyMethod, setBuyMethod] = useState<number>(1)
 
-const {buyFennecLoadingState,approveMaxUSDTLoadingState,isApprovedUSDT,approveMaxUSDThandle,userInputAmount,setUserInputAmount,ROUND,buyFennecHandle,FennecTokenPrice,kycStatus,kycAccessToken,ConnectedWallet} = UseFennecContext();
+const {buyFennecLoadingState,approveMaxUSDTLoadingState,isApprovedUSDT,approveMaxUSDThandle,userInputAmount,setUserInputAmount,ROUND,buyFennecHandle,FennecTokenPrice,kycStatus,kycAccessToken,connectWallet} = UseFennecContext();
 
   useEffect(() => {
   console.log("kycStatus",kycStatus);
@@ -39,7 +39,7 @@ const transakConfig: TransakConfig = {
   defaultPaymentMethod : "credit_debit_card",
   paymentMethod : "credit_debit_card",
   cryptoCurrencyCode : "USDT",
-  walletAddress: ConnectedWallet
+  walletAddress: connectWallet as string
 };
 
 const transak = new Transak(transakConfig);

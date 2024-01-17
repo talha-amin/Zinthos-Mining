@@ -363,7 +363,7 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
 
     const { data: approveMaxResponse } = useWaitForTransaction({
       hash: approveMaxData?.hash,
-      onSuccess(data) {
+      onSuccess(data:any) {
         console.log("final succes", data);
         setApproveMaxUSDTLoadingState(false)
 
@@ -376,7 +376,7 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
         // setLoader1(false);
         // setLoaderMsg("");
       },
-      onError(data) {
+      onError(data:any) {
         console.log("final error", data);
         setApproveMaxUSDTLoadingState(false)
         setIsApprovedUSDT(false);
@@ -438,7 +438,7 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
 
     const { data: buyFennecResponse } = useWaitForTransaction({
       hash: buyFennecData?.hash,
-      onSuccess(data) {
+      onSuccess(data:any) {
         console.log("final succes", data);
         setBuyFennecLoadingState(false)
         
@@ -446,7 +446,7 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
 
       
       },
-      onError(data) {
+      onError(data:any) {
         console.log("final error", data);
         setBuyFennecLoadingState(false)
         notifyError("Something went wrong")
@@ -473,6 +473,12 @@ export const FennecContextProvider = ({ children }:nodeProps) => {
      
     }, [userFennecAmountInWei])
     
+
+ 
+
+
+
+
 
   return (
     <FennecContext.Provider value={{notifyError,notifySuccess,notifySuccessWithHash,  isUserWitdrawing,setIsUserWitdrawing,approveMaxUSDTLoadingState,buyFennecLoadingState,ConnectedWallet,connectWalletHanle,isApprovedUSDT,approveMaxUSDThandle,buyFennecHandle,userInputAmount,setUserInputAmount ,ROUND,FennecTokenPrice,userTxHistoryData,kycStatus,kycAccessToken}}>

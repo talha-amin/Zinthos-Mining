@@ -9,17 +9,16 @@ import { motion } from "framer-motion";
 import { FADE_UP_ANIMATION_VARIANTS } from "@/data";
 import { UseFennecContext } from "@/context/FennecContext";
 import SumsubWebSdk from "@sumsub/websdk-react";
-
+import { TransakConfig, Transak } from '@transak/transak-sdk';
 const Hero = () => {
 const [buyMethod, setBuyMethod] = useState<number>(1)
 
-  const {buyFennecLoadingState,approveMaxUSDTLoadingState,ConnectedWallet,isApprovedUSDT,approveMaxUSDThandle,userInputAmount,setUserInputAmount,ROUND,buyFennecHandle,FennecTokenPrice,kycStatus,kycAccessToken} = UseFennecContext();
-  // console.log("kycStatus",kycStatus);
+const {buyFennecLoadingState,approveMaxUSDTLoadingState,isApprovedUSDT,approveMaxUSDThandle,userInputAmount,setUserInputAmount,ROUND,buyFennecHandle,FennecTokenPrice,kycStatus,kycAccessToken,ConnectedWallet} = UseFennecContext();
 
   useEffect(() => {
   console.log("kycStatus",kycStatus);
   console.log("kycAccessToken",kycAccessToken);
-  
+
   }, [kycStatus,kycAccessToken])
   
   
@@ -27,6 +26,53 @@ const buyMethodText = ["ETH","USDT","VISA"]
 const buyMethodIcon = ["eth.svg","usdt.svg","visa.svg"]
 
 const ROUND_TITLE = ["Round Not Yet Started","Round 1 Tilte","Round 2 Tilte","Round 3 Tilte"]
+
+const transakConfig: TransakConfig = {
+  apiKey: process.env.NEXT_PUBLIC_TRANSAK_API_KEY,
+  environment: Transak.ENVIRONMENTS.STAGING, // Transak.ENVIRONMENTS.PRODUCTION
+  widgetHeight: "100%",
+  exchangeScreenTitle : "Buy USDT",
+  productsAvailed : "BUY",
+  defaultFiatAmount : "100",
+  defaultFiatCurrency : "USD",
+  network : "polygon",
+  defaultPaymentMethod : "credit_debit_card",
+  paymentMethod : "credit_debit_card",
+  cryptoCurrencyCode : "USDT",
+  walletAddress: ConnectedWallet
+};
+
+const transak = new Transak(transakConfig);
+
+
+
+// To get all the events
+Transak.on('*', (data : any) => {
+  console.log(data);
+});
+
+// This will trigger when the user closed the widget
+Transak.on(Transak.EVENTS.TRANSAK_WIDGET_CLOSE, () => {
+  console.log('Transak SDK closed!');
+});
+
+/*
+* This will trigger when the user has confirmed the order
+* This doesn't guarantee that payment has completed in all scenarios
+* If you want to close/navigate away, use the TRANSAK_ORDER_SUCCESSFUL event
+*/
+Transak.on(Transak.EVENTS.TRANSAK_ORDER_CREATED, (orderData:any) => {
+  console.log(orderData);
+});
+
+/*
+* This will trigger when the user marks payment is made
+* You can close/navigate away at this event
+*/
+Transak.on(Transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, (orderData:any) => {
+  console.log(orderData);
+  transak.close();
+});
 
   return (
     <section className="relative">
@@ -98,7 +144,7 @@ const ROUND_TITLE = ["Round Not Yet Started","Round 1 Tilte","Round 2 Tilte","Ro
               </div>
 
               {
-                kycStatus === "completed" &&
+                kycStatus === "completed" && 
                 <>
                 <div className="flex items-center gap-5 md:gap-4 mb-6  mx-auto">
                 <hr className="h-[1px] bg-white w-full" />
@@ -142,9 +188,12 @@ const ROUND_TITLE = ["Round Not Yet Started","Round 1 Tilte","Round 2 Tilte","Ro
                 </button>
               </div>
               <div className="grid grid-cols-2 gap-3">
-              <div className="flex flex-col gap-1">
+{   buyMethod == 1 && 
+<>
+
+           <div className="flex flex-col gap-1">
                   <label htmlFor="ethAmount" className="text-xs">
-                    Fennec amount to buy:
+                    Fennec amount to buy
                   </label>
                   <div className="inline-flex gap-3 items-center justify-center rounded-md text-xs sm:text-sm font-medium ring ring-[.75px] ring-white h-10 px-2 sm:px-4 py-1 sm:py-2">
                     <input
@@ -190,6 +239,8 @@ const ROUND_TITLE = ["Round Not Yet Started","Round 1 Tilte","Round 2 Tilte","Ro
                     </div>
                   </div>
                 </div>
+                </>
+                }
                 
               </div></>
               }
@@ -244,12 +295,12 @@ const ROUND_TITLE = ["Round Not Yet Started","Round 1 Tilte","Round 2 Tilte","Ro
                 </Button>
 
                 :
-                buyMethod==2 ? 
+                buyMethod == 2 ? 
 
                 <Button fullWidth className=""
-                // onClick={()=>approveMaxUSDThandle?.()}
+                onClick={()=>transak.init()}
                 >
-                  Buy Crypto
+                  Buy USDT
               </Button> 
               :
               null

@@ -8,26 +8,27 @@ import { staggeredSlide } from "@/data";
 
 const faqs = [
   {
-    summary: "dui consequat a pellentesque?",
+    summary: "What is an ICO and how does it work?",
     details:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vehicula massa in enim luctus. Rutrum arcu.Risus habitant leo egestas mauris diam eget morbi tempus vulputate. Et orci sagittis posuere.",
+      "An Initial Coin Offering (ICO) is a fundraising method in the cryptocurrency space. It involves the issuance of a new cryptocurrency token to fund a project's development. Investors can purchase these tokens during the ICO, and in return, they may receive project-specific benefits or future profits.",
   },
   {
-    summary: "dui consequat a pellentesque?",
+    summary: "How can I participate in an ICO?",
     details:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vehicula massa in enim luctus. Rutrum arcu.Risus habitant leo egestas mauris diam eget morbi tempus vulputate. Et orci sagittis posuere.",
+      "To participate in an ICO, you typically need to create an account on the project's official website and follow their specific instructions. This often involves contributing funds in a supported cryptocurrency, such as Bitcoin or Ethereum, during the ICO period. Make sure to use secure wallets and follow the project's guidelines to ensure a smooth participation process.",
   },
   {
-    summary: "dui consequat a pellentesque?",
+    summary: "What should I consider before investing in an ICO?",
     details:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vehicula massa in enim luctus. Rutrum arcu.Risus habitant leo egestas mauris diam eget morbi tempus vulputate. Et orci sagittis posuere.",
+      "Investors should conduct thorough due diligence before investing in any ICO. Key considerations include evaluating the project's whitepaper, team members, technology, roadmap, and the problem it aims to solve. Additionally, check for transparency, regulatory compliance, and community feedback. ICO investments carry risks, so it's crucial to make informed decisions.",
   },
   {
-    summary: "dui consequat a pellentesque?",
+    summary: "Are ICOs regulated, and what are the risks involved?",
     details:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vehicula massa in enim luctus. Rutrum arcu.Risus habitant leo egestas mauris diam eget morbi tempus vulputate. Et orci sagittis posuere.",
+      "The regulatory status of ICOs varies globally. Some countries have established guidelines, while others have implemented stricter regulations. Investors should be aware of the legal landscape in their jurisdiction. Risks associated with ICOs include market volatility, project failure, regulatory changes, and potential fraudulent activities. It's essential to stay informed and exercise caution.",
   },
 ];
+
 
 const FAQs = () => {
   const showRef = useRef(null);

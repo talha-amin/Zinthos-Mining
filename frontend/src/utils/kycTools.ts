@@ -36,7 +36,7 @@ export const getApplicantId = async (account:string) => {
     let accessToken = ""
     try {
       console.log("STatring.........");
-      const _data = await axios.post(`${apiURL}/api/kycverification/`, obj);
+      const _data:any = await axios.post(`${apiURL}/api/kycverification/`, obj);
       if (_data.status === 200) {
         console.log("CHECKK", _data.response.token);
         accessToken=_data.response.token as string;
@@ -57,7 +57,7 @@ export const getApplicantId = async (account:string) => {
       externalUserId: account,
     };
     try {
-      const _data = await axios.post(`${apiURL}/api/generateAccessToken/`, obj);
+      const _data:any = await axios.post(`${apiURL}/api/generateAccessToken/`, obj);
       console.log("CHECKK generateAccessToken",_data);
 
       return _data.data.token;

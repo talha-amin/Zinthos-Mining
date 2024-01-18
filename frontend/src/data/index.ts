@@ -75,28 +75,28 @@ export const tokenomics = [
 
 export const roadmap = [
   {
-    title: "Order Placed",
-    desc: "Pretium lectus quam id leo. Urna et pharetra aliquam vestibulum morbi blandit cursus risus.",
+    title: "Airdrop",
+    desc: "Distribute tokens to early supporters and create a widespread community engagement. Foster inclusivity and build a solid foundation for our project.",
     img: "/images/landing/roadmap-1.png",
   },
   {
-    title: "Order Shipped",
-    desc: "Pretium lectus quam id leo. Urna et pharetra aliquam vestibulum morbi blandit cursus risus.",
+    title: "ICO",
+    desc: "Launch the Initial Coin Offering to fundraise for the project's development. Provide an opportunity for investors to participate in the project's growth and success.",
     img: "/images/landing/roadmap-2.png",
   },
   {
-    title: "In Transit",
-    desc: "Pretium lectus quam id leo. Urna et pharetra aliquam vestibulum morbi blandit cursus risus.",
+    title: "Token Listing",
+    desc: "Secure listings on major cryptocurrency exchanges to enhance liquidity and accessibility. Enable wider adoption of our token within the broader crypto ecosystem.",
     img: "/images/landing/roadmap-3.png",
   },
   {
-    title: "Out of Delivery",
-    desc: "Pretium lectus quam id leo. Urna et pharetra aliquam vestibulum morbi blandit cursus risus.",
+    title: "Esports Competitions",
+    desc: "Organize and sponsor esports competitions, creating a unique use case for our token within the gaming community. Drive engagement and utility for our ecosystem.",
     img: "/images/landing/roadmap-4.png",
   },
   {
-    title: "Delivered",
-    desc: "Pretium lectus quam id leo. Urna et pharetra aliquam vestibulum morbi blandit cursus risus.",
+    title: "Art NFT Marketplace",
+    desc: "Establish a decentralized marketplace for digital art NFTs, leveraging blockchain technology. Empower artists and collectors while integrating our token as the primary medium of exchange.",
     img: "/images/landing/roadmap-5.png",
   },
 ];
@@ -182,7 +182,7 @@ export const staggeredSlide = {
   }),
 };
 
- export  const FADE_UP_ANIMATION_VARIANTS = {
-    hidden: { opacity: 0, y: 10 },
-    show: { opacity: 1, y: 0, transition: { type: "spring" } },
-  };
+export const FADE_UP_ANIMATION_VARIANTS = {
+  hidden: { opacity: 0, y: 10 },
+  show: { opacity: 1, y: 0, transition: { type: "spring" } },
+};

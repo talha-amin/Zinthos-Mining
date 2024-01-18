@@ -116,7 +116,7 @@ const Roadmap = () => {
                       variants={FADE_UP_ANIMATION_VARIANTS}
                       className="flex items-center justify-between space-x-2 mb-1"
                     >
-                      <div className="font-semibold text-2xl lg:text-3xl mx-auto lg:mx-0">
+                      <div className="font-semibold text-2xl lg:text-3xl mx-auto lg:mx-0 capitalize">
                         {title}
                       </div>
                     </motion.div>

@@ -37,7 +37,6 @@ const transakConfig: TransakConfig = {
   defaultFiatCurrency : "USD",
   network : "polygon",
   defaultPaymentMethod : "credit_debit_card",
-  paymentMethod : "credit_debit_card",
   cryptoCurrencyCode : "USDT",
   walletAddress: connectWallet as string
 };

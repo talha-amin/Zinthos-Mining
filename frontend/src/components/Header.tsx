@@ -1,20 +1,13 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-// import AnimatedLink from "./AnimatedLink";
 import { AnimatePresence, motion } from "framer-motion";
 import { AiOutlineClose } from "react-icons/ai";
 import { FiMenu } from "react-icons/fi";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import Container from "./ui/Container";
-import Button from "./ui/Button";
-import { useAccount, useConnect, useEnsName,useNetwork, useSwitchNetwork } from 'wagmi'
-import { InjectedConnector } from 'wagmi/connectors/injected'
-import { VALID_CHAIN_ID, VALID_CHAIN_NAME } from "../data/constants";
-import { shortenAddress } from "../utils/tools";
-import { UseFennecContext } from "../context/FennecContext";
-import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { ConnectButton } from '@rainbow-me/rainbowkit'; 
 const navLinks = [
   { href: "/", icon: "/images/icons/home.svg" },
   { title: "Tokenomic", href: "#" },
@@ -25,33 +18,7 @@ const navLinks = [
 
 const Header = () => {
   const [open, setOpen] = useState(false);
-  // const [scrolled, setScrolled] = useState(false)
 
-  // const changeBackground = () => {
-  //   if (window.scrollY >= 66) {
-  //     setScrolled(true)
-  //   } else {
-  //     setScrolled(false)
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   changeBackground()
-  //   window.addEventListener("scroll", changeBackground)
-
-  //   return ()=>{
-  //     window.removeEventListener("scroll", changeBackground)
-  //   }
-  // })
-    
-
- 
-
-
-
-
-
-  //==============================
   useEffect(() => {
     console.log("opennnnnnnnnn", open);
   }, [open]);
@@ -137,30 +104,7 @@ const Header = () => {
             })}
           </div>
           <div className="flex items-center gap-3">
-            {/* {socialLinks.map(({ icon, href }, i) => {
-              return (
-                <Link
-                  key={i}
-                  className="primary-button inline-block"
-                  href={href}
-                  target="_blank"
-                >
-                  <span className="inline-block flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-b from-[#2A2A2A] to-[#25252580]">
-                    <Image
-                      src={icon}
-                      width={18}
-                      height={18}
-                      className="object-contain"
-                      alt="discord icon"
-                    />
-                  </span>
-                </Link>
-              );
-            })} */}
-
-       
             
-                  {/* <Button onClick={() => !connectWallet && connectWalletHanle()}>{connectWallet?`Connected to  ${shortenAddress(connectWallet)}`:"Connect Your Wallet"}</Button> */}
                   <ConnectButton />
             <div
               className="cursor-pointer text-xl lg:hidden"

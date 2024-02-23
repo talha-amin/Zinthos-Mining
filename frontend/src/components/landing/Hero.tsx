@@ -13,7 +13,9 @@ import { TransakConfig, Transak } from '@transak/transak-sdk';
 const Hero = () => {
 const [buyMethod, setBuyMethod] = useState<number>(1)
 
-const {buyFennecLoadingState,approveMaxUSDTLoadingState,isApprovedUSDT,approveMaxUSDThandle,userInputAmount,setUserInputAmount,ROUND,buyFennecHandle,FennecTokenPrice,kycStatus,kycAccessToken,connectWallet} = UseFennecContext();
+// const {buyFennecLoadingState,approveMaxUSDTLoadingState,isApprovedUSDT,approveMaxUSDThandle,userInputAmount,setUserInputAmount,ROUND,buyFennecHandle,FennecTokenPrice,kycStatus,kycAccessToken,connectWallet} = UseFennecContext();
+  const {buyFennecLoadingState,approveMaxUSDTLoadingState,ConnectedWallet,isApprovedUSDT,approveMaxUSDThandle,userInputAmount,setUserInputAmount,ROUND,buyFennecHandle,FennecTokenPrice,kycStatus,kycAccessToken} = UseFennecContext();
+  // console.log("kycStatus",kycStatus);
 
   useEffect(() => {
   console.log("kycStatus",kycStatus);

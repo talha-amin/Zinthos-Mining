@@ -8,7 +8,7 @@ const Orbits = () => {
     <section className="min-h-screen flex items-center justify-center sec-p-y">
       <Container className="flex flex-col items-center">
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-center font-semibold pb-2">
-          Fennec ecosystem
+        Zinthos Mining ecosystem
         </h2>
         <div className="relative w-full h-5 mb-10">
           <Image

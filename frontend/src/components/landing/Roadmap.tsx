@@ -38,7 +38,7 @@ const Roadmap = () => {
       </div>
       <Container style={{ perspective: "576px" }}>
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-center font-semibold pb-2">
-          Fennnec Roadmap
+        Zinthos Mining Phases
         </h2>
         <div className="relative w-full h-5 my-3">
           <Image
@@ -49,8 +49,7 @@ const Roadmap = () => {
           />
         </div>
         <p className="text-center text-neutral-400">
-          Fennec tokenomics drive ecosystem growth, balancing supply, demand,
-          and utility for sustained value creation.
+        Zinthos Mining is structured around 5 strategic phases that progressively expand our mining capacity and token ecosystem. Each phase brings new opportunities for token holders and miners alike, ensuring steady growth and reinvestment.
         </p>
         <motion.div
           variants={imageVars}

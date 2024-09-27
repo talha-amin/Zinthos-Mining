@@ -1,102 +1,115 @@
+// export const companies = [
+//   {
+//     logo: "/images/landing/league-of-legends.png",
+//   },
+//   {
+//     logo: "/images/landing/cs-go.png",
+//   },
+//   {
+//     logo: "/images/landing/formula.png",
+//   },
+//   {
+//     logo: "/images/landing/fifa.png",
+//   },
+//   {
+//     logo: "/images/landing/fortnite.png",
+//   },
+// ];
+
 export const companies = [
   {
-    logo: "/images/landing/league-of-legends.png",
+    paragraph: "By reinvesting half of our profits into new equipment, we ensure continuous improvement of our mining operations, leading to higher profitability over time.",
   },
   {
-    logo: "/images/landing/cs-go.png",
+    paragraph: "Our buyback program and liquidity pool strategies are designed to increase the value and stability of ZIN tokens.",
   },
   {
-    logo: "/images/landing/formula.png",
-  },
-  {
-    logo: "/images/landing/fifa.png",
-  },
-  {
-    logo: "/images/landing/fortnite.png",
+    paragraph: "With our five-phase plan, we are committed to continuous expansion and delivering value through innovation in the mining space.",
   },
 ];
 
+
 export const tokenomics = [
   {
-    label: "Tournaments and Gaming Rewards",
-    value: 40,
-    tokens: 1200000000,
+    label: "Total Supply",
+    value: 100,
+    tokens: 500000000000000,
     colorClass: "after:bg-[#EE314E]",
   },
-  {
-    label: "Ecosystem Development and Partnerships",
-    value: 15,
-    tokens: 450000000,
-    colorClass: "after:bg-[#FC4830]",
-  },
-  {
-    label: "Private ICO",
-    value: 10,
-    tokens: 300000000,
-    colorClass: "after:bg-[#FFB80E]",
-  },
-  {
-    label: "Team and Advisors",
-    value: 10,
-    tokens: 300000000,
-    colorClass: "after:bg-[#7CC23B]",
-  },
-  {
-    label: "Marketing and Community Building",
-    value: 10,
-    tokens: 300000000,
-    colorClass: "after:bg-[#00BF99]",
-  },
-  {
-    label: "Liquidity Provision",
-    value: 5,
-    tokens: 150000000,
-    colorClass: "after:bg-[#00B1DF]",
-  },
-  {
-    label: "Strategic Reserve",
-    value: 5,
-    tokens: 150000000,
-    colorClass: "after:bg-[#308BE3]",
-  },
-  {
-    label: "Staking Rewards",
-    value: 3,
-    tokens: 90000000,
-    colorClass: "after:bg-[#9B7AE3]",
-  },
-  {
-    label: "Public Sale",
-    value: 2,
-    tokens: 60000000,
-    colorClass: "after:bg-[#E869B0]",
-  },
+  // {
+  //   label: "Ecosystem Development and Partnerships",
+  //   value: 15,
+  //   tokens: 450000000,
+  //   colorClass: "after:bg-[#FC4830]",
+  // },
+  // {
+  //   label: "Private ICO",
+  //   value: 10,
+  //   tokens: 300000000,
+  //   colorClass: "after:bg-[#FFB80E]",
+  // },
+  // {
+  //   label: "Team and Advisors",
+  //   value: 10,
+  //   tokens: 300000000,
+  //   colorClass: "after:bg-[#7CC23B]",
+  // },
+  // {
+  //   label: "Marketing and Community Building",
+  //   value: 10,
+  //   tokens: 300000000,
+  //   colorClass: "after:bg-[#00BF99]",
+  // },
+  // {
+  //   label: "Liquidity Provision",
+  //   value: 5,
+  //   tokens: 150000000,
+  //   colorClass: "after:bg-[#00B1DF]",
+  // },
+  // {
+  //   label: "Strategic Reserve",
+  //   value: 5,
+  //   tokens: 150000000,
+  //   colorClass: "after:bg-[#308BE3]",
+  // },
+  // {
+  //   label: "Staking Rewards",
+  //   value: 3,
+  //   tokens: 90000000,
+  //   colorClass: "after:bg-[#9B7AE3]",
+  // },
+  // {
+  //   label: "Public Sale",
+  //   value: 2,
+  //   tokens: 60000000,
+  //   colorClass: "after:bg-[#E869B0]",
+  // },
 ];
 
 export const roadmap = [
   {
-    title: "Airdrop",
-    desc: "Distribute tokens to early supporters and create a widespread community engagement. Foster inclusivity and build a solid foundation for our project.",
+    title: "Phase 1",
+    desc: " Initial Setup – Building mining infrastructure and token distribution.",
     img: "/images/landing/roadmap-1.png",
   },
   {
-    title: "ICO",
-    desc: "Launch the Initial Coin Offering to fundraise for the project's development. Provide an opportunity for investors to participate in the project's growth and success.",
+    title: "Phase 2",
+    desc: "Expansion – Expanding mining operations with the latest technology.",
     img: "/images/landing/roadmap-2.png",
   },
   {
-    title: "Token Listing",
-    desc: "Secure listings on major cryptocurrency exchanges to enhance liquidity and accessibility. Enable wider adoption of our token within the broader crypto ecosystem.",
+    title: "Phase 3",
+    desc: "Optimization – Enhancing mining efficiency and reducing energy consumption.",
     img: "/images/landing/roadmap-3.png",
   },
   {
-    title: "Esports Competitions",
-    desc: "Organize and sponsor esports competitions, creating a unique use case for our token within the gaming community. Drive engagement and utility for our ecosystem.",
+    title: "Phase 4",
+    desc: "Scaling Up – Bringing in larger mining farms and improving network security.",
     img: "/images/landing/roadmap-4.png",
   },
   {
-    title: "Art NFT Marketplace",
-    desc: "Establish a decentralized marketplace for digital art NFTs, leveraging blockchain technology. Empower artists and collectors while integrating our token as the primary medium of exchange.",
+    title: "Phase 5",
+    desc: "Ecosystem Growth – Diversifying into new blockchain opportunities while solidifying ZIN's role in the mining ecosystem.",
     img: "/images/landing/roadmap-5.png",
   },
 ];

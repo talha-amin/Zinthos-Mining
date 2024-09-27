@@ -19,11 +19,27 @@ const Tokenomics = () => {
     }
   }, [isInView]);
 
+  const tokenData = [
+    {
+      label: 'Token Symbol',
+      value: 'ZIN',
+    },
+    {
+      label: 'Total Supply',
+      value: '500 Trillion',
+    },
+    {
+      label: 'Blockchain',
+      value: 'Blockchain ETH',
+    },
+  ];
+  
+
   return (
     <section className="sec-p-y">
       <Container>
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-center font-semibold pb-2">
-          Fennec Tokenomics
+          Zinthos Mining Tokenomics
         </h2>
         <div className="relative w-full h-5">
           <Image
@@ -34,23 +50,24 @@ const Tokenomics = () => {
           />
         </div>
         <p className="text-center text-neutral-400">
-          Fennec tokenomics drive ecosystem growth, balancing supply, demand,
+          Zinthos Mining tokenomics drive ecosystem growth, balancing supply, demand,
           and utility for sustained value creation.
         </p>
-        <div className="grid lg:grid-cols-2 items-center pt-12">
-          <Fade left className="relative w-full aspect-square">
+        {/* grid lg:grid-cols-2 */}
+        <div className="items-center pt-12">
+          {/* <Fade left className="relative w-full aspect-square">
             <div className="absolute pointer-events-none flex items-start justify-center opacity-[40%] w-full h-full">
               <div className="primary-shadow blur-[100px] h-[75%] w-[75%]"></div>
-            </div>
-            <Image
+            </div> */}
+            {/* <Image
               fill
               src="/images/landing/tokenomics.png"
               className="object-contain"
               alt="tokenomics chart"
-            />
-          </Fade>
+            /> */}
+          {/* </Fade> */}
           <Fade>
-            <ul ref={showRef} className="flex flex-col gap-3">
+            {/* <ul ref={showRef} className="flex flex-col gap-3">
               {tokenomics.map(({ label, value, tokens, colorClass }, i) => {
                 return (
                   <motion.li
@@ -72,6 +89,20 @@ const Tokenomics = () => {
                   </motion.li>
                 );
               })}
+             </ul>  */}
+          <ul className=" flex flex-col gap-3">
+  {tokenData.map(({ label, value }, i) => {
+    return (
+      <li
+        key={i}
+        className="relative flex items-center justify-center bg-[#ffffff0f] py-3 px-4 md:px-6 rounded-lg"
+      >
+        <span className="text-sm md:text-base text-center">
+          {label}: {value}
+        </span>
+      </li>
+    );
+  })}
             </ul>
           </Fade>
         </div>

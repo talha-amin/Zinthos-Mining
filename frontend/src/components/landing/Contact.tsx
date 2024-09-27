@@ -8,7 +8,7 @@ import { FADE_UP_ANIMATION_VARIANTS } from "@/data";
 const Contact = () => {
   return (
     <div className="text-white sec-p-y flex items-center justify-center px-4">
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between w-full max-w-6xl">
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-center w-full max-w-6xl">
         <motion.div
           initial="hidden"
           whileInView="show"
@@ -24,18 +24,17 @@ const Contact = () => {
         >
           <motion.h1
             variants={FADE_UP_ANIMATION_VARIANTS}
-            className="text-5xl font-bold text-primary"
+            className="text-5xl font-bold text-primary flex items-center justify-center"
           >
-            Let&apos;s Talk
+            Join Us Today!
           </motion.h1>
           <motion.p
             variants={FADE_UP_ANIMATION_VARIANTS}
-            className="text-neutral-300"
+            className="text-neutral-300  text-center"
           >
-            If you have any questions about membership or usage, please fill out
-            the form and our team will get back to you within 24 hours.
+            Be a part of the Zinthos Mining revolution. Invest in the ZIN token and benefit from a unique profit distribution model that puts growth, liquidity, and value at the forefront. Together, we are building the future of crypto mining.
           </motion.p>
-          <div className="space-y-4">
+          {/* <div className="space-y-4">
             <motion.div
               variants={FADE_UP_ANIMATION_VARIANTS}
               className="flex items-center space-x-3 lg:text-xl text-neutral-300"
@@ -79,9 +78,9 @@ const Contact = () => {
                 4517 Washington Ave. Manchester, <br /> Kentucky 39495
               </span>
             </motion.div>
-          </div>
+          </div> */}
         </motion.div>
-        <div className="relative overflow-hidden bg-darkGray/25 px-4 py-8 lg:p-8 rounded-xl mt-10 lg:mt-0 lg:w-1/2 lg:ml-10">
+        {/* <div className="relative overflow-hidden bg-darkGray/25 px-4 py-8 lg:p-8 rounded-xl mt-10 lg:mt-0 lg:w-1/2 lg:ml-10">
           <div className="absolute left-[50%] top-0 -translate-x-1/2 -translate-y-1/2 opacity-25 pointer-events-none">
             <div className="shadow-effect blur-[150px] aspect-square w-[300px]"></div>
           </div>
@@ -127,7 +126,7 @@ const Contact = () => {
               <Button squared>Submit</Button>
             </div>
           </form>
-        </div>
+        </div> */}
       </div>
     </div>
   );

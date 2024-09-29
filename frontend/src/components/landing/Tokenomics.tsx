@@ -21,7 +21,7 @@ const Tokenomics = () => {
 
   const tokenData = [
     {
-      label: 'Token Symbol',
+      label: 'Meme Symbol',
       value: 'ZIN',
     },
     {
@@ -39,7 +39,7 @@ const Tokenomics = () => {
     <section className="sec-p-y">
       <Container>
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-center font-semibold pb-2">
-          Zinthos Mining Tokenomics
+          Zinthos Mining Memenomics
         </h2>
         <div className="relative w-full h-5">
           <Image
@@ -50,7 +50,7 @@ const Tokenomics = () => {
           />
         </div>
         <p className="text-center text-neutral-400">
-          Zinthos Mining tokenomics drive ecosystem growth, balancing supply, demand,
+          Zinthos Mining Memenomics drive ecosystem growth, balancing supply, demand,
           and utility for sustained value creation.
         </p>
         {/* grid lg:grid-cols-2 */}

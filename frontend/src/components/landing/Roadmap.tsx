@@ -49,7 +49,7 @@ const Roadmap = () => {
           />
         </div>
         <p className="text-center text-neutral-400">
-        Zinthos Mining is structured around 5 strategic phases that progressively expand our mining capacity and token ecosystem. Each phase brings new opportunities for token holders and miners alike, ensuring steady growth and reinvestment.
+        Zinthos Mining is structured around 5 strategic phases that progressively expand our mining capacity and Meme ecosystem. Each phase brings new opportunities for Meme holders and miners alike, ensuring steady growth and reinvestment.
         </p>
         <motion.div
           variants={imageVars}

@@ -10,10 +10,10 @@ import Container from "./ui/Container";
 import { ConnectButton } from '@rainbow-me/rainbowkit'; 
 const navLinks = [
   { href: "/", icon: "/images/icons/home.svg" },
-  { title: "Tokenomic", href: "#" },
+  { title: "Memenomic", href: "#" },
   { title: "Roadmap", href: "#" },
   { title: "Whitepaper", href: "#" },
-  { title: "Vesting", href: "/vesting" },
+  // { title: "Vesting", href: "/vesting" },
 ];
 
 const Header = () => {

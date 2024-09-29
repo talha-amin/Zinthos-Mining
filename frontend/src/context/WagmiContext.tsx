@@ -3,7 +3,7 @@ import '@rainbow-me/rainbowkit/styles.css';
 
 
 import { WagmiConfig, configureChains, createConfig } from 'wagmi'
-import { avalanche, goerli, mainnet, optimism ,polygonMumbai} from 'wagmi/chains'
+import { avalanche, goerli, mainnet, optimism ,sepolia} from 'wagmi/chains'
 
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
 import { InjectedConnector } from 'wagmi/connectors/injected'
@@ -22,10 +22,10 @@ import { infuraProvider } from 'wagmi/providers/infura'
 import { publicProvider } from 'wagmi/providers/public'
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
-  [polygonMumbai],
+  [sepolia],
   [
     // alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY! }),
-    alchemyProvider({ apiKey: "SQJNaaxbCt0gWB9xXbeDxshDKj2NOqth" }),
+    alchemyProvider({ apiKey: "X_3R-3s7E9tP8Xpr2USSlc10LZaZYtUK" }),
     publicProvider(),
   ],
 )
@@ -54,8 +54,8 @@ export const WagmiContextProvider = ({ children }:nodeProps) => {
   return (
     <WagmiConfig config={config}>
       <RainbowKitProvider chains={chains} theme={darkTheme({
-      accentColor: 'linear-gradient(90deg, rgba(255,211,0,1) 0%, rgba(235,99,53,1) 100%)',
-      accentColorForeground: 'white',
+      accentColor: '#00ffff',
+      accentColorForeground: 'black',
       borderRadius: 'large',
       fontStack: 'system',
       overlayBlur: 'small',

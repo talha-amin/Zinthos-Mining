@@ -108,13 +108,13 @@ const ROUND_TITLE = ["Round Not Yet Started","Round 1 Tilte","Round 2 Tilte","Ro
               variants={FADE_UP_ANIMATION_VARIANTS}
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold xl:w-[30ch] "
             >
-             Welcome to Zinthos Mining <span className="text-primary">(ZIN)</span> Powering the Future of <span className="text-primary">Crypto Mining</span>
+             Welcome to Zinthos Mining <span className="text-primary" style={{ color: '#00FFFF' }}>(ZIN)</span> Powering the Future of <span className="text-primary" style={{ color: '#00FFFF' }}>Crypto Mining</span>
             </motion.h1>
             <motion.h6
               variants={FADE_UP_ANIMATION_VARIANTS}
               className="text-lg sm:text-lg md:text-lg lg:text-lg xl:w-[115ch]  text-justify"
             >
-Zinthos Mining is a groundbreaking token-driven mining project designed to revolutionize the cryptocurrency mining space. We combine cutting-edge mining operations with a sustainable and investor-friendly tokenomics model that rewards participants and reinvests into the future.
+Zinthos Mining is a groundbreaking Meme-driven mining project designed to revolutionize the cryptocurrency mining space. We combine cutting-edge mining operations with a sustainable and investor-friendly tokenomics model that rewards participants and reinvests into the future.
 </motion.h6>
             {/* <motion.p
               variants={FADE_UP_ANIMATION_VARIANTS}

@@ -24,8 +24,8 @@ const Contact = () => {
         >
           <motion.h1
             variants={FADE_UP_ANIMATION_VARIANTS}
-            className="text-5xl font-bold text-primary flex items-center justify-center"
-          >
+            className="text-5xl font-bold text-primary flex items-center justify-center" style={{ color: '#00FFFF' }}>
+          
             Join Us Today!
           </motion.h1>
           <motion.p

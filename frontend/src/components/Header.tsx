@@ -73,8 +73,10 @@ const Header = () => {
       <Container>
         <nav className="flex items-center justify-between">
           <div className="flex items-center gap-20">
+            
             <Link href="/" className="relative aspect-square h-6 sm:h-10">
-              <Image fill src="logo.svg" alt="Logo" />
+                          {/* <Image fill src="/logo.jpg" alt="Logo" /> */}
+
             </Link>
           </div>
           <div className="text-m hidden gap-10 text-neutral-300 lg:flex lg:bg-neutral-800 rounded-full md:p-2">
@@ -105,7 +107,8 @@ const Header = () => {
           </div>
           <div className="flex items-center gap-3">
             
-                  <ConnectButton />
+                  {/* <ConnectButton /> */}
+                  
             <div
               className="cursor-pointer text-xl lg:hidden"
               onClick={toggleMenu}

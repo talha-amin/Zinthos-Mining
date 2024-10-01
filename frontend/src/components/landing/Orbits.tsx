@@ -23,6 +23,12 @@ const Orbits = () => {
             <div className="shadow-effect blur-[200px] aspect-square w-full"></div>
           </div>
           <Orbit
+            image="/images/landing/circle-7.png"
+            duration={20}
+            position="bottom"
+            href="/"
+          >
+          <Orbit
             image="/images/landing/circle-6.png"
             duration={20}
             position="right"
@@ -62,6 +68,7 @@ const Orbits = () => {
                 </Orbit>
               </Orbit>
             </Orbit>
+          </Orbit>
           </Orbit>
         </div>
       </Container>

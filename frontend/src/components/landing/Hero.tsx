@@ -106,7 +106,7 @@ const ROUND_TITLE = ["Round Not Yet Started","Round 1 Tilte","Round 2 Tilte","Ro
           >
             <motion.h1
               variants={FADE_UP_ANIMATION_VARIANTS}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold xl:w-[30ch] "
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold xl:w-[30ch]"
             >
              Welcome to Zinthos Mining <span className="text-primary" style={{ color: '#00FFFF' }}>(ZIN)</span> Powering the Future of <span className="text-primary" style={{ color: '#00FFFF' }}>Crypto Mining</span>
             </motion.h1>

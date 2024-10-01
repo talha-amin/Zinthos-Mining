@@ -12,8 +12,8 @@ import Ecosystem2 from "@/components/landing/Ecosystem2";
 export default function Home() {
   return (
     <main>
-      <Hero />
       <Gif />
+      <Hero />
       {/* <Companies /> */}
       <Ecosystem2 />
       <Tokenomics />

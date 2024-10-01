@@ -32,6 +32,10 @@ const FerrisWheel = () => {
       image: "/images/landing/circle-6.png",
       href: "/",
     },
+    {
+      image: "/images/landing/circle-7.png",
+      href: "/",
+    },
   ];
 
   return (
@@ -108,7 +112,7 @@ const FerrisWheel = () => {
               className="relative  w-2/3 h-2/3  pointer-events-auto "
             >
               <Image
-                src={"/logo.svg"}
+                src={"/logo.jpg"}
                 className="object-contain"
                 fill
                 alt="Logo"

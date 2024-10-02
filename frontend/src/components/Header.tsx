@@ -7,13 +7,12 @@ import { FiMenu } from "react-icons/fi";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import Container from "./ui/Container";
-import { ConnectButton } from '@rainbow-me/rainbowkit'; 
 const navLinks = [
   { href: "/", icon: "/images/icons/home.svg" },
   { title: "Memenomic", href: "#" },
   { title: "Roadmap", href: "#" },
   { title: "Whitepaper", href: "#" },
-  // { title: "Vesting", href: "/vesting" },
+
 ];
 
 const Header = () => {
@@ -107,7 +106,6 @@ const Header = () => {
           </div>
           <div className="flex items-center gap-3">
             
-                  {/* <ConnectButton /> */}
                   
             <div
               className="cursor-pointer text-xl lg:hidden"

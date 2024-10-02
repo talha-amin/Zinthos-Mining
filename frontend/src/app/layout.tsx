@@ -4,8 +4,7 @@ import "./globals.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import SmoothScroll from "../components/animation/SmoothScroll";
-import { WagmiContextProvider } from "@/context/WagmiContext";
-import { FennecContextProvider } from "@/context/FennecContext";
+
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -30,8 +29,7 @@ export default function RootLayout({
       <body
         className={`${quicksand.className} bg-black text-white overflow-x-hidden`}
       >
-        <WagmiContextProvider>
-          <FennecContextProvider>
+       
             <div className="fixed z-50 inset-0 pointer-events-none bg-white/[7%]"></div>
             <SmoothScroll />
             <ToastContainer
@@ -49,8 +47,7 @@ export default function RootLayout({
             <Header />
             {children}
             <Footer />
-          </FennecContextProvider>
-        </WagmiContextProvider>
+          
       </body>
     </html>
   );

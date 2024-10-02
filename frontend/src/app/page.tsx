@@ -14,11 +14,9 @@ export default function Home() {
     <main>
       <Gif />
       <Hero />
-      {/* <Companies /> */}
       <Ecosystem2 />
       <Tokenomics />
       <Roadmap />
-      {/* <FAQs /> */}
       <Contact />
     </main>
   );

@@ -9,11 +9,12 @@ import { usePathname } from "next/navigation";
 import Container from "./ui/Container";
 const navLinks = [
   { href: "/", icon: "/images/icons/home.svg" },
-  { title: "Memenomic", href: "#" },
-  { title: "Roadmap", href: "#" },
-  { title: "Whitepaper", href: "#" },
+  { title: "Memenomic", href: "#tokenomics" },
+  { title: "Roadmap", href: "#roadmap" },
+  { title: "Whitepaper", href: "https://drive.google.com/file/d/15oxktQyaYVfB8p_afCR_MG9-vfYYowRC/view?usp=sharing" },
 
 ];
+
 
 const Header = () => {
   const [open, setOpen] = useState(false);
@@ -73,10 +74,9 @@ const Header = () => {
         <nav className="flex items-center justify-between">
           <div className="flex items-center gap-20">
             
-            <Link href="/" className="relative aspect-square h-6 sm:h-10">
-                          {/* <Image fill src="/logo.jpg" alt="Logo" /> */}
-
-            </Link>
+            {/* <Link href="/" className="relative aspect-square h-6 sm:h-10"> */}
+            <Image src={"/logo.svg"} className="object-contain" width={100} height={100} alt="Logo" />
+            {/* </Link> */}
           </div>
           <div className="text-m hidden gap-10 text-neutral-300 lg:flex lg:bg-neutral-800 rounded-full md:p-2">
             {navLinks.map((link, index) => {
@@ -106,7 +106,11 @@ const Header = () => {
           </div>
           <div className="flex items-center gap-3">
             
-                  
+          <button className="bg-[rgb(23, 44, 113)] text-white font-bold py-3 px-8 rounded-full hover:bg-blue-900 hover:scale-105 transition-transform shadow-lg shadow-blue-600 w-full sm:w-auto">
+  Buy Token
+</button>
+
+
             <div
               className="cursor-pointer text-xl lg:hidden"
               onClick={toggleMenu}
@@ -128,7 +132,7 @@ const Header = () => {
             <div className="flex h-full flex-col">
               <div className="flex justify-between">
                 <div className="relative aspect-[2/1] h-10">
-                  {/* <Image width={100} height={100} src="logo.svg" alt="Logo" /> */}
+                  <Image width={100} height={100} src="logo.svg" alt="Logo" />
                 </div>
                 <p className="cursor-pointer text-xl relative z-50" onClick={toggleMenu}>
                   <AiOutlineClose />

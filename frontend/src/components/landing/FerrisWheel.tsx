@@ -112,7 +112,7 @@ const FerrisWheel = () => {
               className="relative  w-2/3 h-2/3  pointer-events-auto "
             >
               <Image
-                src={"/logo.jpg"}
+                src={"/logo.svg"}
                 className="object-contain"
                 fill
                 alt="Logo"

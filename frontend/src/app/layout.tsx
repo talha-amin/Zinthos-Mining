@@ -14,9 +14,9 @@ const quicksand = Quicksand({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Zinthos",
   description: "Powering the Future of Crypto Mining",
-  // icons:{
-  //   icon: "/logo.svg"
-  // }
+  icons:{
+    icon: "/logo.svg"
+  }
 };
 
 export default function RootLayout({
@@ -25,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="overflow-x-hidden select-none">
+    <html lang="en" className="overflow-x-hidden select-none" >
       <body
         className={`${quicksand.className} bg-black text-white overflow-x-hidden`}
       >

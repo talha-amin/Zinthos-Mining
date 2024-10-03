@@ -63,7 +63,7 @@ const Orbit = ({
         >
           {children ?? (
               <div className="relative flex items-center justify-center w-full h-full rounded-full border-[0.5px] bg-[#080808] border-[#646464] logoShadow pointer-events-auto ">
-                <Image src={"/logo.jpg"} className="object-contain" width={45} height={45} alt="Logo" />
+                <Image src={"logo.svg"} className="object-contain" width={45} height={45} alt="Logo" />
               </div>
           )}
         </div>

@@ -36,7 +36,7 @@ const Tokenomics = () => {
   
 
   return (
-    <section className="sec-p-y">
+    <section className="sec-p-y" id="tokenomics">
       <Container>
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-center font-semibold pb-2">
           Zinthos Mining Memenomics

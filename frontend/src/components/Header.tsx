@@ -16,7 +16,7 @@ const navLinks = [
 ];
 
 const handleClick = () => {
-  window.location.href = 'https://app.uniswap.org/explore/tokens/ethereum/0xb4ce1e3e71684f40c76779d9f5d9051382d4578e';
+  window.location.href = 'https://app.uniswap.org/swap?theme=dark&inputCurrency=ETH&outputCurrency=0xb4CE1e3e71684F40C76779D9F5d9051382d4578e';
 };
 
 const Header = () => {

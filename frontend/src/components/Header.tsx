@@ -15,6 +15,9 @@ const navLinks = [
 
 ];
 
+const handleClick = () => {
+  window.location.href = 'https://app.uniswap.org/explore/tokens/ethereum/0xb4ce1e3e71684f40c76779d9f5d9051382d4578e';
+};
 
 const Header = () => {
   const [open, setOpen] = useState(false);
@@ -106,7 +109,8 @@ const Header = () => {
           </div>
           <div className="flex items-center gap-3">
             
-          <button className="bg-[rgb(23, 44, 113)] text-white font-bold py-3 px-8 rounded-full hover:bg-blue-900 hover:scale-105 transition-transform shadow-lg shadow-blue-600 w-full sm:w-auto">
+          <button className="bg-[rgb(23, 44, 113)] text-white font-bold py-3 px-8 rounded-full hover:bg-blue-900 hover:scale-105 transition-transform shadow-lg shadow-blue-600 w-full sm:w-auto"
+          onClick={handleClick}>
   Buy Token
 </button>
 

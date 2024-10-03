@@ -22,10 +22,6 @@
   }
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 /* For Chrome, Safari, and Opera */
 ::-webkit-scrollbar {
   width: 12px; /* Width of the scrollbar */

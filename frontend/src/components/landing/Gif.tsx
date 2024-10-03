@@ -50,17 +50,19 @@ const Gif = () => {
   // }, [charIndex, isTyping, paragraphIndex]);
 
   return (
-    <section className="w-full h-screen flex justify-center items-center bg-neutralcolor">
-      <div className="relative w-full h-full flex justify-center items-center">
-        {/* The GIF Image */}
-        <Image
-          src={logogif}
-          alt="Animated GIF"
-          layout="fill"
-          objectFit="cover"
-          priority
-          style={{ marginTop: '3%' }}
-        />
+    <section className="w-full flex justify-center items-center bg-neutralcolor">
+    <div className="relative w-full h-auto flex justify-center items-center overflow-hidden">
+      {/* The GIF Image */}
+      <Image
+        src={logogif}
+        alt="Animated GIF"
+        layout="responsive"
+        width={1920}
+        height={1080}
+        objectFit="contain"
+        priority
+        className="aspect-auto max-w-full max-h-full"
+      />
 
         {/* The overlay text with the typewriter effect */}
         {/* <div className="absolute top-0 w-full h-full flex justify-center items-center">
